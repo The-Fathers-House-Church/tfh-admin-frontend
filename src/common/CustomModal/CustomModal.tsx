@@ -31,7 +31,17 @@ const customStyles = {
 	},
 };
 
-function CustomModal({ title, modalState, closeModal, children }) {
+function CustomModal({
+	title,
+	modalState,
+	closeModal,
+	children,
+}: {
+	title: string;
+	modalState: boolean;
+	closeModal: () => void;
+	children: React.ReactNode;
+}) {
 	React.useEffect(() => {
 		// Check if modal is open and prevent body from scrolling
 		if (typeof window !== 'undefined') {
@@ -53,6 +63,7 @@ function CustomModal({ title, modalState, closeModal, children }) {
 			isOpen={modalState}
 			onRequestClose={closeModal}
 			style={{
+				// @ts-ignore
 				content: customStyles.content,
 				overlay: customStyles.overlay,
 			}}
