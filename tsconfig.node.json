@@ -4,8 +4,6 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false,
-    "allowJs": true
   },
   "include": [
     "vite.config.ts"
