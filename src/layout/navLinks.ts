@@ -4,16 +4,40 @@ const navLinks: { label: string; href: string }[] = [
 		href: '/dashboard',
 	},
 	{
-		label: 'Develops',
-		href: '/develops',
-	},
-	{
-		label: 'Grow',
-		href: '/grow',
+		label: 'Devotional',
+		href: '/devotional',
 	},
 	{
 		label: 'Users',
 		href: '/users',
+	},
+	{
+		label: 'Events',
+		href: '/events',
+	},
+	{
+		label: 'Live Stream',
+		href: '/live-stream',
+	},
+	{
+		label: 'Testimonies',
+		href: '/testimonies',
+	},
+	{
+		label: 'Admins',
+		href: '/admins',
+	},
+	{
+		label: 'Feedback',
+		href: '/feedback',
+	},
+	{
+		label: 'Announcements',
+		href: '/announcements',
+	},
+	{
+		label: 'Giving',
+		href: '/giving',
 	},
 ];
 

@@ -11,6 +11,7 @@ export const checkPrivateRoute = () => {
 		// sendFeedback('Login to continue');
 		throw redirect('/login');
 	}
+	return true
 };
 
 export const checkProtectedRoute = () => {
@@ -22,4 +23,6 @@ export const checkProtectedRoute = () => {
 		// sendFeedback('You are already logged in');
 		throw redirect('/dashboard');
 	}
+	return true
+
 };
