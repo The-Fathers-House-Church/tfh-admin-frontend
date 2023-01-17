@@ -1,8 +1,6 @@
 import Navbar from './Navbar/Navbar';
 import React from 'react';
 import LoadingIndicator from '../common/LoadingIndicator/LoadingIndicator';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from './Sidebar/Sidebar';
 
 function AppLayout({
@@ -27,17 +25,6 @@ function AppLayout({
 				</main>
 			</div>
 			<LoadingIndicator />
-			<ToastContainer
-				style={{
-					fontSize: 16,
-					zIndex: 30,
-				}}
-				theme='colored'
-				autoClose={5000}
-				position='top-right'
-				hideProgressBar={true}
-				closeOnClick={true}
-			/>
 		</div>
 	);
 }

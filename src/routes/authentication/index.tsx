@@ -33,7 +33,7 @@ export const authenticationRoutes = [
 		loader: checkProtectedRoute,
 	},
 	{
-		path: '/reset-password-update/:verificationCode',
+		path: '/reset-password/update/:verificationCode',
 		element: <ResetPasswordUpdate />,
 		loader: checkProtectedRoute,
 	},

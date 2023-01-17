@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { updateUser } from './store/slices/user';
 import { useEffect } from 'react';
 import { routes } from './routes';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -20,6 +22,18 @@ function App() {
 	return (
 		<>
 			<RouterProvider router={router} />
+			{/* Toast is here so that it is not interrupted by the routing */}
+			<ToastContainer
+				style={{
+					fontSize: 16,
+					zIndex: 30,
+				}}
+				theme='colored'
+				autoClose={5000}
+				position='top-right'
+				hideProgressBar={true}
+				closeOnClick={true}
+			/>
 		</>
 	);
 }

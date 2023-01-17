@@ -10,36 +10,43 @@ import {
 	closeLoadingIndicator,
 	openLoadingIndicator,
 } from '../../../store/slices/loadingIndicator';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { updateUser } from '../../../store/slices/user';
 import Divider from '../../../common/Divider/Divider';
 import { Link } from 'react-router-dom';
 
-function ResetPasswordForm() {
+function UpdatePasswordRequest() {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const { verificationCode } = useParams();
 
 	const formik = useFormik({
 		initialValues: {
 			email: '',
+			password: '',
+			verificationCode: verificationCode,
 		},
 		onSubmit: () => {
 			submitValues();
 		},
 		validationSchema: yup.object({
 			email: yup.string().email('Enter a valid email').required('Email is required'),
+			password: yup.string().required('Password is required'),
+			verificationCode: yup.string().required('Verification code is required'),
 		}),
 	});
 
 	const submitValues = async () => {
-		dispatch(openLoadingIndicator({ text: 'Requesting password reset' }));
+		dispatch(openLoadingIndicator({ text: 'Updating password' }));
 		try {
-			const response = await appAxios.post('/auth/reset-password', {
+			const response = await appAxios.post('/auth/reset-password/update', {
 				email: formik.values.email,
+				newPassword: formik.values.password,
+				verificationCode: formik.values.verificationCode,
 			});
-
 			sendFeedback(response.data?.message, 'success');
-			navigate('/reset-password/success');
+
+			navigate('/login');
 		} catch (error) {
 			sendCatchFeedback(error);
 		}
@@ -51,16 +58,29 @@ function ResetPasswordForm() {
 			<Card>
 				<form onSubmit={formik.handleSubmit}>
 					<h1 className='text-2xl font-bold text-center mb-10 dark:text-white'>
-						Reset Password
+						Update Password
 					</h1>
 					<LabelInput
 						formik={formik}
 						name='email'
 						label='Email'
 						type='email'
+						className='mb-5'
+					/>
+					<LabelInput
+						formik={formik}
+						name='password'
+						label='Password'
+						type='password'
+						className='mb-5'
+					/>
+					<LabelInput
+						formik={formik}
+						name='verificationCode'
+						label='Verification code'
 						className='mb-10'
 					/>
-					<Button type='submit'>Reset Password</Button>
+					<Button type='submit'>Update Password</Button>
 				</form>
 				<Divider
 					style={{
@@ -77,4 +97,4 @@ function ResetPasswordForm() {
 	);
 }
 
-export default ResetPasswordForm;
+export default UpdatePasswordRequest;
