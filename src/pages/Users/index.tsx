@@ -50,7 +50,7 @@ function Users() {
 
 	return (
 		<AppLayout>
-			<PageHeader title='Users' />
+			<span>Users</span>
 			{/* <UsersList users={users} />
 			{users.length > 0 && (
 				<Pagination
