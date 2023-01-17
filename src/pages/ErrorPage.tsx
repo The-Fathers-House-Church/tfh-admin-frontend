@@ -17,6 +17,7 @@ function ErrorPage() {
 					  }
 					: {}
 			}
+			showPageHeader={false}
 		>
 			<div className='flex items-center justify-center min-h-main flex-col dark:text-white'>
 				<h1 className='text-3xl font-bold'>Oops!</h1>

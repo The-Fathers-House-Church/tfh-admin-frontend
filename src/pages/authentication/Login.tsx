@@ -9,6 +9,7 @@ function Login() {
 				right: 0,
 				margin: 'auto',
 			}}
+			showPageHeader={false}
 		>
 			<div className='min-h-main flex items-center justify-center w-full dark:bg-mediumDark'>
 				<LoginForm />

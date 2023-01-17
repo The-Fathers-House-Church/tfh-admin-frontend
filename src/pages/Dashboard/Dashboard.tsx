@@ -27,7 +27,7 @@ function Dashboard() {
 	}, [dispatch]);
 	return (
 		<AppLayout>
-			<PageHeader title='Dashboard' />
+			<span>Dashboard</span>
 		</AppLayout>
 	);
 }
