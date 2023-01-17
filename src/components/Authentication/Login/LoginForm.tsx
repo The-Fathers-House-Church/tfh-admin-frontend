@@ -42,8 +42,8 @@ function LoginForm() {
 			});
 			sendFeedback(response.data?.message, 'success');
 			const userObject = {
-				...response.data?.data?.user,
-				token: response.data?.data?.jwt,
+				...response.data?.user,
+				token: response.data?.token,
 			};
 			dispatch(updateUser({ user: userObject }));
 			navigate('/dashboard');
