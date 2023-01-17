@@ -18,8 +18,11 @@ function LoggedInMenu() {
 	return (
 		<ClickAwayListener onClickAway={() => setOpen(false)}>
 			<div className='relative'>
-				<button onClick={() => setOpen(true)} className='flex items-center relative'>
-					<img src={MenuIcon} alt='Menu' className='dark:invert' width={20} />
+				<button
+					onClick={() => setOpen(true)}
+					className='flex items-center relative hover:bg-blue-900 pl-2 pr-2 pt-1 pb-1 rounded-sm'
+				>
+					<img src={MenuIcon} alt='Menu' className='invert' width={20} />
 				</button>
 				{open && (
 					<nav

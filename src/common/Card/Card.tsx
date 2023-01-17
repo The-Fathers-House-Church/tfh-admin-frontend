@@ -12,8 +12,7 @@ function Card({
 	return (
 		<div
 			className={
-				'md:w-2/3 shadow-md p-7 rounded-lg max-w-screen-sm dark:bg-lightDark ' +
-				className
+				'w-full shadow-md p-7 rounded-lg max-w-screen-md dark:bg-lightDark ' + className
 			}
 		>
 			{children}

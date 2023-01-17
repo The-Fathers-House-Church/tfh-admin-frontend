@@ -7,7 +7,7 @@ function Navbar() {
 	const user = useAppSelector((state) => state.user.user);
 
 	return (
-		<nav className='pt-0 pb-0 bg-white dark:bg-dark p-primary shadow-md h-[60px] flex flex-row items-center fixed z-10 top-0 left-0 right-0'>
+		<nav className='pt-0 pb-0 bg-primary p-primary shadow-md h-[60px] flex flex-row items-center fixed z-10 top-0 left-0 right-0'>
 			<div className='flex flex-row items-center justify-between w-full'>
 				<Link to='/'>
 					<img
@@ -25,15 +25,10 @@ function Navbar() {
 					<>
 						<div className='flex flex-row items-center gap-[30px]'>
 							<Link to='/login'>
-								<span className='dark:text-white cursor-pointer hover:text-secondary dark:hover:text-secondary font-medium'>
+								<span className='cursor-pointer hover:text-secondary text-white text-sm'>
 									Login
 								</span>
 							</Link>
-							{/* <Link to='/register'>
-								<span className='dark:text-white cursor-pointer hover:text-secondary dark:hover:text-secondary font-medium'>
-									Register
-								</span>
-							</Link> */}
 						</div>
 					</>
 				)}

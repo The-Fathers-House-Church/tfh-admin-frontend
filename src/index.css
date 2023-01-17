@@ -1,79 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Work+Sans:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+  scroll-behavior: smooth !important;
+  overflow-x: hidden;
+  color: #000;
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: inherit;
+  text-decoration: none;
 }
 
-a:hover {
-  color: #535bf2;
+* {
+  box-sizing: border-box;
+  transition: all 0.2s;
+  scroll-margin-top: 60px;
 }
 
-body {
-  margin: 0;
+/* Editing all pages' scrollbar */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 5px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* Input styles */
+.inputContainer {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  gap: 5px;
+  flex-direction: column;
+  position: relative;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+.inputContainer>label {
+  font-size: 1.02038125rem;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
 }
 
-button:hover {
-  border-color: #646cff;
+.formContainer>h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 59.87px;
+  /* margin-bottom: 9px; */
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.inputContainer>* input {
+  padding: 12px;
+  font-size: 1.02038125rem;
+  font-family: 'Poppins', sans-serif;
+  border: 1px solid #bcbdc1;
+  border-radius: 2.04px;
+  width: 100%;
+  color: #000
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+.inputContainer>* input::placeholder {
+  color: #acadb4;
+}
 
-  a:hover {
-    color: #747bff;
-  }
+.inputError {
+  border: 1px solid #F13637 !important;
+}
 
-  button {
-    background-color: #f9f9f9;
-  }
+.error {
+  color: #F13637;
+  font-size: 0.75rem;
+}
+
+.errorText {
+  color: #F13637;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
