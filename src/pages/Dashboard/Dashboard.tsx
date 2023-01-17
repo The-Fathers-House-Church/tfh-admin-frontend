@@ -1,13 +1,13 @@
 import React from 'react';
-import PageHeader from '../common/PageHeader/PageHeader';
-import { sendCatchFeedback } from '../functions/feedback';
-import AppLayout from '../layout/AppLayout';
-import { useAppDispatch } from '../store/hooks';
+import PageHeader from '../../common/PageHeader/PageHeader';
+import { sendCatchFeedback } from '../../functions/feedback';
+import AppLayout from '../../layout/AppLayout';
+import { useAppDispatch } from '../../store/hooks';
 import {
 	closeLoadingIndicator,
 	openLoadingIndicator,
-} from '../store/slices/loadingIndicator';
-import { getUserSession } from '../functions/userSession';
+} from '../../store/slices/loadingIndicator';
+import { getUserSession } from '../../functions/userSession';
 
 function Dashboard() {
 	const dispatch = useAppDispatch();

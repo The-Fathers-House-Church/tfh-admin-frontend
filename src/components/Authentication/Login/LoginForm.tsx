@@ -1,17 +1,19 @@
-import Card from '../../common/Card/Card';
+import Card from '../../../common/Card/Card';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import LabelInput from '../../common/LabelInput/LabelInput';
-import Button from '../../common/Button/Button';
-import { appAxios } from '../../api/axios';
-import { sendCatchFeedback, sendFeedback } from '../../functions/feedback';
-import { useAppDispatch } from '../../store/hooks';
+import LabelInput from '../../../common/LabelInput/LabelInput';
+import Button from '../../../common/Button/Button';
+import { appAxios } from '../../../api/axios';
+import { sendCatchFeedback, sendFeedback } from '../../../functions/feedback';
+import { useAppDispatch } from '../../../store/hooks';
 import {
 	closeLoadingIndicator,
 	openLoadingIndicator,
-} from '../../store/slices/loadingIndicator';
+} from '../../../store/slices/loadingIndicator';
 import { useNavigate } from 'react-router';
-import { updateUser } from '../../store/slices/user';
+import { updateUser } from '../../../store/slices/user';
+import Divider from '../../../common/Divider/Divider';
+import { Link } from 'react-router-dom';
 
 function LoginForm() {
 	const dispatch = useAppDispatch();
@@ -38,7 +40,7 @@ function LoginForm() {
 				email: formik.values.email,
 				password: formik.values.password,
 			});
-			sendFeedback(response.data?.status, 'success');
+			sendFeedback(response.data?.message, 'success');
 			const userObject = {
 				...response.data?.data?.user,
 				token: response.data?.data?.jwt,
@@ -72,6 +74,16 @@ function LoginForm() {
 					/>
 					<Button type='submit'>Login</Button>
 				</form>
+				<Divider
+					style={{
+						marginBlock: 30,
+					}}
+				/>
+				<div className='text-center'>
+					<Link to='/reset-password'>
+						<span className='text-sm text-primary'>Reset Password</span>
+					</Link>
+				</div>
 			</Card>
 		</div>
 	);

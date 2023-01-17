@@ -1,7 +1,7 @@
-import LoginForm from '../components/Login/LoginForm';
-import AppLayout from '../layout/AppLayout';
+import LoginForm from '../../components/Authentication/Login/LoginForm';
+import AppLayout from '../../layout/AppLayout';
 
-function Login() {
+function ResetPasswordUpdate() {
 	return (
 		<AppLayout
 			childrenStyle={{
@@ -17,4 +17,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default ResetPasswordUpdate;

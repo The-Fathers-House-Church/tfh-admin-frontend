@@ -9,8 +9,10 @@ export const sendFeedback = (message: Message, type?: Type) => {
 
 export const sendCatchFeedback = (error: any) => {
 	toast.error(
-		error.response?.data ? error.response.data.message : 'Request unsuccessful'
+		error.response?.data?.errors
+			? error.response.data.errors[0].msg
+			: error.response?.data?.message
+			? error.response?.data?.message
+			: 'Request unsuccessful'
 	);
 };
-
-

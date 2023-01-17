@@ -11,13 +11,16 @@ module.exports = {
         success: '#2BB62A',
         error: "#F13637",
         warning: "#EEB614",
+        secondary: '#FF6634',
+        primary: '#002F72',
+
       },
       fontFamily: {
         primary: "Inter, sans-serif",
         secondary: "Work Sans, sans-serif"
       },
       backgroundColor: {
-        primary: '#0B003C',
+        primary: '#002F72',
         primaryAccent1: "#D8D0FF",
         primaryAccent2: "#EAE5FF",
         secondary: '#FF6634',

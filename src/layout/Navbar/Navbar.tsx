@@ -25,7 +25,7 @@ function Navbar() {
 					<>
 						<div className='flex flex-row items-center gap-[30px]'>
 							<Link to='/login'>
-								<span className='cursor-pointer hover:text-secondary text-white font-medium'>
+								<span className='cursor-pointer hover:text-secondary text-white text-sm'>
 									Login
 								</span>
 							</Link>
