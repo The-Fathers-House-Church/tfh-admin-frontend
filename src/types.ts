@@ -5,11 +5,7 @@ export type UserType = {
 	email: string;
 	phone_number: string;
 	created_at: string;
-	token: {
-		token: string;
-		expiresIn: string;
-		token_type: string;
-	};
+	token: string;
 };
 
 export type UserResultType = {
@@ -19,13 +15,13 @@ export type UserResultType = {
 
 export type PageMetaType =
 	| {
-		page: number;
-		take: number;
-		itemCount: number;
-		pageCount: number;
-		hasPreviousPage: boolean;
-		hasNextPage: boolean;
-	}
+			page: number;
+			take: number;
+			itemCount: number;
+			pageCount: number;
+			hasPreviousPage: boolean;
+			hasNextPage: boolean;
+	  }
 	| UncertainObjectType;
 
 export type UncertainObjectType = {
