@@ -1,5 +1,4 @@
-import React from 'react';
-import { FiDelete, FiEdit, FiTrash } from 'react-icons/fi';
+import { FiEdit, FiTrash } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import Card from '../../common/Card/Card';
 import { DevotionalType } from '../../types';
@@ -13,7 +12,7 @@ function DevotionalCard({ devotional = null }: { devotional: DevotionalType | nu
 			className={`min-w-full p-3 shadow-sm cursor-pointer`}
 			onClick={() => navigate('/devotional/view/' + devotional?._id)}
 		>
-			<article className='flex items-center justify-between flex-wrap gap-5'>
+			<article className='flex items-center justify-center md:justify-between flex-wrap gap-5'>
 				<div className='flex items-center gap-10'>
 					<span className='text-sm'>
 						{new Date(devotional.date).toLocaleDateString()}
