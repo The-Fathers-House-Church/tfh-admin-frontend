@@ -27,3 +27,20 @@ export type PageMetaType =
 export type UncertainObjectType = {
 	[key: string]: any;
 };
+
+export type DevotionalType = {
+	_id: string;
+	date: string;
+	title: string;
+	text: string;
+	mainText: string;
+	content: string;
+	confession: string;
+	furtherReading: string[];
+	oneYearBibleReading: string[];
+	twoYearsBibleReading: string[];
+	createdBy: string;
+	views: number;
+	createdAt: string;
+	updatedAt: string;
+};
