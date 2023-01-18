@@ -36,6 +36,8 @@ module.exports = {
         dark: '#121212',
         lightDark: '#404040',
         lightGrey: '#D7D7D7',
+        primary: '#002F72'
+
       },
       padding: {
         primary: '5vw',

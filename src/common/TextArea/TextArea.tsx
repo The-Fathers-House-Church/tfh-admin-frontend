@@ -1,16 +1,14 @@
 import { useState } from 'react';
-import { HidePasswordIcon, ShowPasswordIcon } from './PasswordIcons';
 
 interface Props {
 	label: string;
 	formik?: any;
-	type?: string;
 	name: string;
 	className?: string;
 	placeholder?: string;
 	hint?: string;
 	useFormik?: boolean;
-	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onChange?: React.ChangeEventHandler<HTMLTextAreaElement> | undefined;
 	value?: string | number;
 	showError?: boolean;
 	error?: string;
@@ -18,9 +16,8 @@ interface Props {
 	[x: string]: any;
 }
 
-function LabelInput({
+function TextArea({
 	label = '',
-	type = 'text',
 	formik,
 	name,
 	className = '',
@@ -63,8 +60,7 @@ function LabelInput({
 					</label>
 					{hint && <div className='font-light text-xs italic text-gray-400'>{hint}</div>}
 					<div className='relative'>
-						<input
-							type={type}
+						<textarea
 							name={name}
 							id={name}
 							placeholder={placeholder}
@@ -73,15 +69,7 @@ function LabelInput({
 							onBlur={formik.handleBlur}
 							className={formik.touched[name] && formik.errors[name] ? 'inputError' : ''}
 							{...rest}
-						/>
-						{type === 'password' && (
-							<div
-								className='absolute bottom-3 right-3 cursor-pointer'
-								onClick={togglePasswordReveal}
-							>
-								{passwordShown ? <HidePasswordIcon /> : <ShowPasswordIcon />}
-							</div>
-						)}
+						></textarea>
 					</div>
 
 					{formik.touched[name] && formik.errors[name] && (
@@ -98,8 +86,7 @@ function LabelInput({
 					</label>
 					{hint && <div className='font-light text-xs italic text-gray-400'>{hint}</div>}
 					<div className='relative'>
-						<input
-							type={type}
+						<textarea
 							name={name}
 							id={name}
 							placeholder={placeholder}
@@ -107,16 +94,7 @@ function LabelInput({
 							onChange={onChange}
 							required={required}
 							{...rest}
-						/>
-
-						{type === 'password' && (
-							<div
-								className='absolute bottom-3 right-3 cursor-pointer'
-								onClick={togglePasswordReveal}
-							>
-								{passwordShown ? <HidePasswordIcon /> : <ShowPasswordIcon />}
-							</div>
-						)}
+						></textarea>
 					</div>
 
 					{showError && <div className='error'>{error}</div>}
@@ -126,4 +104,4 @@ function LabelInput({
 	);
 }
 
-export default LabelInput;
+export default TextArea;
