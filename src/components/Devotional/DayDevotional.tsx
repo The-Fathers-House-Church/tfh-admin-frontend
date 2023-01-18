@@ -32,7 +32,9 @@ function DayDevotional() {
 
 	return (
 		<Card
-			className={`min-w-full p-4 ${todaysDevotional ? 'cursor-pointer' : 'cursor-auto'}`}
+			className={`min-w-full shadow p-4 ${
+				todaysDevotional ? 'cursor-pointer' : 'cursor-auto'
+			}`}
 			onClick={() =>
 				todaysDevotional ? navigate('/devotional/view/' + todaysDevotional?._id) : null
 			}

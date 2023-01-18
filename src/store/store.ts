@@ -1,4 +1,3 @@
-import { pageLimitSlice } from './slices/pageLimit';
 import { userSlice } from './slices/user';
 import { configureStore } from '@reduxjs/toolkit';
 import { loadingIndicatorSlice } from './slices/loadingIndicator';
@@ -7,7 +6,6 @@ export const store = configureStore({
 	reducer: {
 		[loadingIndicatorSlice.name]: loadingIndicatorSlice.reducer,
 		[userSlice.name]: userSlice.reducer,
-		[pageLimitSlice.name]: pageLimitSlice.reducer,
 	},
 });
 

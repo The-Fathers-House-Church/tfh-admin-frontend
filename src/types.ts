@@ -13,16 +13,17 @@ export type UserResultType = {
 	meta: PageMetaType;
 };
 
-export type PageMetaType =
-	| {
-			page: number;
-			take: number;
-			itemCount: number;
-			pageCount: number;
-			hasPreviousPage: boolean;
-			hasNextPage: boolean;
-	  }
-	| UncertainObjectType;
+export type PageMetaType = {
+	totalResults: number;
+	resultsPerPage: number;
+	totalPages: number;
+	currentPage: number;
+	pagingCounter: number;
+	hasPrevPage: boolean;
+	hasNextPage: boolean;
+	prevPage: number | null;
+	nextPage: number | null;
+};
 
 export type UncertainObjectType = {
 	[key: string]: any;

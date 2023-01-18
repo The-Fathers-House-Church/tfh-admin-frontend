@@ -35,7 +35,7 @@ function AppLayout({
 					<Sidebar />
 				</aside>
 				<main
-					className='md:w-[calc(100vw-15vw)] md:absolute md:left-[15vw] dark:bg-mediumDark min-h-main mt-[40px] w-full'
+					className='md:w-[calc(100vw-20vw)] lg:w-[calc(100vw-15vw)] md:absolute md:left-[20vw] lg:left-[15vw] dark:bg-mediumDark min-h-main mt-[40px] w-full'
 					style={childrenStyle}
 				>
 					{showPageHeader && (
