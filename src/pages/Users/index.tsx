@@ -6,7 +6,7 @@ import UsersList from '../../components/Users/UsersList';
 import { sendCatchFeedback } from '../../functions/feedback';
 import { getUserSession } from '../../functions/userSession';
 import AppLayout from '../../layout/AppLayout';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppDispatch } from '../../store/hooks';
 import {
 	closeLoadingIndicator,
 	openLoadingIndicator,
@@ -18,7 +18,6 @@ function Users() {
 	const dispatch = useAppDispatch();
 	const [page, setPage] = useState(1);
 	const [totalResults, setTotalResults] = useState(0);
-	const { limit } = useAppSelector((state) => state.pageLimit);
 
 	useEffect(() => {
 		const getUsers = async () => {
@@ -26,7 +25,7 @@ function Users() {
 
 			dispatch(openLoadingIndicator({ text: 'Fetching Users' }));
 			try {
-				const response = await appAxios.get(`/users?page=${page}&take=${limit}`, {
+				const response = await appAxios.get(`/users?page=${page}`, {
 					headers: {
 						Authorization: currentUser ? 'Bearer ' + currentUser?.token?.token : null,
 					},
@@ -39,7 +38,7 @@ function Users() {
 			dispatch(closeLoadingIndicator());
 		};
 		getUsers();
-	}, [dispatch, page, limit]);
+	}, [dispatch, page]);
 
 	const nextPage = async () => {
 		setPage(page + 1);
