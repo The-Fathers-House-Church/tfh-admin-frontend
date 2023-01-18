@@ -24,7 +24,7 @@ function Sidebar() {
 	if (!user) return null;
 
 	return (
-		<nav className=' w-[15vw] text-white bg-primary  pb-5 shadow  h-[calc(100vh-60px)] fixed top-[60px] hidden md:block'>
+		<nav className='lg:w-[15vw] md:w-[20vw] text-white bg-primary  pb-5 shadow  h-[calc(100vh-60px)] fixed top-[60px] hidden md:block'>
 			<ul className='flex flex-col h-full'>
 				{navLinks.map((item) => (
 					<Link key={item.href} to={item.href}>

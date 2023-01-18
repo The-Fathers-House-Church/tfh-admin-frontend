@@ -13,17 +13,35 @@ export type UserResultType = {
 	meta: PageMetaType;
 };
 
-export type PageMetaType =
-	| {
-			page: number;
-			take: number;
-			itemCount: number;
-			pageCount: number;
-			hasPreviousPage: boolean;
-			hasNextPage: boolean;
-	  }
-	| UncertainObjectType;
+export type PageMetaType = {
+	totalResults: number;
+	resultsPerPage: number;
+	totalPages: number;
+	currentPage: number;
+	pagingCounter: number;
+	hasPrevPage: boolean;
+	hasNextPage: boolean;
+	prevPage: number | null;
+	nextPage: number | null;
+};
 
 export type UncertainObjectType = {
 	[key: string]: any;
+};
+
+export type DevotionalType = {
+	_id: string;
+	date: string;
+	title: string;
+	text: string;
+	mainText: string;
+	content: string;
+	confession: string;
+	furtherReading: string[];
+	oneYearBibleReading: string[];
+	twoYearsBibleReading: string[];
+	createdBy: string;
+	views: number;
+	createdAt: string;
+	updatedAt: string;
 };

@@ -1,4 +1,4 @@
-import Dashboard from '../../pages/Dashboard/Dashboard';
+import Dashboard from '../../pages/Dashboard';
 import ErrorPage from '../../pages/ErrorPage';
 import Login from '../../pages/authentication/Login';
 import { store } from '../../store/store';
