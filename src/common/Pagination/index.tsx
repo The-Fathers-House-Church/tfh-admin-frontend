@@ -15,7 +15,7 @@ export default function Pagination({
 
 	return (
 		<>
-			<div className='flex flex-col items-center mt-20'>
+			<div className='flex flex-col items-center mt-10'>
 				<span className='text-sm text-gray-700 dark:text-gray-400'>
 					Showing page{' '}
 					<span className='font-semibold text-gray-900 dark:text-white'>{page}</span> of{' '}
