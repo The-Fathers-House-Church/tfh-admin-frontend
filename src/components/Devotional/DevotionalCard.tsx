@@ -14,11 +14,12 @@ function DevotionalCard({ devotional = null }: { devotional: DevotionalType | nu
 			onClick={() => navigate('/devotional/view/' + devotional?._id)}
 		>
 			<article className='flex items-center justify-between flex-wrap gap-5'>
-				<div className='flex items-center gap-5'>
-					<span>{new Date(devotional.date).toLocaleDateString()}</span>
-					<span className='font-bold'>
-						{devotional.title}{' '}
-						<span className='font-normal'>- {devotional.mainText}</span>
+				<div className='flex items-center gap-10'>
+					<span className='text-sm'>
+						{new Date(devotional.date).toLocaleDateString()}
+					</span>
+					<span>
+						{devotional.title} <span className='text-sm'>- {devotional.mainText}</span>
 					</span>
 				</div>
 				<div className='flex items-center gap-5'>
