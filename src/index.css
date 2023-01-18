@@ -69,7 +69,8 @@ a {
   /* margin-bottom: 9px; */
 }
 
-.inputContainer>* input {
+.inputContainer>* input,
+textarea {
   padding: 12px;
   font-size: 1.02038125rem;
   font-family: 'Poppins', sans-serif;
@@ -79,7 +80,8 @@ a {
   color: #000
 }
 
-.inputContainer>* input::placeholder {
+.inputContainer>* input::placeholder,
+textarea::placeholder {
   color: #acadb4;
 }
 

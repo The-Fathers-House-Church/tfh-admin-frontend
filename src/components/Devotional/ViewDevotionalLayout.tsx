@@ -16,7 +16,7 @@ const DevotionalItem = ({
 	joinMultipleContent?: boolean;
 }) => (
 	<>
-		<div className='flex items-center flex-wrap gap-3'>
+		<div className={'flex items-start flex-wrap gap-3'}>
 			<span className='font-bold'>{title}</span>
 			{content && <span>{content}</span>}
 			{multipleContent && !joinMultipleContent ? (
