@@ -8,12 +8,12 @@ const navLinks: { label: string; href: string }[] = [
 		href: '/devotional',
 	},
 	{
-		label: 'Users',
-		href: '/users',
-	},
-	{
 		label: 'Events',
 		href: '/events',
+	},
+	{
+		label: 'Users',
+		href: '/users',
 	},
 	{
 		label: 'Live Stream',

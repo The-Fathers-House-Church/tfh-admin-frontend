@@ -5,14 +5,14 @@ import Pagination from '../../common/Pagination';
 import SectionHeader from '../../common/SectionHeader';
 import { sendCatchFeedback } from '../../functions/feedback';
 import { getUserSession } from '../../functions/userSession';
-import { DevotionalType } from '../../types';
-import DeleteDevotionalModal from './DeleteDevotionalModal';
-import DevotionalCard from './DevotionalCard';
+import { EventType } from '../../types';
+import DeleteEventModal from './DeleteEventModal';
+import EventCard from './EventCard';
 
-function AllDevotionals() {
+function AllEvents() {
 	const [loading, setLoading] = React.useState(false);
 
-	const [devotionals, setDevotionals] = React.useState<DevotionalType[] | undefined>([]);
+	const [events, setEvents] = React.useState<EventType[] | undefined>([]);
 
 	const [totalResults, setTotalResults] = React.useState(0);
 
@@ -20,39 +20,39 @@ function AllDevotionals() {
 
 	const currentUser = getUserSession();
 
-	const [selectedDevotional, setSelectedDevotional] = React.useState<
-		DevotionalType | undefined
-	>(undefined);
+	const [selectedEvent, setSelectedEvent] = React.useState<EventType | undefined>(
+		undefined
+	);
 
 	React.useEffect(() => {
-		const getAllDevotionals = async () => {
+		const getAllEvents = async () => {
 			try {
 				setLoading(true);
 
-				const response = await appAxios.get(`/devotional?page=${page}`, {
+				const response = await appAxios.get(`/event?page=${page}`, {
 					headers: {
 						Authorization: currentUser ? currentUser?.token : null,
 					},
 				});
 
-				setDevotionals(response.data.data?.results);
+				setEvents(response.data.data?.results);
 				setTotalResults(response.data.data?.pagination?.totalResults);
 
 				setLoading(false);
 			} catch (error) {
-				setDevotionals([]);
+				setEvents([]);
 				sendCatchFeedback(error);
 
 				setLoading(false);
 			}
 		};
-		getAllDevotionals();
+		getAllEvents();
 	}, [page]);
 
 	// delete modal
 	const [deleteModalOpen, setDeleteModalOpen] = React.useState(false);
-	const openDeleteModal = (devotional: DevotionalType) => {
-		setSelectedDevotional(devotional);
+	const openDeleteModal = (event: EventType) => {
+		setSelectedEvent(event);
 		setDeleteModalOpen(true);
 	};
 	const closeDeleteModal = () => {
@@ -64,13 +64,13 @@ function AllDevotionals() {
 			<SectionHeader title='ALL DEVOTIONALS' />
 			{loading ? (
 				<Loader />
-			) : devotionals && devotionals?.length > 0 ? (
+			) : events && events?.length > 0 ? (
 				<>
 					<div className='flex flex-col gap-5'>
-						{devotionals?.map((devotional) => (
-							<DevotionalCard
-								key={devotional._id}
-								devotional={devotional}
+						{events?.map((event) => (
+							<EventCard
+								key={event._id}
+								event={event}
 								openDeleteModal={openDeleteModal}
 							/>
 						))}
@@ -78,18 +78,18 @@ function AllDevotionals() {
 					<Pagination page={page} totalResults={totalResults} setPage={setPage} />
 				</>
 			) : (
-				<span className='text-md'>No devotional found</span>
+				<span className='text-md'>No event found</span>
 			)}
 
-			<DeleteDevotionalModal
+			<DeleteEventModal
 				closeDeleteModal={closeDeleteModal}
 				deleteModalOpen={deleteModalOpen}
-				devotional={selectedDevotional}
-				setAllDevotionals={setDevotionals}
-				allDevotionals={devotionals}
+				event={selectedEvent}
+				setAllEvents={setEvents}
+				allEvents={events}
 			/>
 		</div>
 	);
 }
 
-export default AllDevotionals;
+export default AllEvents;
