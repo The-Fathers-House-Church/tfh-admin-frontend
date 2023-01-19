@@ -23,7 +23,7 @@ function EditEvent() {
 			dispatch(openLoadingIndicator({ text: 'Retrieving Event' }));
 
 			try {
-				const response = await appAxios.get('/event/view/' + id);
+				const response = await appAxios.get('/event/' + id);
 				setEventDetails(response.data.event);
 			} catch (error) {
 				setEventDetails(undefined);
