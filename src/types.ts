@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type UserType = {
 	_id: string;
 	first_name: string;
@@ -31,7 +33,7 @@ export type UncertainObjectType = {
 
 export type DevotionalType = {
 	_id: string;
-	date: string;
+	date: Date | string;
 	title: string;
 	text: string;
 	mainText: string;
@@ -45,3 +47,5 @@ export type DevotionalType = {
 	createdAt: string;
 	updatedAt: string;
 };
+
+export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;

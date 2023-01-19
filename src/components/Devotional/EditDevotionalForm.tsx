@@ -13,35 +13,38 @@ import LabelInput from '../../common/LabelInput/LabelInput';
 import Button from '../../common/Button/Button';
 import TextArea from '../../common/TextArea/TextArea';
 import { getUserSession } from '../../functions/userSession';
+import { DevotionalType } from '../../types';
 
-function AddDevotionalForm() {
+function EditDevotionalForm({ devotional }: { devotional: DevotionalType | undefined }) {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const currentUser = getUserSession();
 
 	interface Devotional {
-		date: string;
-		title: string;
-		text: string;
-		mainText: string;
-		content: string;
-		confession: string;
-		furtherReading: string;
-		oneYearBibleReading: string;
-		twoYearsBibleReading: string;
+		date: Date | string | undefined;
+		title: string | undefined;
+		text: string | undefined;
+		mainText: string | undefined;
+		content: string | undefined;
+		confession: string | undefined;
+		furtherReading: string | undefined;
+		oneYearBibleReading: string | undefined;
+		twoYearsBibleReading: string | undefined;
 	}
 
 	const formik = useFormik<Devotional>({
 		initialValues: {
-			date: '',
-			title: '',
-			text: '',
-			mainText: '',
-			content: '',
-			confession: '',
-			furtherReading: '',
-			oneYearBibleReading: '',
-			twoYearsBibleReading: '',
+			date: devotional?.date
+				? new Date(devotional?.date).toISOString().split('T')[0]
+				: undefined,
+			title: devotional?.title,
+			text: devotional?.text,
+			mainText: devotional?.mainText,
+			content: devotional?.content,
+			confession: devotional?.confession,
+			furtherReading: devotional?.furtherReading.join(' + '),
+			oneYearBibleReading: devotional?.oneYearBibleReading.join(' + '),
+			twoYearsBibleReading: devotional?.twoYearsBibleReading.join(' + '),
 		},
 		onSubmit: () => {
 			submitValues();
@@ -57,14 +60,16 @@ function AddDevotionalForm() {
 			oneYearBibleReading: yup.string().required('Required'),
 			twoYearsBibleReading: yup.string().required('Required'),
 		}),
+		enableReinitialize: true,
 	});
 
 	const submitValues = async () => {
 		dispatch(openLoadingIndicator({ text: 'Adding Devotional' }));
 		try {
-			const response = await appAxios.post(
+			const response = await appAxios.patch(
 				'/devotional',
 				{
+					id: devotional?._id,
 					date: formik.values.date,
 					title: formik.values.title,
 					text: formik.values.text,
@@ -72,13 +77,13 @@ function AddDevotionalForm() {
 					content: formik.values.content,
 					confession: formik.values.confession,
 					furtherReading: formik.values.furtherReading
-						.split('+')
+						?.split('+')
 						?.map((element: string) => element?.trim()),
 					oneYearBibleReading: formik.values.oneYearBibleReading
-						.split('+')
+						?.split('+')
 						?.map((element: string) => element?.trim()),
 					twoYearsBibleReading: formik.values.twoYearsBibleReading
-						.split('+')
+						?.split('+')
 						?.map((element: string) => element?.trim()),
 				},
 				{
@@ -95,6 +100,9 @@ function AddDevotionalForm() {
 		}
 		dispatch(closeLoadingIndicator());
 	};
+
+	if (!devotional) return <>Devotional not found</>;
+
 	return (
 		<form onSubmit={formik.handleSubmit}>
 			<LabelInput formik={formik} name='date' label='Date' className='mb-5' type='date' />
@@ -130,10 +138,9 @@ function AddDevotionalForm() {
 				hint='Separate items by plus(+). Example: Item 1 + Item 2'
 				className='mb-5'
 			/>
-
-			<Button type='submit'>Save Devotional</Button>
+			<Button type='submit'>Update Devotional</Button>
 		</form>
 	);
 }
 
-export default AddDevotionalForm;
+export default EditDevotionalForm;
