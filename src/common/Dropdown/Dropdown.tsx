@@ -10,6 +10,16 @@ function Dropdown({
 	placeholder = 'Enter Value',
 	className = '',
 	...props
+}: {
+	containerStyle?: React.CSSProperties;
+	values: { label: string; value: string | boolean | number }[];
+	isMulti?: boolean;
+	formik: any;
+	label: string;
+	name: string;
+	placeholder?: string;
+	className?: string;
+	[x: string]: any;
 }) {
 	return (
 		<div className={'w-full flex flex-col gap-[5px] ' + className}>
@@ -27,7 +37,7 @@ function Dropdown({
 					label: value.label,
 					value: value.value,
 				}))}
-				onChange={(e) => {
+				onChange={(e: any) => {
 					formik.setFieldValue(name, e.value);
 				}}
 				onBlur={() => {

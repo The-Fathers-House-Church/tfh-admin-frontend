@@ -13,6 +13,7 @@ import LabelInput from '../../common/LabelInput/LabelInput';
 import Button from '../../common/Button/Button';
 import TextArea from '../../common/TextArea/TextArea';
 import { getUserSession } from '../../functions/userSession';
+import Dropdown from '../../common/Dropdown/Dropdown';
 
 function AddEventForm() {
 	const dispatch = useAppDispatch();
@@ -20,42 +21,42 @@ function AddEventForm() {
 	const currentUser = getUserSession();
 
 	interface Event {
-		date: string;
-		title: string;
-		text: string;
+		name: string;
+		theme: string;
 		mainText: string;
-		content: string;
-		confession: string;
-		furtherReading: string;
-		oneYearBibleReading: string;
-		twoYearsBibleReading: string;
+		date: string;
+		time: string;
+		allowRegistration: boolean;
+		limitedNumberRegistration: boolean;
+		registrationNumberLimit: number;
+		limitedDateRegistration: boolean;
+		registrationDateLimit: string;
+		// poster: string;
 	}
 
 	const formik = useFormik<Event>({
 		initialValues: {
+			name: '',
 			date: '',
-			title: '',
-			text: '',
+			time: '',
 			mainText: '',
-			content: '',
-			confession: '',
-			furtherReading: '',
-			oneYearBibleReading: '',
-			twoYearsBibleReading: '',
+			theme: '',
+			allowRegistration: false,
+			limitedDateRegistration: false,
+			limitedNumberRegistration: false,
+			registrationDateLimit: '',
+			registrationNumberLimit: 0,
 		},
 		onSubmit: () => {
 			submitValues();
 		},
 		validationSchema: yup.object({
 			date: yup.string().required('Required'),
-			title: yup.string().required('Required'),
-			text: yup.string().required('Required'),
-			mainText: yup.string().required('Required'),
-			content: yup.string().required('Required'),
-			confession: yup.string().required('Required'),
-			furtherReading: yup.string().required('Required'),
-			oneYearBibleReading: yup.string().required('Required'),
-			twoYearsBibleReading: yup.string().required('Required'),
+			allowRegistration: yup.boolean().required('Required'),
+			limitedDateRegistration: yup.boolean().required('Required'),
+			limitedNumberRegistration: yup.boolean().required('Required'),
+			name: yup.string().required('Required'),
+			time: yup.string().required('Required'),
 		}),
 	});
 
@@ -66,20 +67,15 @@ function AddEventForm() {
 				'/event',
 				{
 					date: formik.values.date,
-					title: formik.values.title,
-					text: formik.values.text,
+					allowRegistration: formik.values.allowRegistration,
+					limitedDateRegistration: formik.values.limitedDateRegistration,
+					limitedNumberRegistration: formik.values.limitedNumberRegistration,
 					mainText: formik.values.mainText,
-					content: formik.values.content,
-					confession: formik.values.confession,
-					furtherReading: formik.values.furtherReading
-						.split('+')
-						?.map((element: string) => element?.trim()),
-					oneYearBibleReading: formik.values.oneYearBibleReading
-						.split('+')
-						?.map((element: string) => element?.trim()),
-					twoYearsBibleReading: formik.values.twoYearsBibleReading
-						.split('+')
-						?.map((element: string) => element?.trim()),
+					name: formik.values.name,
+					registrationDateLimit: formik.values.registrationDateLimit,
+					registrationNumberLimit: formik.values.registrationNumberLimit,
+					theme: formik.values.theme,
+					time: formik.values.time,
 				},
 				{
 					headers: {
@@ -97,41 +93,113 @@ function AddEventForm() {
 	};
 	return (
 		<form onSubmit={formik.handleSubmit}>
+			<LabelInput formik={formik} name='name' label='Event name' className='mb-5' />
 			<LabelInput formik={formik} name='date' label='Date' className='mb-5' type='date' />
-			<LabelInput formik={formik} name='title' label='Title' className='mb-5' />
-			<LabelInput formik={formik} name='text' label='Text' className='mb-5' />
-			<LabelInput formik={formik} name='mainText' label='Main Text' className='mb-5' />
-			<TextArea
-				formik={formik}
-				name='content'
-				label='Content'
-				className='mb-5'
-				rows={5}
-			/>
-			<LabelInput formik={formik} name='confession' label='Confession' className='mb-5' />
 			<LabelInput
 				formik={formik}
-				name='furtherReading'
-				label='Further Reading'
+				name='time'
+				label='Time'
+				hint='Add all the schedules for the event'
 				className='mb-5'
-				hint='Separate items by plus(+). Example: Item 1 + Item 2'
 			/>
+			<LabelInput formik={formik} name='theme' label='Theme' className='mb-5' />
 			<LabelInput
 				formik={formik}
-				name='oneYearBibleReading'
-				label='One Year Bible Reading'
-				hint='Separate items by plus(+). Example: Item 1 + Item 2'
+				name='mainText'
+				label='Main Bible Text'
 				className='mb-5'
 			/>
-			<LabelInput
+			<Dropdown
+				values={[
+					{
+						label: 'Yes',
+						value: true,
+					},
+					{
+						label: 'No',
+						value: false,
+					},
+				]}
+				label='Allow Registration'
+				name='allowRegistration'
+				defaultValue={{
+					label: formik.values.allowRegistration ? 'Yes' : 'No',
+					value: formik.values.allowRegistration,
+				}}
 				formik={formik}
-				name='twoYearsBibleReading'
-				label='Two Years Bible Reading'
-				hint='Separate items by plus(+). Example: Item 1 + Item 2'
 				className='mb-5'
 			/>
+			{formik.values.allowRegistration && (
+				<Dropdown
+					values={[
+						{
+							label: 'Yes',
+							value: true,
+						},
+						{
+							label: 'No',
+							value: false,
+						},
+					]}
+					label='Registration is limited by date'
+					name='limitedDateRegistration'
+					defaultValue={{
+						label: formik.values.limitedDateRegistration ? 'Yes' : 'No',
+						value: formik.values.limitedDateRegistration,
+					}}
+					formik={formik}
+					className='mb-5'
+				/>
+			)}
 
-			<Button type='submit'>Save Event</Button>
+			{/* When the registration is limited by date */}
+			{formik.values.limitedDateRegistration && (
+				<LabelInput
+					formik={formik}
+					name='registrationDateLimit'
+					label='Date Limit'
+					className='mb-5'
+					type='date'
+				/>
+			)}
+
+			{formik.values.allowRegistration && (
+				<Dropdown
+					values={[
+						{
+							label: 'Yes',
+							value: true,
+						},
+						{
+							label: 'No',
+							value: false,
+						},
+					]}
+					label='Registration is limited by number'
+					name='limitedNumberRegistration'
+					defaultValue={{
+						label: formik.values.limitedNumberRegistration ? 'Yes' : 'No',
+						value: formik.values.limitedNumberRegistration,
+					}}
+					formik={formik}
+					className='mb-5'
+				/>
+			)}
+
+			{/* When the registration is limited by date */}
+			{formik.values.limitedNumberRegistration && (
+				<LabelInput
+					formik={formik}
+					name='registrationNumberLimit'
+					label='Number Limit'
+					className='mb-5'
+					type='number'
+				/>
+			)}
+
+			<Button type='submit' className='mt-10'>
+				Save Event
+			</Button>
 		</form>
 	);
 }

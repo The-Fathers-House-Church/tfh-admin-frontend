@@ -59,7 +59,7 @@ function DeleteEventModal({
 		>
 			<div>
 				<p className='text-center md:text-left mb-10'>
-					You are trying to delete this Event: ({event?.title}). Are you sure you want to
+					You are trying to delete this Event: ({event?.name}). Are you sure you want to
 					continue?
 				</p>
 				<div className='flex items-center justify-center gap-5 flex-wrap md:justify-start'>
