@@ -5,18 +5,23 @@ import Pagination from '../../common/Pagination';
 import { sendCatchFeedback } from '../../functions/feedback';
 import { getUserSession } from '../../functions/userSession';
 import { DevotionalType } from '../../types';
+import DeleteDevotionalModal from './DeleteDevotionalModal';
 import DevotionalCard from './DevotionalCard';
 
 function AllDevotionals() {
 	const [loading, setLoading] = React.useState(false);
 
-	const [devotionals, setDevotionals] = React.useState<DevotionalType[]>([]);
+	const [devotionals, setDevotionals] = React.useState<DevotionalType[] | undefined>([]);
 
 	const [totalResults, setTotalResults] = React.useState(0);
 
 	const [page, setPage] = React.useState(1);
 
 	const currentUser = getUserSession();
+
+	const [selectedDevotional, setSelectedDevotional] = React.useState<
+		DevotionalType | undefined
+	>(undefined);
 
 	React.useEffect(() => {
 		const getAllDevotionals = async () => {
@@ -43,6 +48,16 @@ function AllDevotionals() {
 		getAllDevotionals();
 	}, [page]);
 
+	// delete modal
+	const [deleteModalOpen, setDeleteModalOpen] = React.useState(false);
+	const openDeleteModal = (develop: DevotionalType) => {
+		setSelectedDevotional(develop);
+		setDeleteModalOpen(true);
+	};
+	const closeDeleteModal = () => {
+		setDeleteModalOpen(false);
+	};
+
 	return (
 		<>
 			<div className='flex items-center justify-center mt-10 p-5 mb-5 bg-primaryAccent2 md:w-1/4'>
@@ -50,11 +65,15 @@ function AllDevotionals() {
 			</div>
 			{loading ? (
 				<Loader />
-			) : devotionals?.length > 0 ? (
+			) : devotionals && devotionals?.length > 0 ? (
 				<>
 					<div className='flex flex-col gap-5'>
-						{devotionals.map((devotional) => (
-							<DevotionalCard key={devotional._id} devotional={devotional} />
+						{devotionals?.map((devotional) => (
+							<DevotionalCard
+								key={devotional._id}
+								devotional={devotional}
+								openDeleteModal={openDeleteModal}
+							/>
 						))}
 					</div>
 					<Pagination page={page} totalResults={totalResults} setPage={setPage} />
@@ -62,6 +81,14 @@ function AllDevotionals() {
 			) : (
 				<span className='text-md'>No devotional found</span>
 			)}
+
+			<DeleteDevotionalModal
+				closeDeleteModal={closeDeleteModal}
+				deleteModalOpen={deleteModalOpen}
+				devotional={selectedDevotional}
+				setAllDevotionals={setDevotionals}
+				allDevotionals={devotionals}
+			/>
 		</>
 	);
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from '../../common/Button/Button';
 import AppLayout from '../../layout/AppLayout';
 import { FiPlus } from 'react-icons/fi';

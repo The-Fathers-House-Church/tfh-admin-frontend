@@ -36,11 +36,13 @@ function CustomModal({
 	modalState,
 	closeModal,
 	children,
+	...rest
 }: {
 	title: string;
 	modalState: boolean;
 	closeModal: () => void;
 	children: React.ReactNode;
+	[x: string]: any;
 }) {
 	React.useEffect(() => {
 		// Check if modal is open and prevent body from scrolling
@@ -68,6 +70,7 @@ function CustomModal({
 				overlay: customStyles.overlay,
 			}}
 			closeTimeoutMS={500}
+			{...rest}
 		>
 			<div className={styles.modalTitleContainer}>
 				<h1>{title}</h1>

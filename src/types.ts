@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type UserType = {
 	_id: string;
 	first_name: string;
@@ -45,3 +47,5 @@ export type DevotionalType = {
 	createdAt: string;
 	updatedAt: string;
 };
+
+export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
