@@ -31,7 +31,7 @@ export type UncertainObjectType = {
 
 export type DevotionalType = {
 	_id: string;
-	date: string;
+	date: Date | string;
 	title: string;
 	text: string;
 	mainText: string;
