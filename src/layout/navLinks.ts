@@ -8,20 +8,20 @@ const navLinks: { label: string; href: string }[] = [
 		href: '/devotional',
 	},
 	{
-		label: 'Users',
-		href: '/users',
+		label: 'Event',
+		href: '/event',
 	},
 	{
-		label: 'Events',
-		href: '/events',
+		label: 'Users',
+		href: '/users',
 	},
 	{
 		label: 'Live Stream',
 		href: '/live-stream',
 	},
 	{
-		label: 'Testimonies',
-		href: '/testimonies',
+		label: 'Testimony',
+		href: '/testimony',
 	},
 	{
 		label: 'Admins',
@@ -32,8 +32,8 @@ const navLinks: { label: string; href: string }[] = [
 		href: '/feedback',
 	},
 	{
-		label: 'Announcements',
-		href: '/announcements',
+		label: 'Announcement',
+		href: '/announcement',
 	},
 	{
 		label: 'Giving',
