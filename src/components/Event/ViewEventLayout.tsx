@@ -101,7 +101,11 @@ function ViewEventLayout({ event }: { event: EventType | undefined }) {
 
 			<h3 className='font-bold text-lg mb:5'>Gallery</h3>
 			{event.gallery.length ? (
-				event.gallery.map((item: string) => <img src={item} alt='Gallery' />)
+				<div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
+					{event.gallery.map((item: string) => (
+						<img src={item} alt='Gallery' className='h-20 w-full object-cover' />
+					))}
+				</div>
 			) : (
 				<>No gallery image added</>
 			)}
