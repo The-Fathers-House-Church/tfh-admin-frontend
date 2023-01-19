@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { appAxios } from '../../api/axios';
 import BackButton from '../../common/Button/BackButton';
 import ViewEventLayout from '../../components/Event/ViewEventLayout';
+import { sendCatchFeedback } from '../../functions/feedback';
 import AppLayout from '../../layout/AppLayout';
 import { useAppDispatch } from '../../store/hooks';
 import {
@@ -23,10 +24,11 @@ function ViewEvent() {
 			dispatch(openLoadingIndicator({ text: 'Retrieving Event' }));
 
 			try {
-				const response = await appAxios.get('/event/view/' + id);
+				const response = await appAxios.get('/event/' + id);
 				setEventDetails(response.data.event);
 			} catch (error) {
 				setEventDetails(undefined);
+				sendCatchFeedback(error);
 			}
 			dispatch(closeLoadingIndicator());
 		};

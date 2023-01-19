@@ -63,7 +63,7 @@ export type EventType = {
 	limitedNumberRegistration: boolean;
 	registrationNumberLimit: number;
 	limitedDateRegistration: boolean;
-	registrationDateLimit: Date;
+	registrationDateLimit: string;
 	poster: string;
 	createdBy: string;
 	updatedBy: string;
