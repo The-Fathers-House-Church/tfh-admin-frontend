@@ -12,9 +12,9 @@ import {
 import { DevotionalType } from '../../types';
 
 function ViewDevotional() {
-	const [devotionalDetails, setDevotionalDetails] = React.useState<DevotionalType | null>(
-		null
-	);
+	const [devotionalDetails, setDevotionalDetails] = React.useState<
+		DevotionalType | undefined
+	>(undefined);
 	const { id } = useParams();
 	const dispatch = useAppDispatch();
 
@@ -26,7 +26,7 @@ function ViewDevotional() {
 				const response = await appAxios.get('/devotional/view/' + id);
 				setDevotionalDetails(response.data.devotional);
 			} catch (error) {
-				setDevotionalDetails(null);
+				setDevotionalDetails(undefined);
 			}
 			dispatch(closeLoadingIndicator());
 		};
