@@ -1,8 +1,9 @@
 import React from 'react';
 import { FiEdit, FiTrash } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../common/Button/Button';
 import { DevotionalType } from '../../types';
+import DeleteDevotionalModal from './DeleteDevotionalModal';
 
 const DevotionalItem = ({
 	title,
@@ -32,7 +33,22 @@ const DevotionalItem = ({
 	</>
 );
 
-function ViewDevotionalLayout({ devotional }: { devotional: DevotionalType | null }) {
+function ViewDevotionalLayout({
+	devotional,
+}: {
+	devotional: DevotionalType | undefined;
+}) {
+	const navigate = useNavigate();
+
+	// delete modal
+	const [deleteModalOpen, setDeleteModalOpen] = React.useState(false);
+	const openDeleteModal = () => {
+		setDeleteModalOpen(true);
+	};
+	const closeDeleteModal = () => {
+		setDeleteModalOpen(false);
+	};
+
 	if (!devotional) return <>Devotional not found</>;
 
 	return (
@@ -71,11 +87,18 @@ function ViewDevotionalLayout({ devotional }: { devotional: DevotionalType | nul
 						Edit
 					</Button>
 				</Link>
-				<Button className='max-w-[200px] bg-error'>
+				<Button className='max-w-[200px] bg-error' onClick={openDeleteModal}>
 					<FiTrash className='mr-5' />
 					Delete
 				</Button>
 			</div>
+
+			<DeleteDevotionalModal
+				closeDeleteModal={closeDeleteModal}
+				deleteModalOpen={deleteModalOpen}
+				devotional={devotional}
+				navigateFunction={() => navigate('/devotional')}
+			/>
 		</div>
 	);
 }

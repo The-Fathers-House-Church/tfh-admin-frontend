@@ -50,8 +50,8 @@ function AllDevotionals() {
 
 	// delete modal
 	const [deleteModalOpen, setDeleteModalOpen] = React.useState(false);
-	const openDeleteModal = (develop: DevotionalType) => {
-		setSelectedDevotional(develop);
+	const openDeleteModal = (devotional: DevotionalType) => {
+		setSelectedDevotional(devotional);
 		setDeleteModalOpen(true);
 	};
 	const closeDeleteModal = () => {

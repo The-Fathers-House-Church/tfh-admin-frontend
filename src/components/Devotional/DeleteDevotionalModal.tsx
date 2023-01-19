@@ -17,12 +17,14 @@ function DeleteDevotionalModal({
 	devotional,
 	allDevotionals,
 	setAllDevotionals,
+	navigateFunction,
 }: {
 	deleteModalOpen: boolean;
 	closeDeleteModal: () => void;
 	devotional: DevotionalType | undefined;
 	allDevotionals?: DevotionalType[];
-	setAllDevotionals: SetState<DevotionalType[] | undefined>;
+	setAllDevotionals?: SetState<DevotionalType[] | undefined>;
+	navigateFunction?: () => void;
 }) {
 	const dispatch = useAppDispatch();
 
@@ -44,6 +46,7 @@ function DeleteDevotionalModal({
 				);
 
 			closeDeleteModal();
+			navigateFunction && navigateFunction();
 		} catch (error) {
 			sendCatchFeedback(error);
 		}
