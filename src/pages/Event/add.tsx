@@ -1,6 +1,6 @@
 import React from 'react';
 import BackButton from '../../common/Button/BackButton';
-import AddEventForm from '../../components/Events/AddEventForm';
+import AddEventForm from '../../components/Event/AddEventForm';
 import AppLayout from '../../layout/AppLayout';
 
 function AddEvent() {

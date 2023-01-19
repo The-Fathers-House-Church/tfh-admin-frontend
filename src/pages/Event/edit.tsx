@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { appAxios } from '../../api/axios';
 import BackButton from '../../common/Button/BackButton';
-import ViewEventLayout from '../../components/Events/ViewEventLayout';
+import EditEventForm from '../../components/Event/EditEventForm';
 import AppLayout from '../../layout/AppLayout';
 import { useAppDispatch } from '../../store/hooks';
 import {
@@ -11,7 +11,7 @@ import {
 } from '../../store/slices/loadingIndicator';
 import { EventType } from '../../types';
 
-function ViewEvent() {
+function EditEvent() {
 	const [eventDetails, setEventDetails] = React.useState<EventType | undefined>(
 		undefined
 	);
@@ -32,11 +32,12 @@ function ViewEvent() {
 		};
 		getEvent();
 	}, []);
+
 	return (
-		<AppLayout pageAction={<BackButton />} pageTitle='View Event'>
-			<ViewEventLayout event={eventDetails} />
+		<AppLayout pageAction={<BackButton />} pageTitle='Edit Event'>
+			<EditEventForm event={eventDetails} />
 		</AppLayout>
 	);
 }
 
-export default ViewEvent;
+export default EditEvent;

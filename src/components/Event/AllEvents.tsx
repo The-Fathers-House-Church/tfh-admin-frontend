@@ -61,12 +61,11 @@ function AllEvents() {
 
 	return (
 		<div className='mt-10'>
-			<SectionHeader title='ALL DEVOTIONALS' />
 			{loading ? (
 				<Loader />
 			) : events && events?.length > 0 ? (
 				<>
-					<div className='flex flex-col gap-5'>
+					<div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
 						{events?.map((event) => (
 							<EventCard
 								key={event._id}

@@ -19,7 +19,7 @@ const customStyles = {
 		paddingInline: '5vw',
 		paddingBlock: 45,
 		maxHeight: '90vh',
-		backgroundColor: '#fff',
+		backgroundColor: '#ECEEFF',
 		color: '#000',
 		border: 'none',
 	},
