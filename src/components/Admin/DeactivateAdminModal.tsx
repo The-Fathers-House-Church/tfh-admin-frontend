@@ -11,16 +11,16 @@ import {
 } from '../../store/slices/loadingIndicator';
 import { AdminType, SetState } from '../../types';
 
-function DeleteAdminModal({
-	closeDeleteModal,
-	deleteModalOpen,
+function DeactivateAdminModal({
+	closeDeactivateModal,
+	deactivateModalOpen,
 	admin,
 	allAdmins,
 	setAllAdmins,
 	navigateFunction,
 }: {
-	deleteModalOpen: boolean;
-	closeDeleteModal: () => void;
+	deactivateModalOpen: boolean;
+	closeDeactivateModal: () => void;
 	admin: AdminType | undefined;
 	allAdmins?: AdminType[];
 	setAllAdmins?: SetState<AdminType[] | undefined>;
@@ -28,12 +28,12 @@ function DeleteAdminModal({
 }) {
 	const dispatch = useAppDispatch();
 
-	const handleDelete = async () => {
+	const handleDeactivate = async () => {
 		dispatch(openLoadingIndicator({ text: 'Deleting Admin' }));
 		const currentUser = getUserSession();
 
 		try {
-			const response = await appAxios.delete('/admin/' + admin?._id, {
+			const response = await appAxios.patch('/admin/' + admin?._id, {
 				headers: {
 					Authorization: currentUser ? currentUser?.token : null,
 				},
@@ -43,7 +43,7 @@ function DeleteAdminModal({
 			setAllAdmins &&
 				setAllAdmins(allAdmins?.filter((item: AdminType) => item._id !== admin?._id));
 
-			closeDeleteModal();
+			closeDeactivateModal();
 			navigateFunction && navigateFunction();
 		} catch (error) {
 			sendCatchFeedback(error);
@@ -53,20 +53,20 @@ function DeleteAdminModal({
 
 	return (
 		<CustomModal
-			modalState={deleteModalOpen}
-			closeModal={closeDeleteModal}
-			title='Delete Admin'
+			modalState={deactivateModalOpen}
+			closeModal={closeDeactivateModal}
+			title='Deactivate Admin'
 		>
 			<div>
 				<p className='text-center md:text-left mb-10'>
-					You are trying to delete this Admin: ({admin?.name}). Are you sure you want to
-					continue?
+					You are trying to deactivate this Admin: ({admin?.fullname}). Are you sure you
+					want to continue?
 				</p>
 				<div className='flex items-center justify-center gap-5 flex-wrap md:justify-start'>
-					<Button className='md:max-w-[200px] bg-error' onClick={handleDelete}>
-						Yes, Delete
+					<Button className='md:max-w-[200px] bg-error' onClick={handleDeactivate}>
+						Yes, Deactivate
 					</Button>
-					<Button className='md:max-w-[200px] bg-dark' onClick={closeDeleteModal}>
+					<Button className='md:max-w-[200px] bg-dark' onClick={closeDeactivateModal}>
 						No, Cancel
 					</Button>
 				</div>
@@ -75,4 +75,4 @@ function DeleteAdminModal({
 	);
 }
 
-export default DeleteAdminModal;
+export default DeactivateAdminModal;

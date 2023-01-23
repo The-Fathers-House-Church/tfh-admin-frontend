@@ -1,61 +1,64 @@
-import { FiEdit, FiTrash } from 'react-icons/fi';
+import { FiEdit, FiMoreVertical, FiTrash } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import Card from '../../common/Card/Card';
 import { AdminType } from '../../types';
 import DefaultImage from '../../assets/images/default.jpg';
+import { useState } from 'react';
+import CardMenu from './CardMenu';
+import ClickAwayListener from 'react-click-away-listener';
+import { getUserSession } from '../../functions/userSession';
 
 function AdminCard({
 	admin = null,
-	openDeleteModal,
+	openDeactivateModal,
+	openActivateModal,
+	openSuperModal,
 }: {
 	admin: AdminType | null;
-	openDeleteModal: (admin: AdminType) => void;
+	openDeactivateModal: (admin: AdminType) => void;
+	openActivateModal: (admin: AdminType) => void;
+	openSuperModal: (admin: AdminType) => void;
 }) {
-	const navigate = useNavigate();
+	const [open, setOpen] = useState(false);
+
+	const userDetails = getUserSession();
 
 	if (!admin) return null;
 	return (
-		<Card
-			className={`min-w-full p-0 shadow-sm cursor-pointer bg-primaryAccent2`}
-			onClick={() => navigate('/admin/view/' + admin?._id)}
-		>
-			<article>
-				<img
-					src={admin.poster || DefaultImage}
-					alt='Poster'
-					className='object-cover h-36 w-full rounded-t-lg'
-				/>
-				<div className='flex flex-col flex-wrap gap-2 p-5'>
-					<span className='font-bold text-lg'>{admin.name}</span>
-					<div className='flex items-center gap-1'>
-						<span className='text-sm'>Date: </span>
-						<span className='text-sm'>{new Date(admin.date).toDateString()}</span>
-					</div>
-					<div className='flex items-center gap-1'>
-						<span className='text-sm'>Theme: </span>
-						<span className='text-sm'>{admin.theme}</span>
-					</div>
-					<div className='flex items-center gap-1'>
-						<span className='text-sm'>Allows Registration: </span>
-						<span className='text-sm'>{admin.allowRegistration ? 'Yes' : 'No'}</span>
-					</div>
-					<div className='flex items-center justify-center mt-5 gap-5'>
-						<FiEdit
-							onClick={(e) => {
-								e.stopPropagation(); // this is because the entire card is clickable
-								navigate('/admin/edit/' + admin?._id);
-							}}
-						/>
-						<FiTrash
-							className='text-error'
-							onClick={(e) => {
-								e.stopPropagation();
-								openDeleteModal(admin);
-							}}
-						/>
-					</div>
+		<Card className={`min-w-full p-3 shadow-sm `}>
+			<div className='flex items-center justify-between flex-nowrap'>
+				<div className='flex gap-3 items-center'>
+					<div
+						className='w-1 p-1 rounded-full'
+						style={{
+							backgroundColor: admin.active ? '#2BB62A' : '#F13637',
+						}}
+					/>
+					<span>
+						{admin.fullname} - <span className='capitalize text-xs'>{admin.role}</span>
+					</span>
 				</div>
-			</article>
+				{userDetails?.role === 'superAdmin' && (
+					<ClickAwayListener onClickAway={() => setOpen(false)}>
+						<div className='relative'>
+							<button
+								onClick={() => setOpen(true)}
+								className='flex items-center relative hover:bg-primaryAccent1 pl-1 pr-1 pt-1 pb-1 rounded-sm'
+							>
+								<FiMoreVertical />
+							</button>
+							{open && (
+								<CardMenu
+									admin={admin}
+									openActivateModal={openActivateModal}
+									openDeactivateModal={openDeactivateModal}
+									openSuperModal={openSuperModal}
+								/>
+							)}
+						</div>
+					</ClickAwayListener>
+				)}
+			</div>
 		</Card>
 	);
 }

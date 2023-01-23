@@ -6,7 +6,7 @@ import SectionHeader from '../../common/SectionHeader';
 import { sendCatchFeedback } from '../../functions/feedback';
 import { getUserSession } from '../../functions/userSession';
 import { AdminType } from '../../types';
-import DeleteAdminModal from './DeleteAdminModal';
+import DeactivateAdminModal from './DeactivateAdminModal';
 import AdminCard from './AdminCard';
 
 function AllAdmins() {
@@ -49,14 +49,14 @@ function AllAdmins() {
 		getAllAdmins();
 	}, [page]);
 
-	// delete modal
-	const [deleteModalOpen, setDeleteModalOpen] = React.useState(false);
-	const openDeleteModal = (admin: AdminType) => {
+	// deactivate modal
+	const [deactivateModalOpen, setDeactivateModalOpen] = React.useState(false);
+	const openDeactivateModal = (admin: AdminType) => {
 		setSelectedAdmin(admin);
-		setDeleteModalOpen(true);
+		setDeactivateModalOpen(true);
 	};
-	const closeDeleteModal = () => {
-		setDeleteModalOpen(false);
+	const closeDeactivateModal = () => {
+		setDeactivateModalOpen(false);
 	};
 
 	return (
@@ -65,12 +65,14 @@ function AllAdmins() {
 				<Loader />
 			) : admins && admins?.length > 0 ? (
 				<>
-					<div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
+					<div className='flex flex-col gap-5'>
 						{admins?.map((admin) => (
 							<AdminCard
 								key={admin._id}
 								admin={admin}
-								openDeleteModal={openDeleteModal}
+								openDeactivateModal={openDeactivateModal}
+								openSuperModal={openDeactivateModal}
+								openActivateModal={openDeactivateModal}
 							/>
 						))}
 					</div>
@@ -80,9 +82,9 @@ function AllAdmins() {
 				<span className='text-md'>No admin found</span>
 			)}
 
-			<DeleteAdminModal
-				closeDeleteModal={closeDeleteModal}
-				deleteModalOpen={deleteModalOpen}
+			<DeactivateAdminModal
+				closeDeactivateModal={closeDeactivateModal}
+				deactivateModalOpen={deactivateModalOpen}
 				admin={selectedAdmin}
 				setAllAdmins={setAdmins}
 				allAdmins={admins}
