@@ -70,3 +70,15 @@ export type EventType = {
 	createdAt: string;
 	updatedAt: string;
 };
+
+export type AdminType = {
+	_id: string;
+	fullname: string;
+	email: string;
+	role: string;
+	active: boolean;
+	createdBy: string;
+	updatedBy: string;
+	createdAt: string;
+	updatedAt: string;
+};
