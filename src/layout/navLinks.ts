@@ -25,7 +25,7 @@ const navLinks: { label: string; href: string }[] = [
 	},
 	{
 		label: 'Admins',
-		href: '/admins',
+		href: '/admin',
 	},
 	{
 		label: 'Feedback',

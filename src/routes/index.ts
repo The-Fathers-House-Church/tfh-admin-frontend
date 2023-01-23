@@ -1,3 +1,4 @@
+import { adminRoutes } from './admin/index';
 import { devotionalRoutes } from './devotional/index';
 import { usersRoutes } from './users/index';
 import { authenticationRoutes } from './authentication';
@@ -10,4 +11,5 @@ export const routes = [
 	...usersRoutes,
 	...devotionalRoutes,
 	...eventRoutes,
+	...adminRoutes,
 ];

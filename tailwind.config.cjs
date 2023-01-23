@@ -28,6 +28,7 @@ module.exports = {
         grey: '#F4F4F4',
         mediumDark: '#181818',
         lightDark: '#404040',
+        success: '#2BB62A',
         error: '#F13637',
         warning: "#EEB614",
       },
