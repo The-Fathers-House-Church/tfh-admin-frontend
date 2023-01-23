@@ -9,9 +9,9 @@ function CardMenu({
 	openSuperModal,
 }: {
 	admin: AdminType | null;
-	openDeactivateModal: (admin: AdminType) => void;
-	openActivateModal: (admin: AdminType) => void;
-	openSuperModal: (admin: AdminType) => void;
+	openDeactivateModal: (admin: AdminType | null) => void;
+	openActivateModal: (admin: AdminType | null) => void;
+	openSuperModal: (admin: AdminType | null) => void;
 }) {
 	return (
 		<nav
@@ -19,18 +19,27 @@ function CardMenu({
 			style={{ boxShadow: '12px 12px 24px rgba(0, 0, 0, 0.1)' }}
 		>
 			<ul className='flex flex-col'>
-				<li className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center gap-2' onClick={()=>openSuperModal(admin)}>
+				<li
+					className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center gap-2'
+					onClick={() => openSuperModal(admin)}
+				>
 					<FiShield />
 					Make super admin
 				</li>
 				{!admin?.active && (
-					<li className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center gap-2 text-success' onClick={()=>openActivateModal(admin)}>
+					<li
+						className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center gap-2 text-success'
+						onClick={() => openActivateModal(admin)}
+					>
 						<FiUserCheck />
 						Activate
 					</li>
 				)}
 				{admin?.active && (
-					<li className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center gap-2 text-error' onClick={()=>openDeactivateModal(admin)}>
+					<li
+						className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center gap-2 text-error'
+						onClick={() => openDeactivateModal(admin)}
+					>
 						<FiUserX />
 						Deactivate
 					</li>
