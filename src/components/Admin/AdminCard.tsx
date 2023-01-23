@@ -1,8 +1,6 @@
-import { FiEdit, FiMoreVertical, FiTrash } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { FiMoreVertical } from 'react-icons/fi';
 import Card from '../../common/Card/Card';
 import { AdminType } from '../../types';
-import DefaultImage from '../../assets/images/default.jpg';
 import { useState } from 'react';
 import CardMenu from './CardMenu';
 import ClickAwayListener from 'react-click-away-listener';
@@ -15,9 +13,9 @@ function AdminCard({
 	openSuperModal,
 }: {
 	admin: AdminType | null;
-	openDeactivateModal: (admin: AdminType) => void;
-	openActivateModal: (admin: AdminType) => void;
-	openSuperModal: (admin: AdminType) => void;
+	openDeactivateModal: (admin: AdminType | null) => void;
+	openActivateModal: (admin: AdminType | null) => void;
+	openSuperModal: (admin: AdminType | null) => void;
 }) {
 	const [open, setOpen] = useState(false);
 

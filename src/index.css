@@ -23,7 +23,6 @@ a {
 
 * {
   box-sizing: border-box;
-  transition: all 0.2s;
   scroll-margin-top: 60px;
 }
 

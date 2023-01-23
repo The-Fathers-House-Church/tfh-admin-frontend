@@ -8,6 +8,8 @@ import { getUserSession } from '../../functions/userSession';
 import { AdminType } from '../../types';
 import DeactivateAdminModal from './DeactivateAdminModal';
 import AdminCard from './AdminCard';
+import SuperAdminModal from './SuperAdminModal';
+import ActivateModal from './ActivateModal';
 
 function AllAdmins() {
 	const [loading, setLoading] = React.useState(false);
@@ -20,9 +22,7 @@ function AllAdmins() {
 
 	const currentUser = getUserSession();
 
-	const [selectedAdmin, setSelectedAdmin] = React.useState<AdminType | undefined>(
-		undefined
-	);
+	const [selectedAdmin, setSelectedAdmin] = React.useState<AdminType | null>(null);
 
 	React.useEffect(() => {
 		const getAllAdmins = async () => {
@@ -51,12 +51,32 @@ function AllAdmins() {
 
 	// deactivate modal
 	const [deactivateModalOpen, setDeactivateModalOpen] = React.useState(false);
-	const openDeactivateModal = (admin: AdminType) => {
+	const openDeactivateModal = (admin: AdminType | null) => {
 		setSelectedAdmin(admin);
 		setDeactivateModalOpen(true);
 	};
 	const closeDeactivateModal = () => {
 		setDeactivateModalOpen(false);
+	};
+
+	// activate modal
+	const [activateModalOpen, setActivateModalOpen] = React.useState(false);
+	const openActivateModal = (admin: AdminType | null) => {
+		setSelectedAdmin(admin);
+		setActivateModalOpen(true);
+	};
+	const closeActivateModal = () => {
+		setActivateModalOpen(false);
+	};
+
+	// super modal
+	const [superModalOpen, setSuperModalOpen] = React.useState(false);
+	const openSuperModal = (admin: AdminType | null) => {
+		setSelectedAdmin(admin);
+		setSuperModalOpen(true);
+	};
+	const closeSuperModal = () => {
+		setSuperModalOpen(false);
 	};
 
 	return (
@@ -71,8 +91,8 @@ function AllAdmins() {
 								key={admin._id}
 								admin={admin}
 								openDeactivateModal={openDeactivateModal}
-								openSuperModal={openDeactivateModal}
-								openActivateModal={openDeactivateModal}
+								openSuperModal={openSuperModal}
+								openActivateModal={openActivateModal}
 							/>
 						))}
 					</div>
@@ -85,6 +105,20 @@ function AllAdmins() {
 			<DeactivateAdminModal
 				closeDeactivateModal={closeDeactivateModal}
 				deactivateModalOpen={deactivateModalOpen}
+				admin={selectedAdmin}
+				setAllAdmins={setAdmins}
+				allAdmins={admins}
+			/>
+			<ActivateModal
+				closeActivateModal={closeActivateModal}
+				activateModalOpen={activateModalOpen}
+				admin={selectedAdmin}
+				setAllAdmins={setAdmins}
+				allAdmins={admins}
+			/>
+			<SuperAdminModal
+				closeSuperModal={closeSuperModal}
+				superModalOpen={superModalOpen}
 				admin={selectedAdmin}
 				setAllAdmins={setAdmins}
 				allAdmins={admins}

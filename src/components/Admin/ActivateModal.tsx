@@ -11,16 +11,16 @@ import {
 } from '../../store/slices/loadingIndicator';
 import { AdminType, SetState } from '../../types';
 
-function DeactivateAdminModal({
-	closeDeactivateModal,
-	deactivateModalOpen,
+function ActivateModal({
+	closeActivateModal,
+	activateModalOpen,
 	admin,
 	allAdmins,
 	setAllAdmins,
 	navigateFunction,
 }: {
-	deactivateModalOpen: boolean;
-	closeDeactivateModal: () => void;
+	activateModalOpen: boolean;
+	closeActivateModal: () => void;
 	admin: AdminType | null;
 	allAdmins?: AdminType[] | null;
 	setAllAdmins?: SetState<AdminType[] | undefined>;
@@ -28,8 +28,8 @@ function DeactivateAdminModal({
 }) {
 	const dispatch = useAppDispatch();
 
-	const handleDeactivate = async () => {
-		dispatch(openLoadingIndicator({ text: 'Deactivating Admin' }));
+	const handleActivate = async () => {
+		dispatch(openLoadingIndicator({ text: 'Activating Admin' }));
 		const currentUser = getUserSession();
 
 		try {
@@ -37,7 +37,7 @@ function DeactivateAdminModal({
 				'/admin/status',
 				{
 					id: admin?._id,
-					status: false,
+					status: true,
 				},
 				{
 					headers: {
@@ -51,13 +51,13 @@ function DeactivateAdminModal({
 				setAllAdmins(
 					allAdmins?.map((item: AdminType) => {
 						if (item._id === admin?._id) {
-							item.active = false;
+							item.active = true;
 						}
 						return item;
 					})
 				);
 
-			closeDeactivateModal();
+			closeActivateModal();
 			navigateFunction && navigateFunction();
 		} catch (error) {
 			sendCatchFeedback(error);
@@ -67,20 +67,20 @@ function DeactivateAdminModal({
 
 	return (
 		<CustomModal
-			modalState={deactivateModalOpen}
-			closeModal={closeDeactivateModal}
-			title='Deactivate Admin'
+			modalState={activateModalOpen}
+			closeModal={closeActivateModal}
+			title='Activate Admin'
 		>
 			<div>
 				<p className='text-center md:text-left mb-10'>
-					You are trying to deactivate this Admin: ({admin?.fullname}). Are you sure you
+					You are trying to activate this Admin: ({admin?.fullname}). Are you sure you
 					want to continue?
 				</p>
 				<div className='flex items-center justify-center gap-5 flex-wrap md:justify-start'>
-					<Button className='md:max-w-[200px] bg-error' onClick={handleDeactivate}>
-						Yes, Deactivate
+					<Button className='md:max-w-[200px] bg-success' onClick={handleActivate}>
+						Yes, Activate
 					</Button>
-					<Button className='md:max-w-[200px] bg-dark' onClick={closeDeactivateModal}>
+					<Button className='md:max-w-[200px] bg-dark' onClick={closeActivateModal}>
 						No, Cancel
 					</Button>
 				</div>
@@ -89,4 +89,4 @@ function DeactivateAdminModal({
 	);
 }
 
-export default DeactivateAdminModal;
+export default ActivateModal;

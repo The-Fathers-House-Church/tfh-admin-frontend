@@ -11,16 +11,16 @@ import {
 } from '../../store/slices/loadingIndicator';
 import { AdminType, SetState } from '../../types';
 
-function DeactivateAdminModal({
-	closeDeactivateModal,
-	deactivateModalOpen,
+function SuperAdminModal({
+	closeSuperModal,
+	superModalOpen,
 	admin,
 	allAdmins,
 	setAllAdmins,
 	navigateFunction,
 }: {
-	deactivateModalOpen: boolean;
-	closeDeactivateModal: () => void;
+	superModalOpen: boolean;
+	closeSuperModal: () => void;
 	admin: AdminType | null;
 	allAdmins?: AdminType[] | null;
 	setAllAdmins?: SetState<AdminType[] | undefined>;
@@ -28,16 +28,15 @@ function DeactivateAdminModal({
 }) {
 	const dispatch = useAppDispatch();
 
-	const handleDeactivate = async () => {
-		dispatch(openLoadingIndicator({ text: 'Deactivating Admin' }));
+	const handleSuper = async () => {
+		dispatch(openLoadingIndicator({ text: 'Updating Admin' }));
 		const currentUser = getUserSession();
 
 		try {
 			const response = await appAxios.patch(
-				'/admin/status',
+				'/admin/super',
 				{
 					id: admin?._id,
-					status: false,
 				},
 				{
 					headers: {
@@ -51,13 +50,13 @@ function DeactivateAdminModal({
 				setAllAdmins(
 					allAdmins?.map((item: AdminType) => {
 						if (item._id === admin?._id) {
-							item.active = false;
+							item.role = 'superAdmin';
 						}
 						return item;
 					})
 				);
 
-			closeDeactivateModal();
+			closeSuperModal();
 			navigateFunction && navigateFunction();
 		} catch (error) {
 			sendCatchFeedback(error);
@@ -67,20 +66,20 @@ function DeactivateAdminModal({
 
 	return (
 		<CustomModal
-			modalState={deactivateModalOpen}
-			closeModal={closeDeactivateModal}
-			title='Deactivate Admin'
+			modalState={superModalOpen}
+			closeModal={closeSuperModal}
+			title='Make Super Admin'
 		>
 			<div>
 				<p className='text-center md:text-left mb-10'>
-					You are trying to deactivate this Admin: ({admin?.fullname}). Are you sure you
-					want to continue?
+					You are trying to grant super admin access this Admin: ({admin?.fullname}). Are
+					you sure you want to continue?
 				</p>
 				<div className='flex items-center justify-center gap-5 flex-wrap md:justify-start'>
-					<Button className='md:max-w-[200px] bg-error' onClick={handleDeactivate}>
-						Yes, Deactivate
+					<Button className='md:max-w-[200px] bg-error' onClick={handleSuper}>
+						Yes, Continue
 					</Button>
-					<Button className='md:max-w-[200px] bg-dark' onClick={closeDeactivateModal}>
+					<Button className='md:max-w-[200px] bg-dark' onClick={closeSuperModal}>
 						No, Cancel
 					</Button>
 				</div>
@@ -89,4 +88,4 @@ function DeactivateAdminModal({
 	);
 }
 
-export default DeactivateAdminModal;
+export default SuperAdminModal;

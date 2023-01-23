@@ -9,14 +9,14 @@ import AppLayout from '../../layout/AppLayout';
 function Admins() {
 	return (
 		<AppLayout
-			pageAction={
-				<Link to='/admin/new'>
-					<Button className='max-w-[156px] !h-[40px] !p-4'>
-						<FiPlus className='mr-3' />
-						Add New
-					</Button>
-				</Link>
-			}
+		// pageAction={
+		// 	<Link to='/admin/new'>
+		// 		<Button className='max-w-[156px] !h-[40px] !p-4'>
+		// 			<FiPlus className='mr-3' />
+		// 			Add New
+		// 		</Button>
+		// 	</Link>
+		// }
 		>
 			<SectionHeader title='ALL ADMINS' />
 			<AllAdmins />
