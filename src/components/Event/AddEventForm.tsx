@@ -115,20 +115,11 @@ function AddEventForm() {
       'limitedDateRegistration',
       formik.values.limitedDateRegistration ? '1' : '0'
     );
-    // formData.append('registrationDateLimit', formik.values.registrationDateLimit);
-    // Object.values(registrationDetails).forEach((detail, index) => {
-    //   formData.append(`requiredRegistrationDetails[${index}][name]`, detail.name);
-    //   formData.append(`requiredRegistrationDetails[${index}][type]`, detail.type);
-    //   if (detail.options) {
-    //     formData.append('requiredRegistrationDetails', detail.options);
-    //   }
-    // });
-
-    // return console.log(formData.getAll('requiredRegistrationDetails'));
-    formData.append(
-      'requiredRegistrationDetails',
-      JSON.stringify(Object.values(registrationDetails))
-    );
+    formik.values.allowRegistration &&
+      formData.append(
+        'requiredRegistrationDetails',
+        JSON.stringify(Object.values(registrationDetails))
+      );
 
     dispatch(openLoadingIndicator({ text: 'Adding Event' }));
 
