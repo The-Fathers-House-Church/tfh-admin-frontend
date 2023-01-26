@@ -88,7 +88,10 @@ function ViewEventLayout({ event }: { event: EventType | undefined }) {
         />
 
         {event.limitedDateRegistration && (
-          <EventItem title='Date Limit:' content={event.registrationDateLimit} />
+          <EventItem
+            title='Date Limit:'
+            content={new Date(event.registrationDateLimit).toDateString()}
+          />
         )}
 
         <EventItem

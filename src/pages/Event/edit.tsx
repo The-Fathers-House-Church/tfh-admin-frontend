@@ -6,38 +6,38 @@ import EditEventForm from '../../components/Event/EditEventForm';
 import AppLayout from '../../layout/AppLayout';
 import { useAppDispatch } from '../../store/hooks';
 import {
-	closeLoadingIndicator,
-	openLoadingIndicator,
+  closeLoadingIndicator,
+  openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
 import { EventType } from '../../types';
 
 function EditEvent() {
-	const [eventDetails, setEventDetails] = React.useState<EventType | undefined>(
-		undefined
-	);
-	const { id } = useParams();
-	const dispatch = useAppDispatch();
+  const [eventDetails, setEventDetails] = React.useState<EventType | undefined>(
+    undefined
+  );
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
 
-	React.useEffect(() => {
-		const getEvent = async () => {
-			dispatch(openLoadingIndicator({ text: 'Retrieving Event' }));
+  React.useEffect(() => {
+    const getEvent = async () => {
+      dispatch(openLoadingIndicator({ text: 'Retrieving Event' }));
 
-			try {
-				const response = await appAxios.get('/event/' + id);
-				setEventDetails(response.data.event);
-			} catch (error) {
-				setEventDetails(undefined);
-			}
-			dispatch(closeLoadingIndicator());
-		};
-		getEvent();
-	}, []);
+      try {
+        const response = await appAxios.get('/event/' + id);
+        setEventDetails(response.data.event);
+      } catch (error) {
+        setEventDetails(undefined);
+      }
+      dispatch(closeLoadingIndicator());
+    };
+    getEvent();
+  }, []);
 
-	return (
-		<AppLayout pageAction={<BackButton />} pageTitle='Edit Event'>
-			<EditEventForm event={eventDetails} />
-		</AppLayout>
-	);
+  return (
+    <AppLayout pageAction={<BackButton />} pageTitle='Edit Event'>
+      {eventDetails ? <EditEventForm event={eventDetails} /> : <>Event not found</>}
+    </AppLayout>
+  );
 }
 
 export default EditEvent;

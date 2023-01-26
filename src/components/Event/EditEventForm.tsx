@@ -21,7 +21,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { RegistrationDetailType } from '../../types';
 import RequiredRegistrationDetails from './RequiredRegistrationDetails';
 
-function EditEventForm({ event }: { event: EventType | undefined }) {
+function EditEventForm({ event }: { event: EventType }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const currentUser = getUserSession();
@@ -43,19 +43,19 @@ function EditEventForm({ event }: { event: EventType | undefined }) {
 
   const formik = useFormik<Event>({
     initialValues: {
-      name: event?.name || '',
-      time: event?.time || '',
-      mainText: event?.mainText || '',
-      theme: event?.theme || '',
-      allowRegistration: event?.allowRegistration || false,
-      limitedDateRegistration: event?.limitedDateRegistration || false,
-      limitedNumberRegistration: event?.limitedNumberRegistration || false,
-      registrationDateLimit: event?.registrationDateLimit
-        ? new Date(event?.registrationDateLimit).toISOString().split('T')[0]
+      name: event.name || '',
+      time: event.time || '',
+      mainText: event.mainText || '',
+      theme: event.theme || '',
+      allowRegistration: event.allowRegistration ? true : false,
+      limitedDateRegistration: event.limitedDateRegistration ? true : false,
+      limitedNumberRegistration: event.limitedNumberRegistration ? true : false,
+      registrationDateLimit: event.registrationDateLimit
+        ? new Date(event.registrationDateLimit).toISOString().split('T')[0]
         : undefined || '',
-      registrationNumberLimit: event?.registrationNumberLimit || 0,
-      date: event?.date
-        ? new Date(event?.date).toISOString().split('T')[0]
+      registrationNumberLimit: event.registrationNumberLimit || 0,
+      date: event.date
+        ? new Date(event.date).toISOString().split('T')[0]
         : undefined || '',
       changePoster: false,
       poster: '',
@@ -88,7 +88,7 @@ function EditEventForm({ event }: { event: EventType | undefined }) {
   React.useEffect(() => {
     if (event) {
       setRegistrationDetails(
-        event?.requiredRegistrationDetails.reduce(
+        event.requiredRegistrationDetails.reduce(
           (initial, detail) => ({
             ...initial,
             [detail?.id || uuidv4()]: {
@@ -143,6 +143,7 @@ function EditEventForm({ event }: { event: EventType | undefined }) {
       'limitedDateRegistration',
       formik.values.limitedDateRegistration ? '1' : '0'
     );
+    formData.append('registrationDateLimit', formik.values.registrationDateLimit);
     formik.values.allowRegistration &&
       formData.append(
         'requiredRegistrationDetails',
@@ -151,7 +152,7 @@ function EditEventForm({ event }: { event: EventType | undefined }) {
 
     dispatch(openLoadingIndicator({ text: 'Updating Event' }));
     try {
-      const response = await appAxios.patch('/event/' + event?._id, formData, {
+      const response = await appAxios.patch('/event/' + event._id, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: currentUser ? currentUser?.token : null,
@@ -159,14 +160,12 @@ function EditEventForm({ event }: { event: EventType | undefined }) {
       });
       sendFeedback(response.data?.message, 'success');
 
-      navigate('/event/view/' + response.data.event?._id);
+      navigate('/event/view/' + response.data.event._id);
     } catch (error) {
       sendCatchFeedback(error);
     }
     dispatch(closeLoadingIndicator());
   };
-
-  if (!event) return <>Event not found</>;
 
   return (
     <form onSubmit={formik.handleSubmit}>
