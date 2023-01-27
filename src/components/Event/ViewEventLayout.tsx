@@ -102,16 +102,10 @@ function ViewEventLayout({ event }: { event: EventType | undefined }) {
         {event.limitedNumberRegistration && (
           <EventItem title='Number Limit:' content={event.registrationNumberLimit} />
         )}
+        <EventItem title='Gallery Images:' content={event.gallery.length || 0} />
       </article>
 
-      <Divider
-        style={{
-          marginBlock: 20,
-          backgroundColor: '#000',
-        }}
-      />
-
-      <h3 className='font-bold text-lg mb:5'>Gallery</h3>
+      {/* <h3 className='font-bold text-lg mb:5'>Gallery Images: </h3>
       {event.gallery.length ? (
         <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
           {event.gallery.map((item: string) => (
@@ -120,7 +114,7 @@ function ViewEventLayout({ event }: { event: EventType | undefined }) {
         </div>
       ) : (
         <>No gallery image added</>
-      )}
+      )} */}
 
       <div className='flex items-center justify-center gap-5 mt-10'>
         <Link to={`/event/edit/${event._id}`} className='w-[200px]'>
@@ -132,7 +126,7 @@ function ViewEventLayout({ event }: { event: EventType | undefined }) {
         <Link to={`/event/gallery/${event._id}`} className='w-[200px]'>
           <Button className='bg-dark'>
             <FiImage className='mr-5' />
-            Add Gallery
+            Gallery
           </Button>
         </Link>
         <Button className='max-w-[200px] bg-error' onClick={openDeleteModal}>
