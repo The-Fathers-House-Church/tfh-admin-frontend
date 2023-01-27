@@ -75,7 +75,7 @@ function Testimony() {
   };
 
   return (
-    <AppLayout>
+    <AppLayout pageTitle='Testimonies'>
       <div className='grid grid-cols-2 md:grid-cols-5 gap-5 mb-10'>
         {statuses.map((item) => (
           <Button
