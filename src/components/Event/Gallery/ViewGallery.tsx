@@ -55,9 +55,13 @@ function ViewGallery({
               />
               <button
                 className='shadow-md p-3 bg-primaryAccent1 rounded-sm absolute right-3 top-3 hover:bg-error hover:text-white duration-700'
-                onClick={() => deleteImageFromGallery(image)}
+                onClick={() => (!loading ? deleteImageFromGallery(image) : null)}
               >
-                {loading ? <Loader size={20} /> : <FiTrash2 />}
+                {loading ? (
+                  <Loader className='w-5 h-5 border-lightGrey border-t-[#FF6634] border-2' />
+                ) : (
+                  <FiTrash2 />
+                )}
               </button>
             </div>
           ))}
