@@ -97,3 +97,16 @@ export interface RegistrationDetailType {
     options?: string;
   };
 }
+
+export interface TestimonyType {
+  email: string;
+  phoneNumber: string;
+  fullName: string;
+  summary: string;
+  content: string;
+  status: string;
+  source: string;
+  updatedBy: string;
+  createdAt: Date;
+  _id: string;
+}
