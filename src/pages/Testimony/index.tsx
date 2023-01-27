@@ -3,7 +3,7 @@ import { appAxios } from '../../api/axios';
 import Button from '../../common/Button/Button';
 import Pagination from '../../common/Pagination';
 import TestimonyCard from '../../components/Testimony/TestimonyCard';
-import { sendCatchFeedback } from '../../functions/feedback';
+import { sendCatchFeedback, sendFeedback } from '../../functions/feedback';
 import { getUserSession } from '../../functions/userSession';
 import AppLayout from '../../layout/AppLayout';
 import { useAppDispatch } from '../../store/hooks';
@@ -45,6 +45,35 @@ function Testimony() {
     getAllTestimonies();
   }, [page, status]);
 
+  const changeTestimonyStatus = async (testimony: TestimonyType, newStatus: string) => {
+    dispatch(openLoadingIndicator({ text: 'Retrieving Testimonies' }));
+    try {
+      const response = await appAxios.patch(
+        `/testimony`,
+        { status: newStatus },
+        {
+          headers: {
+            Authorization: currentUser ? currentUser?.token : null,
+          },
+        }
+      );
+
+      sendFeedback(response.data?.message);
+
+      setTestimonies(
+        testimonies?.map((item) => {
+          if (item._id === testimony._id) {
+            item.status = newStatus;
+          }
+          return item;
+        })
+      );
+    } catch (error) {
+      sendCatchFeedback(error);
+    }
+    dispatch(closeLoadingIndicator());
+  };
+
   return (
     <AppLayout>
       <div className='grid grid-cols-2 md:grid-cols-5 gap-5 mb-10'>
@@ -65,7 +94,11 @@ function Testimony() {
         <>
           <div className='flex flex-col gap-5'>
             {testimonies.map((testimony) => (
-              <TestimonyCard testimony={testimony} key={testimony._id} />
+              <TestimonyCard
+                testimony={testimony}
+                key={testimony._id}
+                changeTestimonyStatus={changeTestimonyStatus}
+              />
             ))}
           </div>
           <Pagination page={page} totalResults={totalResults} setPage={setPage} />

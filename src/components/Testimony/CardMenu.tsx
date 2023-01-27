@@ -1,8 +1,13 @@
-import React from 'react';
 import { FiArchive, FiCheckCircle, FiXCircle } from 'react-icons/fi';
-import { AdminType, TestimonyType } from '../../types';
+import { TestimonyType } from '../../types';
 
-function CardMenu({ testimony }: { testimony: TestimonyType }) {
+function CardMenu({
+  testimony,
+  changeTestimonyStatus,
+}: {
+  testimony: TestimonyType;
+  changeTestimonyStatus: (testimony: TestimonyType, newStatus: string) => void;
+}) {
   return (
     <nav
       className='rounded absolute right-0 top-6 bg-white shadow-md w-40 z-10'
@@ -12,7 +17,7 @@ function CardMenu({ testimony }: { testimony: TestimonyType }) {
         {testimony.status !== 'approved' && (
           <li
             className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center text-success gap-2 duration-500'
-            // onClick={() => openSuperModal(admin)}
+            onClick={() => changeTestimonyStatus(testimony, 'approved')}
           >
             <FiCheckCircle />
             Approve
@@ -21,7 +26,7 @@ function CardMenu({ testimony }: { testimony: TestimonyType }) {
         {testimony.status !== 'declined' && (
           <li
             className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center gap-2 text-error duration-500'
-            // onClick={() => openActivateModal(admin)}
+            onClick={() => changeTestimonyStatus(testimony, 'declined')}
           >
             <FiXCircle />
             Decline
@@ -30,7 +35,7 @@ function CardMenu({ testimony }: { testimony: TestimonyType }) {
         {testimony.status !== 'archived' && (
           <li
             className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center gap-2 text-gray-600 duration-500'
-            // onClick={() => openDeactivateModal(admin)}
+            onClick={() => changeTestimonyStatus(testimony, 'archived')}
           >
             <FiArchive />
             Archive
