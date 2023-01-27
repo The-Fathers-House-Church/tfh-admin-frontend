@@ -38,12 +38,17 @@ function EventGallery() {
   return (
     <AppLayout
       pageAction={
-        <Link to='/event/new'>
-          <Button className='max-w-[156px] !h-[40px] !p-4'>
-            <FiPlus className='mr-3' />
-            Add Images
-          </Button>
-        </Link>
+        <div className='grid grid-flow-col gap-3 items-center'>
+          <BackButton />
+          {eventDetails && (
+            <Link to={`/event/gallery/add/${eventDetails._id}`}>
+              <Button className='max-w-[156px] !h-[40px] !p-4 w-full'>
+                <FiPlus className='mr-3' />
+                Add Images
+              </Button>
+            </Link>
+          )}
+        </div>
       }
       pageTitle='Event Gallery'
     >
