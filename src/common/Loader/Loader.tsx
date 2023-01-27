@@ -1,7 +1,7 @@
 import styles from './style.module.css';
 
-function Loader() {
-	return <div className={styles.loader} />;
+function Loader({ className }: { className?: string }) {
+  return <div className={className + ' ' + styles.loader} />;
 }
 
 export default Loader;
