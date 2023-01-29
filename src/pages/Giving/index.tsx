@@ -1,7 +1,7 @@
 import React from 'react';
 import { appAxios } from '../../api/axios';
 import Pagination from '../../common/Pagination';
-import UserCard from '../../components/Users/UserCard';
+import TransactionCard from '../../components/Giving/TransactionCard';
 import { sendCatchFeedback } from '../../functions/feedback';
 import { getUserSession } from '../../functions/userSession';
 import AppLayout from '../../layout/AppLayout';
@@ -10,53 +10,55 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { UserType } from '../../types';
+import { TransactionType } from '../../types';
 
-function User() {
+function Transaction() {
   const dispatch = useAppDispatch();
-  const [users, setUsers] = React.useState<UserType[] | undefined>([]);
+  const [transactions, setTransactions] = React.useState<TransactionType[] | undefined>(
+    []
+  );
   const [totalResults, setTotalResults] = React.useState(0);
   const [page, setPage] = React.useState(1);
-  const currentUser = getUserSession();
+  const currentTransaction = getUserSession();
 
   React.useEffect(() => {
-    const getAllUsers = async () => {
-      dispatch(openLoadingIndicator({ text: 'Retrieving Users' }));
+    const getAllTransactions = async () => {
+      dispatch(openLoadingIndicator({ text: 'Retrieving Transactions' }));
 
       try {
-        const response = await appAxios.get(`/user?page=${page}`, {
+        const response = await appAxios.get(`/transaction?page=${page}`, {
           headers: {
-            Authorization: currentUser ? currentUser?.token : null,
+            Authorization: currentTransaction ? currentTransaction?.token : null,
           },
         });
 
-        setUsers(response.data.data?.results);
+        setTransactions(response.data.data?.results);
         setTotalResults(response.data.data?.pagination?.totalResults);
       } catch (error) {
-        setUsers([]);
+        setTransactions([]);
         sendCatchFeedback(error);
       }
       dispatch(closeLoadingIndicator());
     };
-    getAllUsers();
+    getAllTransactions();
   }, [page]);
 
   return (
-    <AppLayout pageTitle='Users'>
-      {users && users.length ? (
+    <AppLayout pageTitle='Transactions'>
+      {transactions && transactions.length ? (
         <>
           <div className='flex flex-col gap-5'>
-            {users.map((user) => (
-              <UserCard user={user} key={user._id} />
+            {transactions.map((transaction) => (
+              <TransactionCard transaction={transaction} key={transaction._id} />
             ))}
           </div>
           <Pagination page={page} totalResults={totalResults} setPage={setPage} />
         </>
       ) : (
-        <>No user found</>
+        <>No transaction found</>
       )}
     </AppLayout>
   );
 }
 
-export default User;
+export default Transaction;

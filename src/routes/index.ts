@@ -1,3 +1,6 @@
+import { announcementRoutes } from './announcement/index';
+import { givingRoutes } from './giving/index';
+import { feedbackRoutes } from './feedback/index';
 import { testimonyRoutes } from './testimony/index';
 import { adminRoutes } from './admin/index';
 import { devotionalRoutes } from './devotional/index';
@@ -14,4 +17,7 @@ export const routes = [
   ...eventRoutes,
   ...adminRoutes,
   ...testimonyRoutes,
+  ...feedbackRoutes,
+  ...givingRoutes,
+  ...announcementRoutes,
 ];

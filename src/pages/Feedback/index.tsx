@@ -2,7 +2,7 @@ import React from 'react';
 import { appAxios } from '../../api/axios';
 import Button from '../../common/Button/Button';
 import Pagination from '../../common/Pagination';
-import TestimonyCard from '../../components/Testimony/TestimonyCard';
+import FeedbackCard from '../../components/Feedback/FeedbackCard';
 import { sendCatchFeedback, sendFeedback } from '../../functions/feedback';
 import { getUserSession } from '../../functions/userSession';
 import AppLayout from '../../layout/AppLayout';
@@ -11,45 +11,45 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { TestimonyType } from '../../types';
+import { FeedbackType } from '../../types';
 
-function Testimony() {
+function Feedback() {
   const dispatch = useAppDispatch();
-  const [testimonies, setTestimonies] = React.useState<TestimonyType[] | undefined>([]);
+  const [allFeedback, setFeedback] = React.useState<FeedbackType[] | undefined>([]);
   const [totalResults, setTotalResults] = React.useState(0);
   const [page, setPage] = React.useState(1);
   const currentUser = getUserSession();
   const [status, setStatus] = React.useState('all');
 
-  const statuses = ['all', 'pending', 'approved', 'declined', 'archived'];
+  const statuses = ['all', 'unread', 'read'];
 
   React.useEffect(() => {
-    const getAllTestimonies = async () => {
-      dispatch(openLoadingIndicator({ text: 'Retrieving Testimonies' }));
+    const getAllFeedback = async () => {
+      dispatch(openLoadingIndicator({ text: 'Retrieving Feedback' }));
 
       try {
-        const response = await appAxios.get(`/testimony?page=${page}`, {
+        const response = await appAxios.get(`/feedback?page=${page}`, {
           headers: {
             Authorization: currentUser ? currentUser?.token : null,
           },
         });
 
-        setTestimonies(response.data.data?.results);
+        setFeedback(response.data.data?.results);
         setTotalResults(response.data.data?.pagination?.totalResults);
       } catch (error) {
-        setTestimonies([]);
+        setFeedback([]);
         sendCatchFeedback(error);
       }
       dispatch(closeLoadingIndicator());
     };
-    getAllTestimonies();
+    getAllFeedback();
   }, [page, status]);
 
-  const changeTestimonyStatus = async (testimony: TestimonyType, newStatus: string) => {
-    dispatch(openLoadingIndicator({ text: 'Retrieving Testimonies' }));
+  const changeFeedbackStatus = async (feedback: FeedbackType, newStatus: string) => {
+    dispatch(openLoadingIndicator({ text: 'Retrieving Feedback' }));
     try {
       const response = await appAxios.patch(
-        `/testimony/${testimony._id}/change-status`,
+        `/feedback/${feedback._id}/change-status`,
         { status: newStatus },
         {
           headers: {
@@ -60,9 +60,9 @@ function Testimony() {
 
       sendFeedback(response.data?.message, 'success');
 
-      setTestimonies(
-        testimonies?.map((item) => {
-          if (item._id === testimony._id) {
+      setFeedback(
+        allFeedback?.map((item) => {
+          if (item._id === feedback._id) {
             item.status = newStatus;
           }
           return item;
@@ -75,7 +75,7 @@ function Testimony() {
   };
 
   return (
-    <AppLayout pageTitle='Testimonies'>
+    <AppLayout pageTitle='Feedback'>
       <div className='grid grid-cols-2 md:grid-cols-5 gap-5 mb-10'>
         {statuses.map((item) => (
           <Button
@@ -90,24 +90,24 @@ function Testimony() {
           </Button>
         ))}
       </div>
-      {testimonies && testimonies.length ? (
+      {allFeedback && allFeedback.length ? (
         <>
           <div className='flex flex-col gap-5'>
-            {testimonies.map((testimony) => (
-              <TestimonyCard
-                testimony={testimony}
-                key={testimony._id}
-                changeTestimonyStatus={changeTestimonyStatus}
+            {allFeedback.map((feedback) => (
+              <FeedbackCard
+                feedback={feedback}
+                key={feedback._id}
+                changeFeedbackStatus={changeFeedbackStatus}
               />
             ))}
           </div>
           <Pagination page={page} totalResults={totalResults} setPage={setPage} />
         </>
       ) : (
-        <>No testimony found</>
+        <>No feedback found</>
       )}
     </AppLayout>
   );
 }
 
-export default Testimony;
+export default Feedback;
