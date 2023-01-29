@@ -12,8 +12,13 @@ export type UserType = {
   lastName: string;
   email: string;
   phoneNumber: string;
+  password: string;
+  verificationCode: string;
+  dateOfBirth: string;
+  churchCenter: string;
+  member: boolean;
   createdAt: string;
-  source: string;
+  registrationSource: string;
 };
 
 export type FeedbackType = {
