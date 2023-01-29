@@ -8,12 +8,23 @@ export type UncertainObjectType = {
 
 export type UserType = {
   _id: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone_number: string;
-  created_at: string;
-  token: string;
+  phoneNumber: string;
+  createdAt: string;
+  source: string;
+};
+
+export type FeedbackType = {
+  _id: string;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  content: string;
+  createdAt: string;
+  status: string;
+  source: string;
 };
 
 export type UserResultType = {
@@ -110,3 +121,38 @@ export interface TestimonyType {
   createdAt: Date;
   _id: string;
 }
+
+export interface TransactionType {
+  reference: string;
+  status: string;
+  source: string;
+  createdAt: Date;
+  _id: string;
+}
+
+export type AnnouncementType = {
+  _id: string;
+  name: string;
+  theme: string;
+  mainText: string;
+  date: string;
+  time: string;
+  allowRegistration: boolean;
+  registrationEntries: UncertainObjectType[];
+  gallery: string[];
+  limitedNumberRegistration: boolean;
+  registrationNumberLimit: number;
+  limitedDateRegistration: boolean;
+  registrationDateLimit: string;
+  requiredRegistrationDetails: {
+    id: string;
+    name: string;
+    type: string;
+    options?: string;
+  }[];
+  poster: string;
+  createdBy: string;
+  updatedBy: string;
+  createdAt: string;
+  updatedAt: string;
+};
