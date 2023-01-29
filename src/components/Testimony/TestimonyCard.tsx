@@ -5,7 +5,13 @@ import Card from '../../common/Card/Card';
 import { TestimonyType } from '../../types';
 import CardMenu from './CardMenu';
 
-function TestimonyCard({ testimony }: { testimony: TestimonyType }) {
+function TestimonyCard({
+  testimony,
+  changeTestimonyStatus,
+}: {
+  testimony: TestimonyType;
+  changeTestimonyStatus: (testimony: TestimonyType, newStatus: string) => void;
+}) {
   const [open, setOpen] = React.useState(false);
 
   const getStatusColor = (status: string) => {
@@ -46,7 +52,12 @@ function TestimonyCard({ testimony }: { testimony: TestimonyType }) {
               >
                 <FiMoreVertical />
               </button>
-              {open && <CardMenu testimony={testimony} />}
+              {open && (
+                <CardMenu
+                  testimony={testimony}
+                  changeTestimonyStatus={changeTestimonyStatus}
+                />
+              )}
             </div>
           </ClickAwayListener>
         </div>
