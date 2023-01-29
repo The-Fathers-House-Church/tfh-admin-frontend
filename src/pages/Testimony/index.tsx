@@ -49,7 +49,7 @@ function Testimony() {
     dispatch(openLoadingIndicator({ text: 'Retrieving Testimonies' }));
     try {
       const response = await appAxios.patch(
-        `/testimony`,
+        `/testimony/${testimony._id}/change-status`,
         { status: newStatus },
         {
           headers: {
