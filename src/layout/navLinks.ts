@@ -35,10 +35,10 @@ const navLinks: { label: string; href: string }[] = [
     label: 'Announcements',
     href: '/announcement',
   },
-  {
-    label: 'Giving',
-    href: '/giving',
-  },
+  // {
+  //   label: 'Giving',
+  //   href: '/giving',
+  // },
 ];
 
 export default navLinks;
