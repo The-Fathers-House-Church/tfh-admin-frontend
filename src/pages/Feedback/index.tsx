@@ -32,6 +32,11 @@ function Feedback() {
           headers: {
             Authorization: currentUser ? currentUser?.token : null,
           },
+          ...(status !== 'any' && {
+            data: {
+              status,
+            },
+          }),
         });
 
         setFeedback(response.data.data?.results);
@@ -49,7 +54,7 @@ function Feedback() {
     dispatch(openLoadingIndicator({ text: 'Retrieving Feedback' }));
     try {
       const response = await appAxios.patch(
-        `/feedback/${feedback._id}/change-status`,
+        `/feedback/status/${feedback._id}`,
         { status: newStatus },
         {
           headers: {

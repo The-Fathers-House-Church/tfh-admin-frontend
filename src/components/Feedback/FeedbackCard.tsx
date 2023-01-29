@@ -18,10 +18,6 @@ function FeedbackCard({
     <Card className='min-w-full shadow'>
       <div className='flex flex-col gap-3'>
         <div className='flex flex-row justify-between'>
-          <div className='flex flex-row gap-2'>
-            <span className='font-bold'>Date:</span>
-            <span>{new Date(feedback.createdAt).toDateString()}</span>
-          </div>
           <ClickAwayListener onClickAway={() => setOpen(false)}>
             <div className='relative'>
               <button
@@ -62,6 +58,10 @@ function FeedbackCard({
         <div className='flex flex-row gap-2'>
           <span className='font-bold'>Interaction Channel:</span>
           <span className='capitalize'>{feedback.source}</span>
+        </div>
+        <div className='flex flex-row gap-2'>
+          <span className='font-bold'>Date received:</span>
+          <span>{new Date(feedback.createdAt).toDateString()}</span>
         </div>
       </div>
     </Card>
