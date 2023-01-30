@@ -15,10 +15,10 @@ const navLinks: { label: string; href: string }[] = [
     label: 'Users',
     href: '/users',
   },
-  {
-    label: 'Live Stream',
-    href: '/live-stream',
-  },
+  // {
+  //   label: 'Live Stream',
+  //   href: '/live-stream',
+  // },
   {
     label: 'Testimonies',
     href: '/testimony',
