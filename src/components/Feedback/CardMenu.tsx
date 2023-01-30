@@ -4,9 +4,11 @@ import { FeedbackType } from '../../types';
 function CardMenu({
   feedback,
   changeFeedbackStatus,
+  closeMenu,
 }: {
   feedback: FeedbackType;
   changeFeedbackStatus: (feedback: FeedbackType, newStatus: string) => void;
+  closeMenu: () => void;
 }) {
   return (
     <nav
@@ -17,7 +19,10 @@ function CardMenu({
         {feedback.status !== 'read' && (
           <li
             className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center  gap-2 duration-500'
-            onClick={() => changeFeedbackStatus(feedback, 'read')}
+            onClick={() => {
+              changeFeedbackStatus(feedback, 'read');
+              closeMenu();
+            }}
           >
             <FiCheckCircle />
             Mark as read
@@ -26,7 +31,10 @@ function CardMenu({
         {feedback.status !== 'unread' && (
           <li
             className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center gap-2 duration-500'
-            onClick={() => changeFeedbackStatus(feedback, 'unread')}
+            onClick={() => {
+              changeFeedbackStatus(feedback, 'unread');
+              closeMenu();
+            }}
           >
             <FiXCircle />
             Mark as unread

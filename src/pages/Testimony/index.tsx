@@ -46,7 +46,7 @@ function Testimony() {
   }, [page, status]);
 
   const changeTestimonyStatus = async (testimony: TestimonyType, newStatus: string) => {
-    dispatch(openLoadingIndicator({ text: 'Retrieving Testimonies' }));
+    dispatch(openLoadingIndicator({ text: 'Updating Testimony' }));
     try {
       const response = await appAxios.patch(
         `/testimony/${testimony._id}/change-status`,

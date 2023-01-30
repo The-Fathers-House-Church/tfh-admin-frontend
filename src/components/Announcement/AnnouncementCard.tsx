@@ -21,26 +21,22 @@ function AnnouncementCard({
     >
       <article>
         <img
-          src={announcement.poster || DefaultImage}
+          src={announcement.image || DefaultImage}
           alt='Poster'
           className='object-cover h-36 w-full rounded-t-lg'
         />
         <div className='flex flex-col flex-wrap gap-2 p-5'>
-          <span className='font-bold text-lg'>{announcement.name}</span>
+          <span className='font-bold text-lg'>{announcement.title}</span>
           <div className='flex items-center gap-1'>
-            <span className='text-sm'>Date: </span>
-            <span className='text-sm'>{new Date(announcement.date).toDateString()}</span>
+            <span className='text-sm'>Priority: </span>
+            <span className='text-sm'>{announcement.priority}</span>
           </div>
-          <div className='flex items-center gap-1'>
-            <span className='text-sm'>Theme: </span>
-            <span className='text-sm'>{announcement.theme}</span>
-          </div>
-          <div className='flex items-center gap-1'>
-            <span className='text-sm'>Allows Registration: </span>
-            <span className='text-sm'>
-              {announcement.allowRegistration ? 'Yes' : 'No'}
-            </span>
-          </div>
+          {announcement.details && (
+            <div className='flex items-center gap-1'>
+              <span className='text-sm'>Details: </span>
+              <span className='text-sm line-clamp'>{announcement.details}</span>
+            </div>
+          )}
           <div className='flex items-center justify-center mt-5 gap-5'>
             <FiEdit
               onClick={(e) => {

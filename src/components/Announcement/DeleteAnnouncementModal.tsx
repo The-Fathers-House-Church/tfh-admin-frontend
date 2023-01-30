@@ -63,8 +63,8 @@ function DeleteAnnouncementModal({
     >
       <div>
         <p className='text-center md:text-left mb-10'>
-          You are trying to delete this Announcement: ({announcement?.name}). Are you sure
-          you want to continue?
+          You are trying to delete this Announcement: ({announcement?.title}). Are you
+          sure you want to continue?
         </p>
         <div className='flex items-center justify-center gap-5 flex-wrap md:justify-start'>
           <Button className='md:max-w-[200px] bg-error' onClick={handleDelete}>

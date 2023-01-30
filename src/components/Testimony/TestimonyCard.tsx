@@ -14,6 +14,10 @@ function TestimonyCard({
 }) {
   const [open, setOpen] = React.useState(false);
 
+  const closeMenu = () => {
+    setOpen(false);
+  };
+
   const getStatusColor = (status: string) => {
     let color = '';
 
@@ -55,6 +59,7 @@ function TestimonyCard({
               {open && (
                 <CardMenu
                   testimony={testimony}
+                  closeMenu={closeMenu}
                   changeTestimonyStatus={changeTestimonyStatus}
                 />
               )}

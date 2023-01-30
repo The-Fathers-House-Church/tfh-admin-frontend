@@ -135,29 +135,12 @@ export interface TransactionType {
   _id: string;
 }
 
-export type AnnouncementType = {
-  _id: string;
-  name: string;
-  theme: string;
-  mainText: string;
-  date: string;
-  time: string;
-  allowRegistration: boolean;
-  registrationEntries: UncertainObjectType[];
-  gallery: string[];
-  limitedNumberRegistration: boolean;
-  registrationNumberLimit: number;
-  limitedDateRegistration: boolean;
-  registrationDateLimit: string;
-  requiredRegistrationDetails: {
-    id: string;
-    name: string;
-    type: string;
-    options?: string;
-  }[];
-  poster: string;
+export interface AnnouncementType {
+  title: string;
+  details: string;
+  image: string;
+  priority: number;
   createdBy: string;
   updatedBy: string;
-  createdAt: string;
-  updatedAt: string;
-};
+  _id: string;
+}
