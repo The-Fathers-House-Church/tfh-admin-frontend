@@ -61,85 +61,23 @@ function ViewAnnouncementLayout({
     <div>
       <article className='flex flex-col gap-5'>
         <img
-          src={announcement.poster || DefaultImage}
+          src={announcement.image || DefaultImage}
           alt='Poster'
           className='object-cover h-60 w-full rounded-t-lg'
         />
-        <AnnouncementItem title='Name:' content={announcement.name} />
-        <AnnouncementItem
-          title='Date:'
-          content={new Date(announcement.date).toDateString()}
-        />
-        <AnnouncementItem title='Time:' content={announcement.time} />
-        <AnnouncementItem title='Main Text:' content={announcement.mainText} />
-        <AnnouncementItem title='Theme:' content={announcement.theme} />
-        <AnnouncementItem
-          title='Allows Registration:'
-          content={announcement.allowRegistration}
-          isBooleanValue
-        />
+        <AnnouncementItem title='Title:' content={announcement.title} />
 
-        {announcement.allowRegistration && (
-          <AnnouncementItem
-            title='Required registration details:'
-            content={announcement.requiredRegistrationDetails
-              ?.map((item) => item.name.replace(/_/g, ' '))
-              .join(', ')}
-          />
+        <AnnouncementItem title='Priority:' content={announcement.priority} />
+        {announcement.details && (
+          <AnnouncementItem title='Details:' content={announcement.details} />
         )}
-
-        <AnnouncementItem
-          title='Limited by Date:'
-          content={announcement.limitedDateRegistration}
-          isBooleanValue
-        />
-
-        {announcement.limitedDateRegistration && (
-          <AnnouncementItem
-            title='Date Limit:'
-            content={new Date(announcement.registrationDateLimit).toDateString()}
-          />
-        )}
-
-        <AnnouncementItem
-          title='Limited by Number:'
-          content={announcement.limitedNumberRegistration}
-          isBooleanValue
-        />
-        {announcement.limitedNumberRegistration && (
-          <AnnouncementItem
-            title='Number Limit:'
-            content={announcement.registrationNumberLimit}
-          />
-        )}
-        <AnnouncementItem
-          title='Gallery Images:'
-          content={announcement.gallery.length || 0}
-        />
       </article>
-
-      {/* <h3 className='font-bold text-lg mb:5'>Gallery Images: </h3>
-      {announcement.gallery.length ? (
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
-          {announcement.gallery.map((item: string) => (
-            <img src={item} alt='Gallery' className='h-20 w-full object-cover' />
-          ))}
-        </div>
-      ) : (
-        <>No gallery image added</>
-      )} */}
 
       <div className='flex items-center justify-center gap-5 mt-10'>
         <Link to={`/announcement/edit/${announcement._id}`} className='w-[200px]'>
           <Button>
             <FiEdit className='mr-5' />
             Edit
-          </Button>
-        </Link>
-        <Link to={`/announcement/gallery/${announcement._id}`} className='w-[200px]'>
-          <Button className='bg-dark'>
-            <FiImage className='mr-5' />
-            Gallery
           </Button>
         </Link>
         <Button className='max-w-[200px] bg-error' onClick={openDeleteModal}>

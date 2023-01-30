@@ -4,9 +4,11 @@ import { TestimonyType } from '../../types';
 function CardMenu({
   testimony,
   changeTestimonyStatus,
+  closeMenu,
 }: {
   testimony: TestimonyType;
   changeTestimonyStatus: (testimony: TestimonyType, newStatus: string) => void;
+  closeMenu: () => void;
 }) {
   return (
     <nav
@@ -17,7 +19,10 @@ function CardMenu({
         {testimony.status !== 'approved' && (
           <li
             className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center text-success gap-2 duration-500'
-            onClick={() => changeTestimonyStatus(testimony, 'approved')}
+            onClick={() => {
+              changeTestimonyStatus(testimony, 'approved');
+              closeMenu();
+            }}
           >
             <FiCheckCircle />
             Approve
@@ -26,7 +31,10 @@ function CardMenu({
         {testimony.status !== 'declined' && (
           <li
             className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center gap-2 text-error duration-500'
-            onClick={() => changeTestimonyStatus(testimony, 'declined')}
+            onClick={() => {
+              changeTestimonyStatus(testimony, 'declined');
+              closeMenu();
+            }}
           >
             <FiXCircle />
             Decline
@@ -35,7 +43,10 @@ function CardMenu({
         {testimony.status !== 'archived' && (
           <li
             className='p-2 hover:bg-lightDark hover:text-white text-sm cursor-pointer flex items-center gap-2 text-gray-600 duration-500'
-            onClick={() => changeTestimonyStatus(testimony, 'archived')}
+            onClick={() => {
+              changeTestimonyStatus(testimony, 'archived');
+              closeMenu();
+            }}
           >
             <FiArchive />
             Archive

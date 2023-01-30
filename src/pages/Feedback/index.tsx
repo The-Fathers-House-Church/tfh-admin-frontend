@@ -28,16 +28,19 @@ function Feedback() {
       dispatch(openLoadingIndicator({ text: 'Retrieving Feedback' }));
 
       try {
-        const response = await appAxios.get(`/feedback?page=${page}`, {
-          headers: {
-            Authorization: currentUser ? currentUser?.token : null,
-          },
-          ...(status !== 'any' && {
-            data: {
+        const response = await appAxios.post(
+          `/feedback?page=${page}`,
+          {
+            ...(status !== 'all' && {
               status,
+            }),
+          },
+          {
+            headers: {
+              Authorization: currentUser ? currentUser?.token : null,
             },
-          }),
-        });
+          }
+        );
 
         setFeedback(response.data.data?.results);
         setTotalResults(response.data.data?.pagination?.totalResults);
@@ -51,7 +54,7 @@ function Feedback() {
   }, [page, status]);
 
   const changeFeedbackStatus = async (feedback: FeedbackType, newStatus: string) => {
-    dispatch(openLoadingIndicator({ text: 'Retrieving Feedback' }));
+    dispatch(openLoadingIndicator({ text: 'Updating Feedback' }));
     try {
       const response = await appAxios.patch(
         `/feedback/status/${feedback._id}`,

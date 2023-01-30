@@ -14,10 +14,18 @@ function FeedbackCard({
 }) {
   const [open, setOpen] = React.useState(false);
 
+  const closeMenu = () => {
+    setOpen(false);
+  };
+
   return (
     <Card className='min-w-full shadow'>
       <div className='flex flex-col gap-3'>
         <div className='flex flex-row justify-between'>
+          <div className='flex flex-row gap-2'>
+            <span className='font-bold'>Name:</span>
+            <span className='capitalize'>{feedback.fullName}</span>
+          </div>
           <ClickAwayListener onClickAway={() => setOpen(false)}>
             <div className='relative'>
               <button
@@ -30,15 +38,13 @@ function FeedbackCard({
                 <CardMenu
                   feedback={feedback}
                   changeFeedbackStatus={changeFeedbackStatus}
+                  closeMenu={closeMenu}
                 />
               )}
             </div>
           </ClickAwayListener>
         </div>
-        <div className='flex flex-row gap-2'>
-          <span className='font-bold'>Name:</span>
-          <span className='capitalize'>{feedback.fullName}</span>
-        </div>
+
         <div className='flex flex-row gap-2'>
           <span className='font-bold'>Email:</span>
           <span className='capitalize'>{feedback.email}</span>
