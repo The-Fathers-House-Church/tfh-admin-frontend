@@ -4,7 +4,7 @@ import LabelInput from '../../common/LabelInput/LabelInput';
 // @ts-ignore
 import { v4 as uuidv4 } from 'uuid';
 import { FiPlusSquare, FiTrash } from 'react-icons/fi';
-import { RegistrationDetailType } from '../../types';
+import { RegistrationDetailType } from '../../../types/types';
 import Dropdown from '../../common/Dropdown/Dropdown';
 import TextArea from '../../common/TextArea/TextArea';
 

@@ -4,7 +4,7 @@ import { appAxios } from '../../../api/axios';
 import Loader from '../../../common/Loader/Loader';
 import { sendCatchFeedback, sendFeedback } from '../../../functions/feedback';
 import { getUserSession } from '../../../functions/userSession';
-import { EventType, SetState } from '../../../types';
+import { EventType, SetState } from '../../../../types/types';
 
 function ViewGallery({
   event,
@@ -47,7 +47,7 @@ function ViewGallery({
       {event.gallery.length ? (
         <div className='grid grid-cols-2 md:grid-cols-4 gap-5'>
           {event.gallery.map((image) => (
-            <div className='relative'>
+            <div className='relative' key={image}>
               <img
                 src={image}
                 alt='Gallery'

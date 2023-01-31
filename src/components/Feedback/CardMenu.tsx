@@ -1,5 +1,5 @@
 import { FiCheckCircle, FiXCircle } from 'react-icons/fi';
-import { FeedbackType } from '../../types';
+import { FeedbackType } from '../../../types/types';
 
 function CardMenu({
   feedback,

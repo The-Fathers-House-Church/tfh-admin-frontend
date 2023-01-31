@@ -2,7 +2,7 @@ import React from 'react';
 import { FiEdit, FiImage, FiTrash } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../common/Button/Button';
-import { EventType } from '../../types';
+import { EventType } from '../../../types/types';
 import DeleteEventModal from './DeleteEventModal';
 import DefaultImage from '../../assets/images/default.jpg';
 import Divider from '../../common/Divider/Divider';
@@ -29,7 +29,7 @@ const EventItem = ({
       {multipleContent && !joinMultipleContent ? (
         <div className='flex flex-col gap-2'>
           {multipleContent.map((content) => (
-            <span>{content}</span>
+            <span key={content}>{content}</span>
           ))}
         </div>
       ) : (

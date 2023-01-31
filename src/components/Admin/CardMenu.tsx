@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiShield, FiUserCheck, FiUserX } from 'react-icons/fi';
-import { AdminType } from '../../types';
+import { AdminType } from '../../../types/types';
 
 function CardMenu({
   admin = null,

@@ -5,7 +5,7 @@ import Pagination from '../../common/Pagination';
 import SectionHeader from '../../common/SectionHeader';
 import { sendCatchFeedback } from '../../functions/feedback';
 import { getUserSession } from '../../functions/userSession';
-import { AnnouncementType } from '../../types';
+import { AnnouncementType } from '../../../types/types';
 import DeleteAnnouncementModal from './DeleteAnnouncementModal';
 import AnnouncementCard from './AnnouncementCard';
 

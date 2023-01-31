@@ -11,7 +11,11 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { FeedbackType } from '../../types';
+import { FeedbackType } from '../../../types/types';
+import { FeedbackSummaryType } from '../../../types/statistics';
+import StatisticsCard from '../../common/StatisticsCard/StatisticsCard';
+import SectionHeader from '../../common/SectionHeader';
+import { capitalize } from 'lodash';
 
 function Feedback() {
   const dispatch = useAppDispatch();
@@ -20,6 +24,7 @@ function Feedback() {
   const [page, setPage] = React.useState(1);
   const currentUser = getUserSession();
   const [status, setStatus] = React.useState('all');
+  const [stats, setStats] = React.useState<FeedbackSummaryType | undefined>(undefined);
 
   const statuses = ['all', 'unread', 'read'];
 
@@ -53,6 +58,24 @@ function Feedback() {
     getAllFeedback();
   }, [page, status]);
 
+  React.useEffect(() => {
+    const getStats = async () => {
+      try {
+        const response = await appAxios.get(`/statistics/feedback`, {
+          headers: {
+            Authorization: currentUser ? currentUser?.token : null,
+          },
+        });
+
+        setStats(response.data.data);
+      } catch (error) {
+        setStats(undefined);
+        sendCatchFeedback(error);
+      }
+    };
+    getStats();
+  }, [dispatch]);
+
   const changeFeedbackStatus = async (feedback: FeedbackType, newStatus: string) => {
     dispatch(openLoadingIndicator({ text: 'Updating Feedback' }));
     try {
@@ -84,7 +107,17 @@ function Feedback() {
 
   return (
     <AppLayout pageTitle='Feedback'>
-      <div className='grid grid-cols-2 md:grid-cols-5 gap-5 mb-10'>
+      {stats && (
+        <div className='grid grid-cols-2 md:grid-cols-4 gap-5 mb-10'>
+          <StatisticsCard title='Sent via Mobile' value={stats.feedbackSentByMobile} />
+          <StatisticsCard title='Sent via Web' value={stats.feedbackSentByWeb} />
+          <StatisticsCard title='Total Feedback' value={stats.totalFeedback} />
+          <StatisticsCard title='Unread Feedback' value={stats.unreadFeedback} />
+        </div>
+      )}
+      <SectionHeader title={`${capitalize(status)} Feedback`} />
+
+      <div className='grid grid-cols-2 md:grid-cols-5 gap-5 mb-5'>
         {statuses.map((item) => (
           <Button
             style={{
@@ -93,6 +126,7 @@ function Feedback() {
             }}
             className='capitalize hover:!brightness-90'
             onClick={() => setStatus(item)}
+            key={item}
           >
             {item}
           </Button>

@@ -1,5 +1,5 @@
 import { FiArchive, FiCheckCircle, FiXCircle } from 'react-icons/fi';
-import { TestimonyType } from '../../types';
+import { TestimonyType } from '../../../types/types';
 
 function CardMenu({
   testimony,

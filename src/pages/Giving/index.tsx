@@ -10,7 +10,7 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { TransactionType } from '../../types';
+import { TransactionType } from '../../../types/types';
 
 function Transaction() {
   const dispatch = useAppDispatch();

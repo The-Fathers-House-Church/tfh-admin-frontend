@@ -1,5 +1,5 @@
 import Card from '../../common/Card/Card';
-import { UserType } from '../../types';
+import { UserType } from '../../../types/types';
 
 function UserCard({ user }: { user: UserType }) {
   return (

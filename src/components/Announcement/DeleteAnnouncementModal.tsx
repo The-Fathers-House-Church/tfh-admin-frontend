@@ -9,7 +9,7 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { AnnouncementType, SetState } from '../../types';
+import { AnnouncementType, SetState } from '../../../types/types';
 
 function DeleteAnnouncementModal({
   closeDeleteModal,
