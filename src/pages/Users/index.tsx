@@ -10,7 +10,10 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { UserType } from '../../types';
+import { UserType } from '../../../types/types';
+import { UserSummaryType } from '../../../types/statistics';
+import StatisticsCard from '../../common/StatisticsCard/StatisticsCard';
+import SectionHeader from '../../common/SectionHeader';
 
 function User() {
   const dispatch = useAppDispatch();
@@ -18,6 +21,7 @@ function User() {
   const [totalResults, setTotalResults] = React.useState(0);
   const [page, setPage] = React.useState(1);
   const currentUser = getUserSession();
+  const [stats, setStats] = React.useState<UserSummaryType | undefined>(undefined);
 
   React.useEffect(() => {
     const getAllUsers = async () => {
@@ -41,10 +45,41 @@ function User() {
     getAllUsers();
   }, [page]);
 
+  React.useEffect(() => {
+    const getStats = async () => {
+      try {
+        const response = await appAxios.get(`/statistics/user`, {
+          headers: {
+            Authorization: currentUser ? currentUser?.token : null,
+          },
+        });
+
+        setStats(response.data.data);
+      } catch (error) {
+        setStats(undefined);
+        sendCatchFeedback(error);
+      }
+    };
+    getStats();
+  }, [dispatch]);
+
   return (
     <AppLayout pageTitle='Users'>
+      {stats && (
+        <div className='grid grid-cols-2 md:grid-cols-4 gap-5 mb-10'>
+          <StatisticsCard title='Registered Members' value={stats.registeredMembers} />
+          <StatisticsCard title='Total Users' value={stats.totalUsers} />
+          <StatisticsCard
+            title='Registered via Mobile'
+            value={stats.userRegisteredByMobile}
+          />
+          <StatisticsCard title='Registered via Web' value={stats.userRegisteredByWeb} />
+        </div>
+      )}
+
       {users && users.length ? (
         <>
+          <SectionHeader title='All Users' />
           <div className='flex flex-col gap-5'>
             {users.map((user) => (
               <UserCard user={user} key={user._id} />

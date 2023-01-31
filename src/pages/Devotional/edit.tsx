@@ -6,38 +6,38 @@ import EditDevotionalForm from '../../components/Devotional/EditDevotionalForm';
 import AppLayout from '../../layout/AppLayout';
 import { useAppDispatch } from '../../store/hooks';
 import {
-	closeLoadingIndicator,
-	openLoadingIndicator,
+  closeLoadingIndicator,
+  openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { DevotionalType } from '../../types';
+import { DevotionalType } from '../../../types/types';
 
 function EditDevotional() {
-	const [devotionalDetails, setDevotionalDetails] = React.useState<
-		DevotionalType | undefined
-	>(undefined);
-	const { id } = useParams();
-	const dispatch = useAppDispatch();
+  const [devotionalDetails, setDevotionalDetails] = React.useState<
+    DevotionalType | undefined
+  >(undefined);
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
 
-	React.useEffect(() => {
-		const getDevotional = async () => {
-			dispatch(openLoadingIndicator({ text: 'Retrieving Devotional' }));
+  React.useEffect(() => {
+    const getDevotional = async () => {
+      dispatch(openLoadingIndicator({ text: 'Retrieving Devotional' }));
 
-			try {
-				const response = await appAxios.get('/devotional/view/' + id);
-				setDevotionalDetails(response.data.devotional);
-			} catch (error) {
-				setDevotionalDetails(undefined);
-			}
-			dispatch(closeLoadingIndicator());
-		};
-		getDevotional();
-	}, []);
+      try {
+        const response = await appAxios.get('/devotional/view/' + id);
+        setDevotionalDetails(response.data.devotional);
+      } catch (error) {
+        setDevotionalDetails(undefined);
+      }
+      dispatch(closeLoadingIndicator());
+    };
+    getDevotional();
+  }, []);
 
-	return (
-		<AppLayout pageAction={<BackButton />} pageTitle='Edit Devotional'>
-			<EditDevotionalForm devotional={devotionalDetails} />
-		</AppLayout>
-	);
+  return (
+    <AppLayout pageAction={<BackButton />} pageTitle='Edit Devotional'>
+      <EditDevotionalForm devotional={devotionalDetails} />
+    </AppLayout>
+  );
 }
 
 export default EditDevotional;

@@ -2,7 +2,7 @@ import React from 'react';
 import ClickAwayListener from 'react-click-away-listener';
 import { FiMoreVertical } from 'react-icons/fi';
 import Card from '../../common/Card/Card';
-import { FeedbackType } from '../../types';
+import { FeedbackType } from '../../../types/types';
 import CardMenu from './CardMenu';
 
 function FeedbackCard({

@@ -13,7 +13,7 @@ import LabelInput from '../../common/LabelInput/LabelInput';
 import Button from '../../common/Button/Button';
 import TextArea from '../../common/TextArea/TextArea';
 import { getUserSession } from '../../functions/userSession';
-import { EventType } from '../../types';
+import { EventType } from '../../../types/types';
 import Dropdown from '../../common/Dropdown/Dropdown';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

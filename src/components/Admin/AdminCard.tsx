@@ -1,6 +1,6 @@
 import { FiMoreVertical } from 'react-icons/fi';
 import Card from '../../common/Card/Card';
-import { AdminType } from '../../types';
+import { AdminType } from '../../../types/types';
 import { useState } from 'react';
 import CardMenu from './CardMenu';
 import ClickAwayListener from 'react-click-away-listener';

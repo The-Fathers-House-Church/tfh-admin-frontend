@@ -12,7 +12,7 @@ import LabelInput from '../../common/LabelInput/LabelInput';
 import Button from '../../common/Button/Button';
 import TextArea from '../../common/TextArea/TextArea';
 import { getUserSession } from '../../functions/userSession';
-import { AnnouncementType } from '../../types';
+import { AnnouncementType } from '../../../types/types';
 import Dropdown from '../../common/Dropdown/Dropdown';
 
 function EditAnnouncementForm({ announcement }: { announcement: AnnouncementType }) {

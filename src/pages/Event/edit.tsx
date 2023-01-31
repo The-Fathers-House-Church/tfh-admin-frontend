@@ -9,7 +9,7 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { EventType } from '../../types';
+import { EventType } from '../../../types/types';
 
 function EditEvent() {
   const [eventDetails, setEventDetails] = React.useState<EventType | undefined>(

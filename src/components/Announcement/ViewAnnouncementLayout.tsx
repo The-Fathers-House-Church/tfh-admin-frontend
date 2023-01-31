@@ -2,7 +2,7 @@ import React from 'react';
 import { FiEdit, FiImage, FiTrash } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../common/Button/Button';
-import { AnnouncementType } from '../../types';
+import { AnnouncementType } from '../../../types/types';
 import DeleteAnnouncementModal from './DeleteAnnouncementModal';
 import DefaultImage from '../../assets/images/default.jpg';
 import Divider from '../../common/Divider/Divider';
@@ -29,7 +29,7 @@ const AnnouncementItem = ({
       {multipleContent && !joinMultipleContent ? (
         <div className='flex flex-col gap-2'>
           {multipleContent.map((content) => (
-            <span>{content}</span>
+            <span key={content}>{content}</span>
           ))}
         </div>
       ) : (

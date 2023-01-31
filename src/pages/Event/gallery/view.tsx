@@ -11,7 +11,7 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../../store/slices/loadingIndicator';
-import { EventType } from '../../../types';
+import { EventType } from '../../../../types/types';
 
 function EventGallery() {
   const [eventDetails, setEventDetails] = React.useState<EventType | undefined>(

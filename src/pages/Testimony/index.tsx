@@ -11,7 +11,11 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { TestimonyType } from '../../types';
+import { TestimonyType } from '../../../types/types';
+import { TestimonySummaryType } from '../../../types/statistics';
+import StatisticsCard from '../../common/StatisticsCard/StatisticsCard';
+import SectionHeader from '../../common/SectionHeader';
+import { capitalize } from 'lodash';
 
 function Testimony() {
   const dispatch = useAppDispatch();
@@ -20,6 +24,7 @@ function Testimony() {
   const [page, setPage] = React.useState(1);
   const currentUser = getUserSession();
   const [status, setStatus] = React.useState('all');
+  const [stats, setStats] = React.useState<TestimonySummaryType | undefined>(undefined);
 
   const statuses = ['all', 'pending', 'approved', 'declined', 'archived'];
 
@@ -28,11 +33,19 @@ function Testimony() {
       dispatch(openLoadingIndicator({ text: 'Retrieving Testimonies' }));
 
       try {
-        const response = await appAxios.get(`/testimony?page=${page}`, {
-          headers: {
-            Authorization: currentUser ? currentUser?.token : null,
+        const response = await appAxios.post(
+          `/testimony?page=${page}`,
+          {
+            ...(status !== 'all' && {
+              status,
+            }),
           },
-        });
+          {
+            headers: {
+              Authorization: currentUser ? currentUser?.token : null,
+            },
+          }
+        );
 
         setTestimonies(response.data.data?.results);
         setTotalResults(response.data.data?.pagination?.totalResults);
@@ -44,6 +57,24 @@ function Testimony() {
     };
     getAllTestimonies();
   }, [page, status]);
+
+  React.useEffect(() => {
+    const getStats = async () => {
+      try {
+        const response = await appAxios.get(`/statistics/testimony`, {
+          headers: {
+            Authorization: currentUser ? currentUser?.token : null,
+          },
+        });
+
+        setStats(response.data.data);
+      } catch (error) {
+        setStats(undefined);
+        sendCatchFeedback(error);
+      }
+    };
+    getStats();
+  }, [dispatch]);
 
   const changeTestimonyStatus = async (testimony: TestimonyType, newStatus: string) => {
     dispatch(openLoadingIndicator({ text: 'Updating Testimony' }));
@@ -76,7 +107,17 @@ function Testimony() {
 
   return (
     <AppLayout pageTitle='Testimonies'>
-      <div className='grid grid-cols-2 md:grid-cols-5 gap-5 mb-10'>
+      {stats && (
+        <div className='grid grid-cols-2 md:grid-cols-4 gap-5 mb-10'>
+          <StatisticsCard title='Sent via Mobile' value={stats.testimonySentByMobile} />
+          <StatisticsCard title='Sent via Web' value={stats.testimonySentByWeb} />
+          <StatisticsCard title='Total Testimonies' value={stats.totalTestimonies} />
+          <StatisticsCard title='Pending Testimonies' value={stats.pendingTestimonies} />
+        </div>
+      )}
+      <SectionHeader title={`${capitalize(status)} Testimonies`} />
+
+      <div className='grid grid-cols-2 md:grid-cols-5 gap-5 mb-5'>
         {statuses.map((item) => (
           <Button
             style={{
@@ -85,6 +126,7 @@ function Testimony() {
             }}
             className='capitalize hover:!brightness-90'
             onClick={() => setStatus(item)}
+            key={item}
           >
             {item}
           </Button>

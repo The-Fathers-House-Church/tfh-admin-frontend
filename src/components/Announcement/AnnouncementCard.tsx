@@ -1,7 +1,7 @@
 import { FiEdit, FiTrash } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import Card from '../../common/Card/Card';
-import { AnnouncementType } from '../../types';
+import { AnnouncementType } from '../../../types/types';
 import DefaultImage from '../../assets/images/default.jpg';
 
 function AnnouncementCard({

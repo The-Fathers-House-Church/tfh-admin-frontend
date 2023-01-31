@@ -10,7 +10,7 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { AnnouncementType } from '../../types';
+import { AnnouncementType } from '../../../types/types';
 
 function ViewAnnouncement() {
   const [announcementDetails, setAnnouncementDetails] = React.useState<

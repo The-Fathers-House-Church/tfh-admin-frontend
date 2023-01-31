@@ -1,5 +1,5 @@
 import Card from '../../common/Card/Card';
-import { TransactionType } from '../../types';
+import { TransactionType } from '../../../types/types';
 
 function TransactionCard({ transaction }: { transaction: TransactionType }) {
   return (
