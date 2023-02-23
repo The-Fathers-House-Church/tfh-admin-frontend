@@ -25,7 +25,7 @@ const EventItem = ({
       <span className='font-bold'>{title}</span>
 
       {isBooleanValue && <span>{content ? 'Yes' : 'No'}</span>}
-      {content && <span>{content}</span>}
+      {content && <span className='capitalize'>{content}</span>}
       {multipleContent && !joinMultipleContent ? (
         <div className='flex flex-col gap-2'>
           {multipleContent.map((content) => (
@@ -62,10 +62,12 @@ function ViewEventLayout({ event }: { event: EventType | undefined }) {
           className='object-cover h-60 w-full rounded-t-lg'
         />
         <EventItem title='Name:' content={event.name} />
+        <EventItem title='Type:' content={event.eventType} />
         <EventItem title='Date:' content={new Date(event.date).toDateString()} />
         <EventItem title='Time:' content={event.time} />
         <EventItem title='Main Text:' content={event.mainText} />
         <EventItem title='Theme:' content={event.theme} />
+        <EventItem title='Location:' content={event.location} />
         <EventItem
           title='Allows Registration:'
           content={event.allowRegistration}

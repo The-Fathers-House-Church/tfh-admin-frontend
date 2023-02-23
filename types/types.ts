@@ -87,6 +87,8 @@ export type EventType = {
     options?: string;
   }[];
   poster: string;
+  location: string;
+  eventType: 'offline' | 'online';
   createdBy: string;
   updatedBy: string;
   createdAt: string;
