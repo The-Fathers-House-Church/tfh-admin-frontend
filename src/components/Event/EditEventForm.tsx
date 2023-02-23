@@ -38,6 +38,8 @@ function EditEventForm({ event }: { event: EventType }) {
     registrationDateLimit: string;
     poster: string;
     changePoster: boolean;
+    location: string;
+    eventType: 'offline' | 'online';
   }
 
   const formik = useFormik<Event>({
@@ -58,6 +60,8 @@ function EditEventForm({ event }: { event: EventType }) {
         : undefined || '',
       changePoster: false,
       poster: '',
+      eventType: event.eventType || 'offline',
+      location: event.location || '',
     },
     onSubmit: () => {
       submitValues();
@@ -125,6 +129,7 @@ function EditEventForm({ event }: { event: EventType }) {
       formik.values.changePoster && formData.append('poster', formik.values.poster);
     }
     formData.append('name', formik.values.name || '');
+    formData.append('eventType', formik.values.eventType);
     formData.append('theme', formik.values.theme);
     formData.append('mainText', formik.values.mainText);
     formData.append('date', formik.values.date);
@@ -169,6 +174,26 @@ function EditEventForm({ event }: { event: EventType }) {
   return (
     <form onSubmit={formik.handleSubmit}>
       <LabelInput formik={formik} name='name' label='Event name' className='mb-5' />
+      <Dropdown
+        values={[
+          {
+            label: 'Offline',
+            value: 'offline',
+          },
+          {
+            label: 'Online',
+            value: 'online',
+          },
+        ]}
+        label='Event Type'
+        name='eventType'
+        defaultValue={{
+          label: formik.values.eventType,
+          value: formik.values.eventType,
+        }}
+        formik={formik}
+        className='mb-5'
+      />
       <LabelInput formik={formik} name='date' label='Date' className='mb-5' type='date' />
       <LabelInput
         formik={formik}
@@ -178,6 +203,12 @@ function EditEventForm({ event }: { event: EventType }) {
         className='mb-5'
       />
       <LabelInput formik={formik} name='theme' label='Theme' className='mb-5' />
+      <LabelInput
+        formik={formik}
+        name='location'
+        label='Event Location'
+        className='mb-5'
+      />
       <Dropdown
         values={[
           {

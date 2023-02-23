@@ -36,6 +36,8 @@ function AddEventForm() {
     limitedDateRegistration: boolean;
     registrationDateLimit: string;
     poster: string;
+    location: string;
+    eventType: 'offline' | 'online';
   }
 
   const formik = useFormik<Event>({
@@ -51,6 +53,8 @@ function AddEventForm() {
       registrationDateLimit: '',
       registrationNumberLimit: 0,
       poster: '',
+      location: '',
+      eventType: 'offline',
     },
     onSubmit: () => {
       submitValues();
@@ -98,6 +102,8 @@ function AddEventForm() {
     const formData = new FormData();
     formData.append('poster', formik.values.poster);
     formData.append('name', formik.values.name);
+    formData.append('location', formik.values.location);
+    formData.append('eventType', formik.values.eventType);
     formData.append('theme', formik.values.theme);
     formData.append('mainText', formik.values.mainText);
     formData.append('date', formik.values.date);
@@ -142,6 +148,26 @@ function AddEventForm() {
   return (
     <form onSubmit={formik.handleSubmit}>
       <LabelInput formik={formik} name='name' label='Event name' className='mb-5' />
+      <Dropdown
+        values={[
+          {
+            label: 'Offline',
+            value: 'offline',
+          },
+          {
+            label: 'Online',
+            value: 'online',
+          },
+        ]}
+        label='Event Type'
+        name='eventType'
+        defaultValue={{
+          label: formik.values.eventType,
+          value: formik.values.eventType,
+        }}
+        formik={formik}
+        className='mb-5'
+      />
       <LabelInput formik={formik} name='date' label='Date' className='mb-5' type='date' />
       <LabelInput
         formik={formik}
@@ -151,6 +177,12 @@ function AddEventForm() {
         className='mb-5'
       />
       <LabelInput formik={formik} name='theme' label='Theme' className='mb-5' />
+      <LabelInput
+        formik={formik}
+        name='location'
+        label='Event Location'
+        className='mb-5'
+      />
       <div className='flex flex-col gap-2 mb-5'>
         <label htmlFor='poster'>Event Poster</label>
         <input
