@@ -35,6 +35,10 @@ const navLinks: { label: string; href: string }[] = [
     label: 'Announcements',
     href: '/announcement',
   },
+  {
+    label: 'TFCC',
+    href: '/tfcc',
+  },
   // {
   //   label: 'Giving',
   //   href: '/giving',
