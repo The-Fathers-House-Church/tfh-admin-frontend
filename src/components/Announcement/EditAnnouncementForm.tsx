@@ -102,6 +102,7 @@ function EditAnnouncementForm({ announcement }: { announcement: AnnouncementType
         name='details'
         updateState={(value) => formik.setFieldValue('details', value)}
         value={announcement?.details}
+        required={false}
       />
       <Dropdown
         values={[

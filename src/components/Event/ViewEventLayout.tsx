@@ -13,27 +13,34 @@ const EventItem = ({
   multipleContent,
   joinMultipleContent,
   isBooleanValue,
+  type,
 }: {
   title: string;
   content?: string | boolean | number;
   multipleContent?: string[];
   joinMultipleContent?: boolean;
   isBooleanValue?: boolean;
+  type?: 'html';
 }) => (
   <>
     <div className={'flex items-start flex-wrap gap-3'}>
       <span className='font-bold'>{title}</span>
-
-      {isBooleanValue && <span>{content ? 'Yes' : 'No'}</span>}
-      {content && <span className='capitalize'>{content}</span>}
-      {multipleContent && !joinMultipleContent ? (
-        <div className='flex flex-col gap-2'>
-          {multipleContent.map((content) => (
-            <span key={content}>{content}</span>
-          ))}
-        </div>
+      {type === 'html' ? (
+        <div dangerouslySetInnerHTML={{ __html: content as string }} />
       ) : (
-        <span>{multipleContent?.join(' , ')}</span>
+        <>
+          {isBooleanValue && <span>{content ? 'Yes' : 'No'}</span>}
+          {content && <span className='capitalize'>{content}</span>}
+          {multipleContent && !joinMultipleContent ? (
+            <div className='flex flex-col gap-2'>
+              {multipleContent.map((content) => (
+                <span key={content}>{content}</span>
+              ))}
+            </div>
+          ) : (
+            <span>{multipleContent?.join(' , ')}</span>
+          )}
+        </>
       )}
     </div>
   </>
@@ -68,6 +75,7 @@ function ViewEventLayout({ event }: { event: EventType | undefined }) {
         <EventItem title='Main Text:' content={event.mainText} />
         <EventItem title='Theme:' content={event.theme} />
         <EventItem title='Location:' content={event.location} />
+        <EventItem title='Description:' content={event.description} type='html' />
         <EventItem
           title='Allows Registration:'
           content={event.allowRegistration}

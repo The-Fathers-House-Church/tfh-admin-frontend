@@ -18,6 +18,7 @@ function TextEditor({
   error = 'Required',
   updateState,
   value,
+  required = true,
 }: {
   placeholder: string;
   name: string;
@@ -26,6 +27,7 @@ function TextEditor({
   error?: string;
   updateState: (value: string) => void;
   value?: string;
+  required?: boolean;
 }) {
   const [editorState, setEditorState] = React.useState<EditorState>(() =>
     EditorState.createEmpty()
@@ -70,7 +72,7 @@ function TextEditor({
       <label
         htmlFor={name}
         className={`font-normal text-base ${
-          touched && !checkIfTextExists(editorState) ? 'text-red-600' : ''
+          required && touched && !checkIfTextExists(editorState) ? 'text-red-600' : ''
         }`}
       >
         {label}
@@ -86,7 +88,10 @@ function TextEditor({
         editorClassName={styles.editor}
         onBlur={() => setTouched(true)}
         wrapperStyle={{
-          borderColor: touched && !checkIfTextExists(editorState) ? '#F13637' : '#bcbdc1',
+          borderColor:
+            required && touched && !checkIfTextExists(editorState)
+              ? '#F13637'
+              : '#bcbdc1',
         }}
         toolbar={{
           options: ['inline', 'history'],
@@ -107,7 +112,7 @@ function TextEditor({
           },
         }}
       />
-      {touched && !checkIfTextExists(editorState) && (
+      {required && touched && !checkIfTextExists(editorState) && (
         <div className={styles.error}>{error}</div>
       )}
     </div>

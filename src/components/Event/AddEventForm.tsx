@@ -18,6 +18,7 @@ import RequiredRegistrationDetails from './RequiredRegistrationDetails';
 // @ts-ignore
 import { v4 as uuidv4 } from 'uuid';
 import { RegistrationDetailType } from '../../../types/types';
+import TextEditor from '../../common/TextEditor';
 
 function AddEventForm() {
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ function AddEventForm() {
     registrationDateLimit: string;
     poster: string;
     location: string;
+    description?: string;
     eventType: 'offline' | 'online';
   }
 
@@ -55,6 +57,7 @@ function AddEventForm() {
       poster: '',
       location: '',
       eventType: 'offline',
+      description: '',
     },
     onSubmit: () => {
       submitValues();
@@ -103,6 +106,8 @@ function AddEventForm() {
     formData.append('poster', formik.values.poster);
     formData.append('name', formik.values.name);
     formData.append('location', formik.values.location);
+    formik.values.description &&
+      formData.append('description', formik.values.description);
     formData.append('eventType', formik.values.eventType);
     formData.append('theme', formik.values.theme);
     formData.append('mainText', formik.values.mainText);
@@ -203,6 +208,14 @@ function AddEventForm() {
         name='mainText'
         label='Main Bible Text'
         className='mb-5'
+      />
+      <TextEditor
+        placeholder='Description'
+        label='Event Description (optional)'
+        containerClass='mb-5'
+        name='description'
+        updateState={(value) => formik.setFieldValue('description', value)}
+        required={false}
       />
       <Dropdown
         values={[

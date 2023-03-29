@@ -106,6 +106,7 @@ function AddAnnouncementForm() {
         containerClass='mb-5'
         name='details'
         updateState={(value) => formik.setFieldValue('details', value)}
+        required={false}
       />
 
       <Button type='submit' className='mt-10'>
