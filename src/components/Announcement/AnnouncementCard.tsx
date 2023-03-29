@@ -34,7 +34,10 @@ function AnnouncementCard({
           {announcement.details && (
             <div className='flex items-center gap-1'>
               <span className='text-sm'>Details: </span>
-              <span className='text-sm line-clamp'>{announcement.details}</span>
+              <div
+                className='text-sm line-clamp'
+                dangerouslySetInnerHTML={{ __html: announcement.details }}
+              />
             </div>
           )}
           <div className='flex items-center justify-center mt-5 gap-5'>

@@ -1,23 +1,4 @@
-import {
-  ContentState,
-  convertFromHTML,
-  convertToRaw,
-  EditorCommand,
-  EditorState,
-  RichUtils,
-} from 'draft-js';
-import React from 'react';
-import draftJSToHTML from 'draftjs-to-html';
-
-export const convertToHTML = React.useCallback(
-  (state: EditorState) => draftJSToHTML(convertToRaw(state.getCurrentContent())),
-  []
-);
-
-export const checkIfTextExists = React.useCallback(
-  (editorState: EditorState) => editorState.getCurrentContent().hasText(),
-  []
-);
+import { ContentState, convertFromHTML, EditorState } from 'draft-js';
 
 // If a value(with html) exists, convert to draftjs state first
 export const convertHTMLtValueToEntityState = (value: string) => {

@@ -93,6 +93,7 @@ export type EventType = {
   updatedBy: string;
   createdAt: string;
   updatedAt: string;
+  description?: string;
 };
 
 export type AdminType = {

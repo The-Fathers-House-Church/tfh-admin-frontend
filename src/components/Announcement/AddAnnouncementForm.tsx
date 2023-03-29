@@ -12,6 +12,7 @@ import LabelInput from '../../common/LabelInput/LabelInput';
 import Button from '../../common/Button/Button';
 import { getUserSession } from '../../functions/userSession';
 import TextArea from '../../common/TextArea/TextArea';
+import TextEditor from '../../common/TextEditor';
 
 function AddAnnouncementForm() {
   const dispatch = useAppDispatch();
@@ -95,15 +96,17 @@ function AddAnnouncementForm() {
         formik={formik}
         name='priority'
         label='Priority'
-        hint='Add all the schedules for the announcement'
         className='mb-5'
+        hint='How important is this announcement. Higher priority means more importance'
       />
 
-      <TextArea
-        formik={formik}
-        name='details'
+      <TextEditor
+        placeholder='Details'
         label='Announcement Details (optional)'
-        className='mb-5'
+        containerClass='mb-5'
+        name='details'
+        updateState={(value) => formik.setFieldValue('details', value)}
+        required={false}
       />
 
       <Button type='submit' className='mt-10'>

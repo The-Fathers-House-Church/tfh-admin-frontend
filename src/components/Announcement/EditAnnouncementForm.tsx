@@ -14,6 +14,7 @@ import TextArea from '../../common/TextArea/TextArea';
 import { getUserSession } from '../../functions/userSession';
 import { AnnouncementType } from '../../../types/types';
 import Dropdown from '../../common/Dropdown/Dropdown';
+import TextEditor from '../../common/TextEditor';
 
 function EditAnnouncementForm({ announcement }: { announcement: AnnouncementType }) {
   const dispatch = useAppDispatch();
@@ -94,11 +95,14 @@ function EditAnnouncementForm({ announcement }: { announcement: AnnouncementType
         className='mb-5'
       />
 
-      <TextArea
-        formik={formik}
-        name='details'
+      <TextEditor
+        placeholder='Details'
         label='Announcement Details (optional)'
-        className='mb-5'
+        containerClass='mb-5'
+        name='details'
+        updateState={(value) => formik.setFieldValue('details', value)}
+        value={announcement?.details}
+        required={false}
       />
       <Dropdown
         values={[
