@@ -1,5 +1,5 @@
 import React from 'react';
-import { EditorCommand, EditorState, RichUtils } from 'draft-js';
+import { convertToRaw, EditorCommand, EditorState, RichUtils } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import styles from './styles.module.css';
 import Bold from './icons/bold.svg';
@@ -7,11 +7,8 @@ import Italic from './icons/italic.svg';
 import Underline from './icons/underline.svg';
 import Undo from './icons/undo.svg';
 import Redo from './icons/redo.svg';
-import {
-  checkIfTextExists,
-  convertHTMLtValueToEntityState,
-  convertToHTML,
-} from './functions';
+import { convertHTMLtValueToEntityState } from './functions';
+import draftJSToHTML from 'draftjs-to-html';
 
 function TextEditor({
   placeholder,
@@ -34,6 +31,16 @@ function TextEditor({
     EditorState.createEmpty()
   );
   const [touched, setTouched] = React.useState(false);
+
+  const convertToHTML = React.useCallback(
+    (state: EditorState) => draftJSToHTML(convertToRaw(state.getCurrentContent())),
+    []
+  );
+
+  const checkIfTextExists = React.useCallback(
+    (editorState: EditorState) => editorState.getCurrentContent().hasText(),
+    []
+  );
 
   const onChange = (editorState: EditorState) => {
     setEditorState(editorState);
