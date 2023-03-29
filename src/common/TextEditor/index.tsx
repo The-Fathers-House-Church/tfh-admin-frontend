@@ -1,5 +1,12 @@
 import React from 'react';
-import { convertToRaw, EditorCommand, EditorState, RichUtils } from 'draft-js';
+import {
+  ContentState,
+  convertFromHTML,
+  convertToRaw,
+  EditorCommand,
+  EditorState,
+  RichUtils,
+} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import styles from './styles.module.css';
 import Bold from './icons/bold.svg';
@@ -16,6 +23,7 @@ function TextEditor({
   containerClass,
   error = 'Required',
   updateState,
+  value,
 }: {
   placeholder: string;
   name: string;
@@ -23,6 +31,7 @@ function TextEditor({
   label: string;
   error?: string;
   updateState: (value: string) => void;
+  value?: string;
 }) {
   const [editorState, setEditorState] = React.useState<EditorState>(() =>
     EditorState.createEmpty()
@@ -55,6 +64,23 @@ function TextEditor({
     () => editorState.getCurrentContent().hasText(),
     [editorState]
   );
+
+  // If a value(with html) exists, convert to draftjs state first
+  const convertHTMLtValueToEntityState = (value: string) => {
+    const blocksFromHTML = convertFromHTML(value);
+    const state = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap
+    );
+    return EditorState.createWithContent(state);
+  };
+
+  React.useEffect(() => {
+    if (value) {
+      setEditorState(convertHTMLtValueToEntityState(value));
+    }
+  }, [value]);
+
   // const onBoldClick = () => {
   //   onChange(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
   // };

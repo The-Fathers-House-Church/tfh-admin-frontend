@@ -10,24 +10,32 @@ const DevotionalItem = ({
   content,
   multipleContent,
   joinMultipleContent,
+  type,
 }: {
   title: string;
   content?: string;
   multipleContent?: string[];
   joinMultipleContent?: boolean;
+  type?: 'html';
 }) => (
   <>
     <div className={'flex items-start flex-wrap gap-3'}>
       <span className='font-bold'>{title}</span>
-      {content && <span>{content}</span>}
-      {multipleContent && !joinMultipleContent ? (
-        <div className='flex flex-col gap-2'>
-          {multipleContent.map((content) => (
-            <span key={content}>{content}</span>
-          ))}
-        </div>
+      {type === 'html' ? (
+        <div dangerouslySetInnerHTML={{ __html: content ? content : '' }} />
       ) : (
-        <span>{multipleContent?.join(' , ')}</span>
+        <>
+          {content && <span>{content}</span>}
+          {multipleContent && !joinMultipleContent ? (
+            <div className='flex flex-col gap-2'>
+              {multipleContent.map((content) => (
+                <span key={content}>{content}</span>
+              ))}
+            </div>
+          ) : (
+            <span>{multipleContent?.join(' , ')}</span>
+          )}
+        </>
       )}
     </div>
   </>
@@ -61,7 +69,7 @@ function ViewDevotionalLayout({
         <DevotionalItem title='Title:' content={devotional.title} />
         <DevotionalItem title='Main Text:' content={devotional.mainText} />
         <DevotionalItem title='Text:' content={devotional.text} />
-        <DevotionalItem title='Content:' content={devotional.content} />
+        <DevotionalItem title='Content:' content={devotional.content} type='html' />
 
         <DevotionalItem title='Confession:' content={devotional.confession} />
         <DevotionalItem

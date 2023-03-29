@@ -14,6 +14,7 @@ import Button from '../../common/Button/Button';
 import TextArea from '../../common/TextArea/TextArea';
 import { getUserSession } from '../../functions/userSession';
 import { DevotionalType } from '../../../types/types';
+import TextEditor from '../../common/TextEditor';
 
 function EditDevotionalForm({ devotional }: { devotional: DevotionalType | undefined }) {
   const dispatch = useAppDispatch();
@@ -109,12 +110,13 @@ function EditDevotionalForm({ devotional }: { devotional: DevotionalType | undef
       <LabelInput formik={formik} name='title' label='Title' className='mb-5' />
       <LabelInput formik={formik} name='text' label='Text' className='mb-5' />
       <LabelInput formik={formik} name='mainText' label='Main Text' className='mb-5' />
-      <TextArea
-        formik={formik}
-        name='content'
+      <TextEditor
+        placeholder='Devotional Content'
         label='Content'
-        className='mb-5'
-        rows={5}
+        containerClass='mb-5'
+        name='content'
+        updateState={(value) => formik.setFieldValue('content', value)}
+        value={devotional?.content}
       />
       <LabelInput formik={formik} name='confession' label='Confession' className='mb-5' />
       <LabelInput
