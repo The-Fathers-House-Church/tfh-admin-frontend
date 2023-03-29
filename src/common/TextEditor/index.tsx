@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  ContentState,
-  convertFromHTML,
-  convertToRaw,
-  EditorCommand,
-  EditorState,
-  RichUtils,
-} from 'draft-js';
+import { EditorCommand, EditorState, RichUtils } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import styles from './styles.module.css';
 import Bold from './icons/bold.svg';
@@ -14,7 +7,11 @@ import Italic from './icons/italic.svg';
 import Underline from './icons/underline.svg';
 import Undo from './icons/undo.svg';
 import Redo from './icons/redo.svg';
-import draftJSToHTML from 'draftjs-to-html';
+import {
+  checkIfTextExists,
+  convertHTMLtValueToEntityState,
+  convertToHTML,
+} from './functions';
 
 function TextEditor({
   placeholder,
@@ -38,15 +35,16 @@ function TextEditor({
   );
   const [touched, setTouched] = React.useState(false);
 
-  const convertToHTML = React.useCallback(
-    (state: EditorState) => draftJSToHTML(convertToRaw(state.getCurrentContent())),
-    [editorState]
-  );
-
   const onChange = (editorState: EditorState) => {
     setEditorState(editorState);
     updateState(convertToHTML(editorState));
   };
+
+  React.useEffect(() => {
+    if (value) {
+      setEditorState(convertHTMLtValueToEntityState(value));
+    }
+  }, [value]);
 
   // For controlling shortcut keys like ctrl + b
   const handleKeyCommand = (command: EditorCommand, editorState: EditorState) => {
@@ -60,48 +58,12 @@ function TextEditor({
     return 'not-handled';
   };
 
-  const checkIfTextExists = React.useCallback(
-    () => editorState.getCurrentContent().hasText(),
-    [editorState]
-  );
-
-  // If a value(with html) exists, convert to draftjs state first
-  const convertHTMLtValueToEntityState = (value: string) => {
-    const blocksFromHTML = convertFromHTML(value);
-    const state = ContentState.createFromBlockArray(
-      blocksFromHTML.contentBlocks,
-      blocksFromHTML.entityMap
-    );
-    return EditorState.createWithContent(state);
-  };
-
-  React.useEffect(() => {
-    if (value) {
-      setEditorState(convertHTMLtValueToEntityState(value));
-    }
-  }, [value]);
-
-  // const onBoldClick = () => {
-  //   onChange(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
-  // };
-
-  // const onItalicClick = () => {
-  //   onChange(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
-  // };
-
-  // const onUnderlineClick = () => {
-  //   onChange(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'));
-  // };
-
   return (
     <div className={containerClass}>
-      {/* <button onClick={onBoldClick}>Bold</button>
-      <button onClick={onItalicClick}>Italic</button>
-      <button onClick={onUnderlineClick}>Underline</button> */}
       <label
         htmlFor={name}
         className={`font-normal text-base ${
-          touched && !checkIfTextExists() ? 'text-red-600' : ''
+          touched && !checkIfTextExists(editorState) ? 'text-red-600' : ''
         }`}
       >
         {label}
@@ -117,7 +79,7 @@ function TextEditor({
         editorClassName={styles.editor}
         onBlur={() => setTouched(true)}
         wrapperStyle={{
-          borderColor: touched && !checkIfTextExists() ? '#F13637' : '#bcbdc1',
+          borderColor: touched && !checkIfTextExists(editorState) ? '#F13637' : '#bcbdc1',
         }}
         toolbar={{
           options: ['inline', 'history'],
@@ -138,7 +100,9 @@ function TextEditor({
           },
         }}
       />
-      {touched && !checkIfTextExists() && <div className={styles.error}>{error}</div>}
+      {touched && !checkIfTextExists(editorState) && (
+        <div className={styles.error}>{error}</div>
+      )}
     </div>
   );
 }

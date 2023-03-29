@@ -1,0 +1,44 @@
+import {
+  ContentState,
+  convertFromHTML,
+  convertToRaw,
+  EditorCommand,
+  EditorState,
+  RichUtils,
+} from 'draft-js';
+import React from 'react';
+import draftJSToHTML from 'draftjs-to-html';
+
+export const convertToHTML = React.useCallback(
+  (state: EditorState) => draftJSToHTML(convertToRaw(state.getCurrentContent())),
+  []
+);
+
+export const checkIfTextExists = React.useCallback(
+  (editorState: EditorState) => editorState.getCurrentContent().hasText(),
+  []
+);
+
+// If a value(with html) exists, convert to draftjs state first
+export const convertHTMLtValueToEntityState = (value: string) => {
+  const blocksFromHTML = convertFromHTML(value);
+  const state = ContentState.createFromBlockArray(
+    blocksFromHTML.contentBlocks,
+    blocksFromHTML.entityMap
+  );
+  return EditorState.createWithContent(state);
+};
+
+// For customized formatting options
+
+// const onBoldClick = () => {
+//   onChange(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
+// };
+
+// const onItalicClick = () => {
+//   onChange(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
+// };
+
+// const onUnderlineClick = () => {
+//   onChange(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'));
+// };
