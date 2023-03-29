@@ -56,7 +56,12 @@ function DayDevotional() {
                 <span>Main Text: {todaysDevotional.mainText}</span>
                 <span>Text: {todaysDevotional.text}</span>
               </div>
-              <span className='line-clamp'>{todaysDevotional.content}</span>
+              <span
+                className='line-clamp'
+                dangerouslySetInnerHTML={{
+                  __html: todaysDevotional.content,
+                }}
+              />
             </>
           ) : (
             <span className='text-xs'>Devotional not found</span>

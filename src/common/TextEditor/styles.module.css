@@ -1,0 +1,30 @@
+.toolbar {
+  background-color: #bcbdc1 !important;
+  border-radius: 4px !important;
+  margin: 0 !important
+}
+
+.wrapper {
+  border: 1px solid #bcbdc1;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.editor {
+  padding-inline: 12px !important;
+}
+
+.icon {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.icon:hover {
+  background-color: #999 !important;
+}
+
+.error {
+  color: #F13637;
+  font-size: 0.75rem;
+  margin-top: 5px;
+}
