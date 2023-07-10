@@ -47,8 +47,8 @@ function Feedback() {
           }
         );
 
-        setFeedback(response.data.data?.results);
-        setTotalResults(response.data.data?.pagination?.totalResults);
+        setFeedback(response.data.data?.data);
+        setTotalResults(response.data.data?.totalResults);
       } catch (error) {
         setFeedback([]);
         sendCatchFeedback(error);
@@ -76,11 +76,14 @@ function Feedback() {
     getStats();
   }, [dispatch]);
 
-  const changeFeedbackStatus = async (feedback: FeedbackType, newStatus: string) => {
+  const changeFeedbackStatus = async (
+    feedback: FeedbackType,
+    newStatus: 'read' | 'unread'
+  ) => {
     dispatch(openLoadingIndicator({ text: 'Updating Feedback' }));
     try {
       const response = await appAxios.patch(
-        `/feedback/status/${feedback._id}`,
+        `/feedback/status/${feedback.id}`,
         { status: newStatus },
         {
           headers: {
@@ -93,7 +96,7 @@ function Feedback() {
 
       setFeedback(
         allFeedback?.map((item) => {
-          if (item._id === feedback._id) {
+          if (item.id === feedback.id) {
             item.status = newStatus;
           }
           return item;
@@ -138,7 +141,7 @@ function Feedback() {
             {allFeedback.map((feedback) => (
               <FeedbackCard
                 feedback={feedback}
-                key={feedback._id}
+                key={feedback.id}
                 changeFeedbackStatus={changeFeedbackStatus}
               />
             ))}

@@ -22,14 +22,16 @@ export type UserType = {
 };
 
 export type FeedbackType = {
-  _id: string;
+  id: number;
   fullName: string;
   email: string;
   phoneNumber: string;
   content: string;
+  status: 'read' | 'unread';
+  source: 'web' | 'mobile';
+  updatedBy: string;
   createdAt: string;
-  status: string;
-  source: string;
+  updatedAt: string;
 };
 
 export type UserResultType = {
