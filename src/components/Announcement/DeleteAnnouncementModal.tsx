@@ -33,7 +33,7 @@ function DeleteAnnouncementModal({
     const currentUser = getUserSession();
 
     try {
-      const response = await appAxios.delete('/announcement/' + announcement?._id, {
+      const response = await appAxios.delete('/announcement/' + announcement?.id, {
         headers: {
           Authorization: currentUser ? currentUser?.token : null,
         },
@@ -43,7 +43,7 @@ function DeleteAnnouncementModal({
       setAllAnnouncements &&
         setAllAnnouncements(
           allAnnouncements?.filter(
-            (item: AnnouncementType) => item._id !== announcement?._id
+            (item: AnnouncementType) => item.id !== announcement?.id
           )
         );
 

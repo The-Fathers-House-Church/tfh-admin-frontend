@@ -82,7 +82,7 @@ function ViewAnnouncementLayout({
       </article>
 
       <div className='flex items-center justify-center gap-5 mt-10'>
-        <Link to={`/announcement/edit/${announcement._id}`} className='w-[200px]'>
+        <Link to={`/announcement/edit/${announcement.id}`} className='w-[200px]'>
           <Button>
             <FiEdit className='mr-5' />
             Edit

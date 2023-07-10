@@ -140,13 +140,15 @@ export interface TransactionType {
 }
 
 export interface AnnouncementType {
+  id: number;
   title: string;
   details: string;
-  image: string;
   priority: number;
+  image: string;
   createdBy: string;
   updatedBy: string;
-  _id: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface TFCCType {

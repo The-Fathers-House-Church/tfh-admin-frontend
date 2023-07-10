@@ -17,7 +17,7 @@ function AnnouncementCard({
   return (
     <Card
       className={`min-w-full p-0 shadow-sm cursor-pointer bg-primaryAccent2`}
-      onClick={() => navigate('/announcement/view/' + announcement?._id)}
+      onClick={() => navigate('/announcement/view/' + announcement?.id)}
     >
       <article>
         <img
@@ -44,7 +44,7 @@ function AnnouncementCard({
             <FiEdit
               onClick={(e) => {
                 e.stopPropagation(); // this is because the entire card is clickable
-                navigate('/announcement/edit/' + announcement?._id);
+                navigate('/announcement/edit/' + announcement?.id);
               }}
             />
             <FiTrash

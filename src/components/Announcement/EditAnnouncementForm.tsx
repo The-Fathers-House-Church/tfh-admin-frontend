@@ -65,7 +65,7 @@ function EditAnnouncementForm({ announcement }: { announcement: AnnouncementType
     dispatch(openLoadingIndicator({ text: 'Updating Announcement' }));
     try {
       const response = await appAxios.patch(
-        '/announcement/' + announcement._id,
+        '/announcement/' + announcement.id,
         formData,
         {
           headers: {
@@ -76,7 +76,7 @@ function EditAnnouncementForm({ announcement }: { announcement: AnnouncementType
       );
       sendFeedback(response.data?.message, 'success');
 
-      navigate('/announcement/view/' + response.data.announcement._id);
+      navigate('/announcement/view/' + response.data.announcement.id);
     } catch (error) {
       sendCatchFeedback(error);
     }
