@@ -126,6 +126,7 @@ function AddEventForm() {
       'limitedDateRegistration',
       formik.values.limitedDateRegistration ? '1' : '0'
     );
+    formData.append('registrationDateLimit', formik.values.registrationDateLimit);
     formik.values.allowRegistration &&
       formData.append(
         'requiredRegistrationDetails',
@@ -143,7 +144,7 @@ function AddEventForm() {
       });
       sendFeedback(response.data?.message, 'success');
 
-      navigate('/event/view/' + response.data.event?._id);
+      navigate('/event/view/' + response.data.event?.id);
     } catch (error) {
       sendCatchFeedback(error);
     }
@@ -171,7 +172,7 @@ function AddEventForm() {
           value: formik.values.eventType,
         }}
         formik={formik}
-        className='mb-5'
+        className='mb-5 capitalize'
       />
       <LabelInput formik={formik} name='date' label='Date' className='mb-5' type='date' />
       <LabelInput

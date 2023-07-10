@@ -87,33 +87,40 @@ export type DevotionalType = {
 };
 
 export type EventType = {
-  _id: string;
+  id: number;
   name: string;
-  theme: string;
-  mainText: string;
-  date: string;
-  time: string;
+  theme: string; //Topic of event
+  mainText: string; // Bible verse of event
+  date: Date; // Event dates would be entered as desired. E.g: Every Tuesday in August
+  time: string; // Time would also be entered as desired. E.g: 6pm on Tuesday, 8pm on Monday and Saturday
   allowRegistration: boolean;
-  registrationEntries: UncertainObjectType[];
-  gallery: string[];
-  limitedNumberRegistration: boolean;
+  limitedNumberRegistration: boolean; // if the registration has a number limit
   registrationNumberLimit: number;
-  limitedDateRegistration: boolean;
-  registrationDateLimit: string;
+  limitedDateRegistration: boolean; // if the registration has a date limit
+  registrationDateLimit: Date;
+  // Event Image
+  poster: string;
+  registrationEntries: any; // each event would determine the data it aims to collect
+  eventType: 'online' | 'offline';
+  description: string;
+  location: string;
+  createdBy: string;
+  updatedBy: string;
+  createdAt: string;
+  updatedAt: string;
   requiredRegistrationDetails: {
     id: string;
     name: string;
     type: string;
     options?: string;
   }[];
-  poster: string;
-  location: string;
-  eventType: 'offline' | 'online';
-  createdBy: string;
-  updatedBy: string;
-  createdAt: string;
-  updatedAt: string;
-  description?: string;
+  gallery: {
+    id: number;
+    imageURL: string;
+    event_id: number;
+    createdAt: Date;
+    updatedAt: Date;
+  }[];
 };
 
 export type AdminType = {

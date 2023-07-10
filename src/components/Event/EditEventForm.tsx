@@ -162,7 +162,7 @@ function EditEventForm({ event }: { event: EventType }) {
 
     dispatch(openLoadingIndicator({ text: 'Updating Event' }));
     try {
-      const response = await appAxios.patch('/event/' + event._id, formData, {
+      const response = await appAxios.patch('/event/' + event.id, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: currentUser ? currentUser?.token : null,
@@ -170,7 +170,7 @@ function EditEventForm({ event }: { event: EventType }) {
       });
       sendFeedback(response.data?.message, 'success');
 
-      navigate('/event/view/' + response.data.event._id);
+      navigate('/event/view/' + response.data.event.id);
     } catch (error) {
       sendCatchFeedback(error);
     }

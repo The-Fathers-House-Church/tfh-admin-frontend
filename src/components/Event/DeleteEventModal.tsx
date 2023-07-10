@@ -33,7 +33,7 @@ function DeleteEventModal({
     const currentUser = getUserSession();
 
     try {
-      const response = await appAxios.delete('/event/' + event?._id, {
+      const response = await appAxios.delete('/event/' + event?.id, {
         headers: {
           Authorization: currentUser ? currentUser?.token : null,
         },
@@ -41,7 +41,7 @@ function DeleteEventModal({
       sendFeedback(response.data?.message, 'success');
 
       setAllEvents &&
-        setAllEvents(allEvents?.filter((item: EventType) => item._id !== event?._id));
+        setAllEvents(allEvents?.filter((item: EventType) => item.id !== event?.id));
 
       closeDeleteModal();
       navigateFunction && navigateFunction();
