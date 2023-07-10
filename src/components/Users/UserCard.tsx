@@ -7,7 +7,7 @@ function UserCard({ user }: { user: UserType }) {
       <div className='flex flex-col gap-3'>
         <div className='flex flex-row gap-2'>
           <span className='font-bold'>Name:</span>
-          <span className='capitalize'>{user.firstName + ' ' + user.lastName}</span>
+          <span className='capitalize'>{user.names}</span>
         </div>
         <div className='flex flex-row gap-2 flex-wrap'>
           <span className='font-bold'>Email:</span>
@@ -15,12 +15,12 @@ function UserCard({ user }: { user: UserType }) {
         </div>
         <div className='flex flex-row gap-2 flex-wrap'>
           <span className='font-bold'>Phone number:</span>
-          <span className='capitalize'>{user.phoneNumber}</span>
+          <span className='capitalize'>{user.phone}</span>
         </div>
 
         <div className='flex flex-row gap-2 flex-wrap'>
           <span className='font-bold'>Church Center:</span>
-          <span className='capitalize'>{user.churchCenter}</span>
+          <span className='capitalize'>{user.churchCenter || '-'}</span>
         </div>
         <div className='flex flex-row gap-2 flex-wrap'>
           <span className='font-bold'>Member:</span>

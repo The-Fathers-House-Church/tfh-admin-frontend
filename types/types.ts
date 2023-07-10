@@ -7,18 +7,34 @@ export type UncertainObjectType = {
 };
 
 export type UserType = {
-  _id: string;
-  firstName: string;
-  lastName: string;
+  id: number;
+  titles: string;
+  names: string;
+  address: string;
+  dob: string;
+  gender: string;
+  phone: string;
   email: string;
-  phoneNumber: string;
+  status: string;
+  dept: string;
+  d_unit: string;
+  fname: string;
+  lname: string;
+  marital: string;
+  pastors: string;
+  hods: string;
+  hous: string;
+  dcns: string;
+  flagz: string;
+  subscribed: string;
+  churchCenter: string;
+  member: string;
+  registrationSource: string;
   password: string;
   verificationCode: string;
-  dateOfBirth: string;
-  churchCenter: string;
-  member: boolean;
+  isPasswordSet: string;
   createdAt: string;
-  registrationSource: string;
+  updatedAt: string;
 };
 
 export type FeedbackType = {
