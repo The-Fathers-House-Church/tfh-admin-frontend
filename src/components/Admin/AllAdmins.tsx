@@ -35,8 +35,8 @@ function AllAdmins() {
           },
         });
 
-        setAdmins(response.data.data?.results);
-        setTotalResults(response.data.data?.pagination?.totalResults);
+        setAdmins(response.data.data?.data);
+        setTotalResults(response.data.data?.totalResults);
 
         setLoading(false);
       } catch (error) {
@@ -88,7 +88,7 @@ function AllAdmins() {
           <div className='flex flex-col gap-5'>
             {admins?.map((admin) => (
               <AdminCard
-                key={admin._id}
+                key={admin.id}
                 admin={admin}
                 openDeactivateModal={openDeactivateModal}
                 openSuperModal={openSuperModal}

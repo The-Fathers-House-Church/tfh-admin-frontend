@@ -36,7 +36,7 @@ function SuperAdminModal({
       const response = await appAxios.patch(
         '/admin/super',
         {
-          id: admin?._id,
+          id: admin?.id,
         },
         {
           headers: {
@@ -49,7 +49,7 @@ function SuperAdminModal({
       setAllAdmins &&
         setAllAdmins(
           allAdmins?.map((item: AdminType) => {
-            if (item._id === admin?._id) {
+            if (item.id === admin?.id) {
               item.role = 'superAdmin';
             }
             return item;

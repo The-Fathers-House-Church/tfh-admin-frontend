@@ -36,7 +36,7 @@ function DeactivateAdminModal({
       const response = await appAxios.patch(
         '/admin/status',
         {
-          id: admin?._id,
+          id: admin?.id,
           status: false,
         },
         {
@@ -50,7 +50,7 @@ function DeactivateAdminModal({
       setAllAdmins &&
         setAllAdmins(
           allAdmins?.map((item: AdminType) => {
-            if (item._id === admin?._id) {
+            if (item.id === admin?.id) {
               item.active = false;
             }
             return item;

@@ -54,7 +54,7 @@ function UpdatePasswordRequest() {
   };
 
   return (
-    <div className='w-full flex items-center justify-center '>
+    <div className='w-full flex items-center justify-center mt-10'>
       <Card>
         <form onSubmit={formik.handleSubmit}>
           <h1 className='text-2xl font-bold text-center mb-10 dark:text-white'>

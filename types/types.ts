@@ -97,11 +97,12 @@ export type EventType = {
 };
 
 export type AdminType = {
-  _id: string;
+  id: string;
   fullname: string;
   email: string;
   role: string;
   active: boolean;
+  avatar?: string;
   createdBy: string;
   updatedBy: string;
   createdAt: string;
