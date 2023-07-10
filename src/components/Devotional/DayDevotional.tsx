@@ -36,7 +36,9 @@ function DayDevotional() {
         todaysDevotional ? 'cursor-pointer' : 'cursor-auto'
       }`}
       onClick={() =>
-        todaysDevotional ? navigate('/devotional/view/' + todaysDevotional?._id) : null
+        todaysDevotional
+          ? navigate('/devotional/view/' + todaysDevotional?.dish_id)
+          : null
       }
     >
       {loading ? (
@@ -46,20 +48,22 @@ function DayDevotional() {
           <h2>
             THE FATHER'S MENU{' '}
             {todaysDevotional && (
-              <> - {new Date(todaysDevotional.date).toLocaleDateString()}</>
+              <> - {new Date(todaysDevotional.ditto).toLocaleDateString()}</>
             )}
           </h2>
           {todaysDevotional ? (
             <>
-              <span className='font-bold'>{todaysDevotional.title}</span>
+              <span className='font-bold'>{todaysDevotional.titles}</span>
               <div className='flex flex-col gap-2'>
-                <span>Main Text: {todaysDevotional.mainText}</span>
-                <span>Text: {todaysDevotional.text}</span>
+                <span>Main Text: {todaysDevotional.main_text}</span>
+                <span>
+                  Text: {todaysDevotional.scripture1} {todaysDevotional.scripture2}
+                </span>
               </div>
               <span
                 className='line-clamp'
                 dangerouslySetInnerHTML={{
-                  __html: todaysDevotional.content,
+                  __html: todaysDevotional.contents,
                 }}
               />
             </>

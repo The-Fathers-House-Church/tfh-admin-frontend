@@ -33,7 +33,7 @@ function DeleteDevotionalModal({
     const currentUser = getUserSession();
 
     try {
-      const response = await appAxios.delete('/devotional/' + devotional?._id, {
+      const response = await appAxios.delete('/devotional/' + devotional?.dish_id, {
         headers: {
           Authorization: currentUser ? currentUser?.token : null,
         },
@@ -42,7 +42,9 @@ function DeleteDevotionalModal({
 
       setAllDevotionals &&
         setAllDevotionals(
-          allDevotionals?.filter((item: DevotionalType) => item._id !== devotional?._id)
+          allDevotionals?.filter(
+            (item: DevotionalType) => item.dish_id !== devotional?.dish_id
+          )
         );
 
       closeDeleteModal();
@@ -61,7 +63,7 @@ function DeleteDevotionalModal({
     >
       <div>
         <p className='text-center md:text-left mb-10'>
-          You are trying to delete this Devotional: ({devotional?.title}). Are you sure
+          You are trying to delete this Devotional: ({devotional?.titles}). Are you sure
           you want to continue?
         </p>
         <div className='flex items-center justify-center gap-5 flex-wrap md:justify-start'>

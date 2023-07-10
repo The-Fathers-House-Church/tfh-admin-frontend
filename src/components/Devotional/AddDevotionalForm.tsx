@@ -24,12 +24,9 @@ function AddDevotionalForm() {
     date: string;
     title: string;
     text: string;
+    textReference: string;
     mainText: string;
     content: string;
-    confession: string;
-    furtherReading: string;
-    oneYearBibleReading: string;
-    twoYearsBibleReading: string;
   }
 
   const formik = useFormik<Devotional>({
@@ -37,12 +34,9 @@ function AddDevotionalForm() {
       date: '',
       title: '',
       text: '',
+      textReference: '',
       mainText: '',
       content: '',
-      confession: '',
-      furtherReading: '',
-      oneYearBibleReading: '',
-      twoYearsBibleReading: '',
     },
     onSubmit: () => {
       submitValues();
@@ -51,12 +45,9 @@ function AddDevotionalForm() {
       date: yup.string().required('Required'),
       title: yup.string().required('Required'),
       text: yup.string().required('Required'),
+      textReference: yup.string().required('Required'),
       mainText: yup.string().required('Required'),
       content: yup.string().required('Required'),
-      confession: yup.string().required('Required'),
-      furtherReading: yup.string().required('Required'),
-      oneYearBibleReading: yup.string().required('Required'),
-      twoYearsBibleReading: yup.string().required('Required'),
     }),
   });
 
@@ -69,18 +60,9 @@ function AddDevotionalForm() {
           date: formik.values.date,
           title: formik.values.title,
           text: formik.values.text,
+          textReference: formik.values.textReference,
           mainText: formik.values.mainText,
           content: formik.values.content,
-          confession: formik.values.confession,
-          furtherReading: formik.values.furtherReading
-            .split('+')
-            ?.map((element: string) => element?.trim()),
-          oneYearBibleReading: formik.values.oneYearBibleReading
-            .split('+')
-            ?.map((element: string) => element?.trim()),
-          twoYearsBibleReading: formik.values.twoYearsBibleReading
-            .split('+')
-            ?.map((element: string) => element?.trim()),
         },
         {
           headers: {
@@ -90,7 +72,7 @@ function AddDevotionalForm() {
       );
       sendFeedback(response.data?.message, 'success');
 
-      navigate('/devotional/view/' + response.data.devotional?._id);
+      navigate('/devotional/view/' + response.data.devotional?.dish_id);
     } catch (error) {
       sendCatchFeedback(error);
     }
@@ -102,6 +84,12 @@ function AddDevotionalForm() {
       <LabelInput formik={formik} name='date' label='Date' className='mb-5' type='date' />
       <LabelInput formik={formik} name='title' label='Title' className='mb-5' />
       <LabelInput formik={formik} name='text' label='Text' className='mb-5' />
+      <LabelInput
+        formik={formik}
+        name='textReference'
+        label='Text Reference'
+        className='mb-5'
+      />
       <LabelInput formik={formik} name='mainText' label='Main Text' className='mb-5' />
       <TextEditor
         placeholder='Devotional Content'
@@ -109,28 +97,6 @@ function AddDevotionalForm() {
         containerClass='mb-5'
         name='content'
         updateState={(value) => formik.setFieldValue('content', value)}
-      />
-      <LabelInput formik={formik} name='confession' label='Confession' className='mb-5' />
-      <LabelInput
-        formik={formik}
-        name='furtherReading'
-        label='Further Reading'
-        className='mb-5'
-        hint='Separate items by plus(+). Example: Item 1 + Item 2'
-      />
-      <LabelInput
-        formik={formik}
-        name='oneYearBibleReading'
-        label='One Year Bible Reading'
-        hint='Separate items by plus(+). Example: Item 1 + Item 2'
-        className='mb-5'
-      />
-      <LabelInput
-        formik={formik}
-        name='twoYearsBibleReading'
-        label='Two Years Bible Reading'
-        hint='Separate items by plus(+). Example: Item 1 + Item 2'
-        className='mb-5'
       />
 
       <Button type='submit'>Save Devotional</Button>

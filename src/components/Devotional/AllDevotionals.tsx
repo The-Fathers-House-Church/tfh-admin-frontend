@@ -35,8 +35,8 @@ function AllDevotionals() {
           },
         });
 
-        setDevotionals(response.data.data?.results);
-        setTotalResults(response.data.data?.pagination?.totalResults);
+        setDevotionals(response.data.data?.data);
+        setTotalResults(response.data.data?.totalResults);
 
         setLoading(false);
       } catch (error) {
@@ -69,7 +69,7 @@ function AllDevotionals() {
           <div className='flex flex-col gap-5'>
             {devotionals?.map((devotional) => (
               <DevotionalCard
-                key={devotional._id}
+                key={devotional.dish_id}
                 devotional={devotional}
                 openDeleteModal={openDeleteModal}
               />

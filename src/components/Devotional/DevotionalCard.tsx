@@ -16,22 +16,22 @@ function DevotionalCard({
   return (
     <Card
       className={`min-w-full p-3 shadow-sm cursor-pointer`}
-      onClick={() => navigate('/devotional/view/' + devotional?._id)}
+      onClick={() => navigate('/devotional/view/' + devotional?.dish_id)}
     >
       <article className='flex items-center justify-center md:justify-between flex-wrap gap-5'>
         <div className='flex items-center gap-10'>
           <span className='text-sm'>
-            {new Date(devotional.date).toLocaleDateString()}
+            {new Date(devotional.ditto).toLocaleDateString()}
           </span>
           <span>
-            {devotional.title} <span className='text-sm'>- {devotional.mainText}</span>
+            {devotional.titles} <span className='text-sm'>- {devotional.main_text}</span>
           </span>
         </div>
         <div className='flex items-center gap-5'>
           <FiEdit
             onClick={(e) => {
               e.stopPropagation(); // this is because the entire card is clickable
-              navigate('/devotional/edit/' + devotional?._id);
+              navigate('/devotional/edit/' + devotional?.dish_id);
             }}
           />
           <FiTrash

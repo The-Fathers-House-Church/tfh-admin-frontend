@@ -64,32 +64,19 @@ function ViewDevotionalLayout({
       <article className='flex flex-col gap-5'>
         <DevotionalItem
           title='Date:'
-          content={new Date(devotional.date).toDateString()}
+          content={new Date(devotional.ditto).toDateString()}
         />
-        <DevotionalItem title='Title:' content={devotional.title} />
-        <DevotionalItem title='Main Text:' content={devotional.mainText} />
-        <DevotionalItem title='Text:' content={devotional.text} />
-        <DevotionalItem title='Content:' content={devotional.content} type='html' />
-
-        <DevotionalItem title='Confession:' content={devotional.confession} />
+        <DevotionalItem title='Title:' content={devotional.titles} />
+        <DevotionalItem title='Main Text:' content={devotional.main_text} />
         <DevotionalItem
-          title='Further Reading:'
-          multipleContent={devotional.furtherReading}
+          title='Text:'
+          content={devotional.scripture1 + ' ' + devotional.scripture2}
         />
-        <DevotionalItem
-          title='One year Bible reading:'
-          multipleContent={devotional.oneYearBibleReading}
-          joinMultipleContent
-        />
-        <DevotionalItem
-          title='Two years Bible reading:'
-          multipleContent={devotional.twoYearsBibleReading}
-          joinMultipleContent
-        />
+        <DevotionalItem title='Content:' content={devotional.contents} type='html' />{' '}
       </article>
 
       <div className='flex items-center justify-center gap-5 mt-10'>
-        <Link to={`/devotional/edit/${devotional._id}`} className='w-[200px]'>
+        <Link to={`/devotional/edit/${devotional.dish_id}`} className='w-[200px]'>
           <Button>
             <FiEdit className='mr-5' />
             Edit
