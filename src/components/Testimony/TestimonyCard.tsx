@@ -10,7 +10,10 @@ function TestimonyCard({
   changeTestimonyStatus,
 }: {
   testimony: TestimonyType;
-  changeTestimonyStatus: (testimony: TestimonyType, newStatus: string) => void;
+  changeTestimonyStatus: (
+    testimony: TestimonyType,
+    newStatus: 'pending' | 'approved' | 'declined' | 'archived'
+  ) => void;
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -68,15 +71,15 @@ function TestimonyCard({
         </div>
         <div className='flex flex-row gap-2'>
           <span className='font-bold'>Name:</span>
-          <span className='capitalize'>{testimony.fullName}</span>
+          <span className='capitalize'>{testimony.names}</span>
         </div>
         <div className='flex flex-row gap-2 flex-wrap'>
           <span className='font-bold'>Summary:</span>
-          <span className='capitalize'>{testimony.summary}</span>
+          <span className='capitalize'>{testimony.titles}</span>
         </div>
         <div className='flex flex-row gap-2 flex-wrap'>
           <span className='font-bold'>Testimony:</span>
-          <span className='capitalize'>{testimony.content}</span>
+          <div dangerouslySetInnerHTML={{ __html: testimony.main_gist as string }} />
         </div>
         <div className='flex flex-row gap-2'>
           <span className='font-bold'>Status:</span>

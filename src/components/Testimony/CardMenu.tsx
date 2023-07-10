@@ -7,7 +7,10 @@ function CardMenu({
   closeMenu,
 }: {
   testimony: TestimonyType;
-  changeTestimonyStatus: (testimony: TestimonyType, newStatus: string) => void;
+  changeTestimonyStatus: (
+    testimony: TestimonyType,
+    newStatus: 'pending' | 'approved' | 'declined' | 'archived'
+  ) => void;
   closeMenu: () => void;
 }) {
   return (

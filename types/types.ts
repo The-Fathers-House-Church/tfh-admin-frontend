@@ -121,16 +121,18 @@ export interface RegistrationDetailType {
 }
 
 export interface TestimonyType {
+  test_id: number;
+  names: string;
   email: string;
   phoneNumber: string;
-  fullName: string;
-  summary: string;
-  content: string;
-  status: string;
-  source: string;
+  titles: string;
+  main_gist: string;
+  ditto: Date;
+  status: 'pending' | 'approved' | 'declined' | 'archived';
+  source: 'web' | 'mobile';
   updatedBy: string;
-  createdAt: Date;
-  _id: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface TransactionType {

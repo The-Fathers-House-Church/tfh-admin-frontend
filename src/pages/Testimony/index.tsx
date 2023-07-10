@@ -47,8 +47,8 @@ function Testimony() {
           }
         );
 
-        setTestimonies(response.data.data?.results);
-        setTotalResults(response.data.data?.pagination?.totalResults);
+        setTestimonies(response.data.data?.data);
+        setTotalResults(response.data.data?.totalResults);
       } catch (error) {
         setTestimonies([]);
         sendCatchFeedback(error);
@@ -76,11 +76,14 @@ function Testimony() {
     getStats();
   }, [dispatch]);
 
-  const changeTestimonyStatus = async (testimony: TestimonyType, newStatus: string) => {
+  const changeTestimonyStatus = async (
+    testimony: TestimonyType,
+    newStatus: 'pending' | 'approved' | 'declined' | 'archived'
+  ) => {
     dispatch(openLoadingIndicator({ text: 'Updating Testimony' }));
     try {
       const response = await appAxios.patch(
-        `/testimony/${testimony._id}/change-status`,
+        `/testimony/${testimony.test_id}/change-status`,
         { status: newStatus },
         {
           headers: {
@@ -93,7 +96,7 @@ function Testimony() {
 
       setTestimonies(
         testimonies?.map((item) => {
-          if (item._id === testimony._id) {
+          if (item.test_id === testimony.test_id) {
             item.status = newStatus;
           }
           return item;
@@ -138,7 +141,7 @@ function Testimony() {
             {testimonies.map((testimony) => (
               <TestimonyCard
                 testimony={testimony}
-                key={testimony._id}
+                key={testimony.test_id}
                 changeTestimonyStatus={changeTestimonyStatus}
               />
             ))}
