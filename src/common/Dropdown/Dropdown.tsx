@@ -48,7 +48,7 @@ function Dropdown({
               value: value.value,
             }))}
             onChange={(e: any) => {
-              formik.setFieldValue(name, e.value);
+              formik.setFieldValue(name, e ? e.value : undefined);
             }}
             onBlur={() => {
               formik.setFieldTouched(name, true);

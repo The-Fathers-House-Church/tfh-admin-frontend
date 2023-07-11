@@ -180,18 +180,47 @@ export interface AnnouncementType {
   updatedAt: string;
 }
 
-export interface TFCCType {
-  address: string;
-  cellLeader: string;
-  phoneNumber: string;
-  zone: string;
-  createdBy: string;
-  _id: string;
-  updatedBy: string;
+export interface TFCCCellType {
+  cell_id: number;
+  church_id: string;
+  zone_id: string;
+  host_address: string;
+  cell_leader: string;
+  cell_leader_id: number;
+  phone: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  church: ChurchType;
+  tfccZone: TFCCZoneType;
 }
+
 export interface TFCCZoneType {
-  name: string;
-  createdBy: string;
-  _id: string;
-  updatedBy: string;
+  zone_id: number;
+  church_id: string;
+  zonal: string;
+  createdAt: string;
+  updatedAt: string;
+  church: ChurchType;
+}
+export interface ChurchType {
+  church_id: number;
+  church_label: string;
+  location: string;
+  address: string;
+  contact_phone: string;
+  contact_email: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TFCCLeaderType {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  mobile: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
 }

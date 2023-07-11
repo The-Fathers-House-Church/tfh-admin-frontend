@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppDispatch } from '../../store/hooks';
 import * as yup from 'yup';
 import {
@@ -14,26 +14,48 @@ import Button from '../../common/Button/Button';
 import { getUserSession } from '../../functions/userSession';
 import Dropdown from '../../common/Dropdown/Dropdown';
 import TextArea from '../../common/TextArea/TextArea';
-import { TFCCZoneType } from '../../../types/types';
+import { ChurchType, TFCCZoneType } from '../../../types/types';
 
 function AddZoneForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [churches, setChurches] = useState<ChurchType[]>([]);
   const currentUser = getUserSession();
+
+  React.useEffect(() => {
+    const getChurches = async () => {
+      try {
+        const response = await appAxios.get(`/church`, {
+          headers: {
+            Authorization: currentUser ? currentUser?.token : null,
+          },
+        });
+
+        setChurches(response.data.data);
+      } catch (error) {
+        setChurches([]);
+        sendCatchFeedback(error);
+      }
+    };
+    getChurches();
+  }, []);
 
   interface Zone {
     name: string;
+    church: string;
   }
 
   const formik = useFormik<Zone>({
     initialValues: {
       name: '',
+      church: '',
     },
     onSubmit: () => {
       submitValues();
     },
     validationSchema: yup.object({
       name: yup.string().required('Name is required'),
+      church: yup.string().required('Church is required'),
     }),
   });
 
@@ -44,6 +66,7 @@ function AddZoneForm() {
         '/tfcc/zone',
         {
           name: formik.values.name,
+          church_id: formik.values.church,
         },
         {
           headers: {
@@ -53,7 +76,7 @@ function AddZoneForm() {
       );
       sendFeedback(response.data?.message, 'success');
 
-      navigate('/tfcc');
+      navigate('/tfcc/zone');
     } catch (error) {
       sendCatchFeedback(error);
     }
@@ -62,7 +85,24 @@ function AddZoneForm() {
   return (
     <form onSubmit={formik.handleSubmit}>
       <LabelInput formik={formik} name='name' label='Name' className='mb-5' />
-
+      <Dropdown
+        values={
+          churches && churches.length
+            ? churches.map((church) => ({
+                label: church.church_label,
+                value: church.church_id,
+              }))
+            : [{ label: '', value: '' }]
+        }
+        label='Church Branch'
+        name='church'
+        defaultValue={{
+          label: formik.values.church,
+          value: formik.values.church,
+        }}
+        formik={formik}
+        className='mb-5'
+      />
       <Button type='submit' className='mt-10'>
         Save Zone
       </Button>

@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppDispatch } from '../../store/hooks';
 import * as yup from 'yup';
 import {
@@ -14,67 +14,71 @@ import Button from '../../common/Button/Button';
 import { getUserSession } from '../../functions/userSession';
 import Dropdown from '../../common/Dropdown/Dropdown';
 import TextArea from '../../common/TextArea/TextArea';
-import { TFCCZoneType } from '../../../types/types';
+import { ChurchType, TFCCLeaderType } from '../../../types/types';
 
-function AddCenterForm() {
+function AddLeaderForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [churches, setChurches] = useState<ChurchType[]>([]);
   const currentUser = getUserSession();
-  const [zones, setZones] = React.useState<TFCCZoneType[] | undefined>([]);
 
   React.useEffect(() => {
-    const getZones = async () => {
+    const getChurches = async () => {
       try {
-        const response = await appAxios.get(`/tfcc/zone`, {
+        const response = await appAxios.get(`/church`, {
           headers: {
             Authorization: currentUser ? currentUser?.token : null,
           },
         });
 
-        setZones(response.data.data);
+        setChurches(response.data.data);
       } catch (error) {
-        setZones([]);
+        setChurches([]);
         sendCatchFeedback(error);
       }
     };
-    getZones();
+    getChurches();
   }, []);
 
-  interface Center {
-    cellLeader: string;
-    phoneNumber: string;
-    zone: string;
-    address: string;
+  interface Leader {
+    firstname: string;
+    lastname: string;
+    email: string;
+    mobile: string;
+    role: 'Group Leader' | 'Cell Leader' | 'Admin' | '';
   }
 
-  const formik = useFormik<Center>({
+  const formik = useFormik<Leader>({
     initialValues: {
-      cellLeader: '',
-      phoneNumber: '',
-      zone: '',
-      address: '',
+      firstname: '',
+      lastname: '',
+      email: '',
+      mobile: '',
+      role: '',
     },
     onSubmit: () => {
       submitValues();
     },
     validationSchema: yup.object({
-      cellLeader: yup.string().required('Cell leader is required'),
-      phoneNumber: yup.string().required('Phone number is required'),
-      zone: yup.string().required('Zone is required'),
-      address: yup.string().required('Address is required'),
+      firstname: yup.string().required('Required'),
+      lastname: yup.string().required('Required'),
+      email: yup.string().required('Required'),
+      mobile: yup.string().required('Required'),
+      role: yup.string().required('Required'),
     }),
   });
 
   const submitValues = async () => {
-    dispatch(openLoadingIndicator({ text: 'Adding Center' }));
+    dispatch(openLoadingIndicator({ text: 'Adding Leader' }));
     try {
       const response = await appAxios.post(
-        '/tfcc/center',
+        '/tfcc/leader',
         {
-          cellLeader: formik.values.cellLeader,
-          phoneNumber: formik.values.phoneNumber,
-          zone: formik.values.zone,
-          address: formik.values.address,
+          firstname: formik.values.firstname,
+          lastname: formik.values.lastname,
+          email: formik.values.email,
+          mobile: formik.values.mobile,
+          role: formik.values.role,
         },
         {
           headers: {
@@ -84,7 +88,7 @@ function AddCenterForm() {
       );
       sendFeedback(response.data?.message, 'success');
 
-      navigate('/tfcc');
+      navigate('/tfcc/leader');
     } catch (error) {
       sendCatchFeedback(error);
     }
@@ -92,46 +96,37 @@ function AddCenterForm() {
   };
   return (
     <form onSubmit={formik.handleSubmit}>
+      <LabelInput formik={formik} name='firstname' label='First Name' className='mb-5' />
+      <LabelInput formik={formik} name='lastname' label='Last Name' className='mb-5' />
+      <LabelInput
+        formik={formik}
+        name='mobile'
+        label='Phone Number'
+        type='tel'
+        className='mb-5'
+      />
+      <LabelInput
+        formik={formik}
+        name='email'
+        label='Email'
+        type='email'
+        className='mb-5'
+      />
       <Dropdown
-        values={
-          zones
-            ? zones?.map((zone) => ({
-                label: zone.name,
-                value: zone.name,
-              }))
-            : [{ label: '', value: '' }]
-        }
-        label='Zone'
-        name='zone'
-        // defaultValue={{
-        //   label: formik.values.zone ? 'Yes' : 'No',
-        //   value: formik.values.zone,
-        // }}
-        placeholder='Select TFCC Zone'
+        values={['Group Leader', 'Cell Leader', 'Admin'].map((role) => ({
+          label: role,
+          value: role,
+        }))}
+        label='Role'
+        name='role'
         formik={formik}
         className='mb-5'
       />
-
-      <LabelInput
-        formik={formik}
-        name='cellLeader'
-        label='Cell Leader'
-        className='mb-5'
-      />
-      <LabelInput
-        formik={formik}
-        name='phoneNumber'
-        label='Phone number'
-        className='mb-5'
-        type='phoneNumber'
-      />
-      <TextArea formik={formik} name='address' label='Address' className='mb-5' />
-
       <Button type='submit' className='mt-10'>
-        Save Center
+        Save Leader
       </Button>
     </form>
   );
 }
 
-export default AddCenterForm;
+export default AddLeaderForm;

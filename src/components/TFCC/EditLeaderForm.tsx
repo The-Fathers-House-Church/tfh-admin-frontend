@@ -14,9 +14,9 @@ import Button from '../../common/Button/Button';
 import { getUserSession } from '../../functions/userSession';
 import Dropdown from '../../common/Dropdown/Dropdown';
 import TextArea from '../../common/TextArea/TextArea';
-import { ChurchType, TFCCZoneType } from '../../../types/types';
+import { ChurchType, TFCCLeaderType } from '../../../types/types';
 
-function EditZoneForm({ zone }: { zone: TFCCZoneType }) {
+function EditLeaderForm({ leader }: { leader: TFCCLeaderType }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const currentUser = getUserSession();
@@ -40,35 +40,45 @@ function EditZoneForm({ zone }: { zone: TFCCZoneType }) {
     getChurches();
   }, []);
 
-  interface Zone {
-    name: string;
-    church: string;
-    churchLabel: string;
+  interface Leader {
+    firstname: string;
+    lastname: string;
+    email: string;
+    mobile: string;
+    role: 'Group Leader' | 'Cell Leader' | 'Admin' | string;
   }
 
-  const formik = useFormik<Zone>({
+  const formik = useFormik<Leader>({
     initialValues: {
-      name: zone.zonal,
-      church: zone.church_id,
-      churchLabel: zone.church.church_label,
+      firstname: leader.firstname,
+      lastname: leader.lastname,
+      email: leader.email,
+      mobile: leader.mobile,
+      role: leader.role,
     },
     onSubmit: () => {
       submitValues();
     },
     validationSchema: yup.object({
-      name: yup.string().required('Name is required'),
-      church: yup.string().required('Church is required'),
+      firstname: yup.string().required('Required'),
+      lastname: yup.string().required('Required'),
+      email: yup.string().required('Required'),
+      mobile: yup.string().required('Required'),
+      role: yup.string().required('Required'),
     }),
   });
 
   const submitValues = async () => {
-    dispatch(openLoadingIndicator({ text: 'Updating Zone' }));
+    dispatch(openLoadingIndicator({ text: 'Updating Leader' }));
     try {
-      const response = await appAxios.patch(
-        '/tfcc/zone/' + zone.zone_id,
+      const response = await appAxios.put(
+        '/tfcc/leader/' + leader.id,
         {
-          name: formik.values.name,
-          church_id: formik.values.church,
+          firstname: formik.values.firstname,
+          lastname: formik.values.lastname,
+          email: formik.values.email,
+          mobile: formik.values.mobile,
+          role: formik.values.role,
         },
         {
           headers: {
@@ -78,7 +88,7 @@ function EditZoneForm({ zone }: { zone: TFCCZoneType }) {
       );
       sendFeedback(response.data?.message, 'success');
 
-      navigate('/tfcc/zone');
+      navigate('/tfcc/leader');
     } catch (error) {
       sendCatchFeedback(error);
     }
@@ -87,30 +97,41 @@ function EditZoneForm({ zone }: { zone: TFCCZoneType }) {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <LabelInput formik={formik} name='name' label='Name' className='mb-5' />
+      <LabelInput formik={formik} name='firstname' label='First Name' className='mb-5' />
+      <LabelInput formik={formik} name='lastname' label='Last Name' className='mb-5' />
+      <LabelInput
+        formik={formik}
+        name='mobile'
+        label='Phone Number'
+        type='tel'
+        className='mb-5'
+      />
+      <LabelInput
+        formik={formik}
+        name='email'
+        label='Email'
+        type='email'
+        className='mb-5'
+      />
       <Dropdown
-        values={
-          churches && churches.length
-            ? churches.map((church) => ({
-                label: church.church_label,
-                value: church.church_id,
-              }))
-            : [{ label: '', value: '' }]
-        }
-        label='Church Branch'
-        name='church'
+        values={['Group Leader', 'Cell Leader', 'Admin'].map((role) => ({
+          label: role,
+          value: role,
+        }))}
+        label='Role'
+        name='role'
         defaultValue={{
-          label: formik.values.churchLabel,
-          value: formik.values.church,
+          label: formik.values.role,
+          value: formik.values.role,
         }}
         formik={formik}
         className='mb-5'
       />
       <Button type='submit' className='mt-10'>
-        Update Zone
+        Update Leader
       </Button>
     </form>
   );
 }
 
-export default EditZoneForm;
+export default EditLeaderForm;

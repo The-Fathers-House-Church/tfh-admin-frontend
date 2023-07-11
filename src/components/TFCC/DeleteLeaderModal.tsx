@@ -9,40 +9,40 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { TFCCZoneType, SetState } from '../../../types/types';
+import { TFCCLeaderType, SetState } from '../../../types/types';
 
-function DeleteZoneModal({
+function DeleteLeaderModal({
   closeDeleteModal,
   deleteModalOpen,
-  zone,
-  allZones,
-  setAllZones,
+  leader,
+  allLeaders,
+  setAllLeaders,
   navigateFunction,
 }: {
   deleteModalOpen: boolean;
   closeDeleteModal: () => void;
-  zone: TFCCZoneType | undefined;
-  allZones?: TFCCZoneType[];
-  setAllZones?: SetState<TFCCZoneType[] | undefined>;
+  leader: TFCCLeaderType | undefined;
+  allLeaders?: TFCCLeaderType[];
+  setAllLeaders?: SetState<TFCCLeaderType[] | undefined>;
   navigateFunction?: () => void;
 }) {
   const dispatch = useAppDispatch();
 
   const handleDelete = async () => {
-    dispatch(openLoadingIndicator({ text: 'Deleting Zone' }));
+    dispatch(openLoadingIndicator({ text: 'Deleting Leader' }));
     const currentUser = getUserSession();
 
     try {
-      const response = await appAxios.delete('/tfcc/zone/' + zone?.zone_id, {
+      const response = await appAxios.delete('/tfcc/leader/' + leader?.id, {
         headers: {
           Authorization: currentUser ? currentUser?.token : null,
         },
       });
       sendFeedback(response.data?.message, 'success');
 
-      setAllZones &&
-        setAllZones(
-          allZones?.filter((item: TFCCZoneType) => item.zone_id !== zone?.zone_id)
+      setAllLeaders &&
+        setAllLeaders(
+          allLeaders?.filter((item: TFCCLeaderType) => item.id !== leader?.id)
         );
 
       closeDeleteModal();
@@ -57,11 +57,12 @@ function DeleteZoneModal({
     <CustomModal
       modalState={deleteModalOpen}
       closeModal={closeDeleteModal}
-      title='Delete Zone'
+      title='Delete Leader'
     >
       <div>
         <p className='text-center md:text-left mb-10'>
-          You are trying to delete this Zone: ({zone?.zonal}). Are you sure you want to
+          You are trying to delete this Leader: (
+          {leader?.firstname + ' ' + leader?.lastname}). Are you sure you want to
           continue?
         </p>
         <div className='flex items-center justify-center gap-5 flex-wrap md:justify-start'>
@@ -77,4 +78,4 @@ function DeleteZoneModal({
   );
 }
 
-export default DeleteZoneModal;
+export default DeleteLeaderModal;
