@@ -240,3 +240,12 @@ export interface DepartmentType {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface BulletinSubscriberType {
+  id: number;
+  address: string;
+  subscribed: boolean;
+  flagz: boolean;
+  createdAt: string;
+  updatedAt: string;
+}

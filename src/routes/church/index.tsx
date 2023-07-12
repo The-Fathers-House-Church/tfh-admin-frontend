@@ -9,6 +9,7 @@ import EditDepartment from '../../pages/Church/departments/edit';
 import Branches from '../../pages/Church/branches';
 import AddBranch from '../../pages/Church/branches/add';
 import EditBranch from '../../pages/Church/branches/edit';
+import BulletinSubscribers from '../../pages/Church/bulletin';
 
 export const churchRoutes = [
   {
@@ -62,6 +63,11 @@ export const churchRoutes = [
   {
     path: '/church/branches/edit/:id',
     element: <EditBranch />,
+    loader: checkPrivateRoute,
+  },
+  {
+    path: '/church/bulletin-subscriber',
+    element: <BulletinSubscribers />,
     loader: checkPrivateRoute,
   },
 ];

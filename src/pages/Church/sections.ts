@@ -16,6 +16,10 @@ const sections: SectionType[] = [
     name: 'Units',
     link: '/church/units',
   },
+  {
+    name: 'Bulletin Subscribers',
+    link: '/church/bulletin-subscriber',
+  },
 ];
 
 export default sections;

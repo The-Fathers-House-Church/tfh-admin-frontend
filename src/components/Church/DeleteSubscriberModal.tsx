@@ -4,14 +4,14 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { DepartmentType, SetState } from '../../../types/types';
+import { BulletinSubscriberType, SetState } from '../../../types/types';
 import { getUserSession } from '../../functions/userSession';
 import { appAxios } from '../../api/axios';
 import { sendCatchFeedback, sendFeedback } from '../../functions/feedback';
 import CustomModal from '../../common/CustomModal/CustomModal';
 import Button from '../../common/Button/Button';
 
-const DeleteDepartmentModal = ({
+const DeleteSubscriberModal = ({
   closeModal,
   openModal,
   selectedData,
@@ -21,9 +21,9 @@ const DeleteDepartmentModal = ({
 }: {
   openModal: boolean;
   closeModal: () => void;
-  selectedData: DepartmentType | undefined;
-  allData?: DepartmentType[];
-  setAllData?: SetState<DepartmentType[] | undefined>;
+  selectedData: BulletinSubscriberType | undefined;
+  allData?: BulletinSubscriberType[];
+  setAllData?: SetState<BulletinSubscriberType[] | undefined>;
   navigateFunction?: () => void;
 }) => {
   const dispatch = useAppDispatch();
@@ -32,8 +32,8 @@ const DeleteDepartmentModal = ({
     const currentUser = getUserSession();
 
     try {
-      dispatch(openLoadingIndicator({ text: 'Deleting Department' }));
-      const response = await appAxios.delete('/department/' + selectedData?.id, {
+      dispatch(openLoadingIndicator({ text: 'Deleting Subscriber' }));
+      const response = await appAxios.delete('/bulletin/subscriber/' + selectedData?.id, {
         headers: {
           Authorization: currentUser ? currentUser?.token : null,
         },
@@ -42,7 +42,7 @@ const DeleteDepartmentModal = ({
 
       setAllData &&
         setAllData(
-          allData?.filter((item: DepartmentType) => item.id !== selectedData?.id)
+          allData?.filter((item: BulletinSubscriberType) => item.id !== selectedData?.id)
         );
 
       closeModal();
@@ -54,11 +54,11 @@ const DeleteDepartmentModal = ({
     }
   };
   return (
-    <CustomModal modalState={openModal} closeModal={closeModal} title='Delete Department'>
+    <CustomModal modalState={openModal} closeModal={closeModal} title='Delete Subscriber'>
       <div>
         <p className='text-center md:text-left mb-10'>
-          You are trying to delete this department: ({selectedData?.names}). Are you sure
-          you want to continue?
+          You are trying to delete this subscriber: ({selectedData?.address}). Are you
+          sure you want to continue?
         </p>
         <div className='flex items-center justify-center gap-5 flex-wrap md:justify-start'>
           <Button className='md:max-w-[200px] bg-error' onClick={handleDelete}>
@@ -73,4 +73,4 @@ const DeleteDepartmentModal = ({
   );
 };
 
-export default DeleteDepartmentModal;
+export default DeleteSubscriberModal;

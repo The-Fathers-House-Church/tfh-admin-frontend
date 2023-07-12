@@ -55,8 +55,8 @@ const DeleteUnitModal = ({
     <CustomModal modalState={openModal} closeModal={closeModal} title='Delete Unit'>
       <div>
         <p className='text-center md:text-left mb-10'>
-          You are trying to delete this branch: ({selectedData?.u_names}). Are you sure
-          you want to continue?
+          You are trying to delete this unit: ({selectedData?.u_names}). Are you sure you
+          want to continue?
         </p>
         <div className='flex items-center justify-center gap-5 flex-wrap md:justify-start'>
           <Button className='md:max-w-[200px] bg-error' onClick={handleDelete}>
