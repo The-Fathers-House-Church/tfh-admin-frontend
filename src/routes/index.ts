@@ -9,6 +9,7 @@ import { usersRoutes } from './users/index';
 import { authenticationRoutes } from './authentication';
 import { dashboardRoutes } from './dashboard';
 import { eventRoutes } from './event';
+import { churchRoutes } from './church';
 
 export const routes = [
   ...authenticationRoutes,
@@ -22,4 +23,5 @@ export const routes = [
   ...givingRoutes,
   ...announcementRoutes,
   ...tfccRoutes,
+  ...churchRoutes,
 ];

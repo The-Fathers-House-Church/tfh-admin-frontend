@@ -224,3 +224,19 @@ export interface TFCCLeaderType {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface UnitType {
+  id: number;
+  dept_id: string;
+  u_names: string;
+  createdAt: string;
+  updatedAt: string;
+  department: DepartmentType;
+}
+
+export interface DepartmentType {
+  id: number;
+  names: string;
+  createdAt: string;
+  updatedAt: string;
+}

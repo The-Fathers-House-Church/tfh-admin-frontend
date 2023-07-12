@@ -39,6 +39,10 @@ const navLinks: { label: string; href: string }[] = [
     label: 'TFCC',
     href: '/tfcc',
   },
+  {
+    label: 'Church',
+    href: '/church',
+  },
   // {
   //   label: 'Giving',
   //   href: '/giving',

@@ -80,7 +80,9 @@ function UpdatePasswordRequest() {
             label='Verification code'
             className='mb-10'
           />
-          <Button type='submit'>Update Password</Button>
+          <Button type='submit' className='w-full'>
+            Update Password
+          </Button>
         </form>
         <Divider
           style={{
