@@ -249,3 +249,47 @@ export interface BulletinSubscriberType {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface VisitorType {
+  id: number;
+  fname: string;
+  lname: string;
+  address: string;
+  nearest: string;
+  marital: string;
+  gender: string;
+  phone: string;
+  email: string;
+  contact_mode: string;
+  service_opinion: string;
+  suggestions: string;
+  membership: string;
+  dated: Date;
+  assigned: boolean;
+  category: string;
+  timer2: boolean;
+  timer21: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AssignedVisitorType {
+  id: number;
+  case_id: string;
+  v_id: number;
+  names: string;
+  address: string;
+  gender: string;
+  phone: string;
+  assigned: string;
+  assigned_id: number;
+  status: string;
+  response: string;
+  assigned_p: string;
+  ditto: string;
+  nearest: string;
+  createdAt: string;
+  updatedAt: string;
+  visitor: VisitorType;
+  tfccLeader: TFCCLeaderType;
+}

@@ -1,3 +1,4 @@
+import { visitationRoutes } from './visitor/index';
 import { tfccRoutes } from './tfcc/index';
 import { announcementRoutes } from './announcement/index';
 import { givingRoutes } from './giving/index';
@@ -24,4 +25,5 @@ export const routes = [
   ...announcementRoutes,
   ...tfccRoutes,
   ...churchRoutes,
+  ...visitationRoutes,
 ];
