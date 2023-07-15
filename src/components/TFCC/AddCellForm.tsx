@@ -83,14 +83,14 @@ function AddCellForm() {
     getLeaders();
   }, []);
 
-  interface Center {
+  interface Cell {
     cellLeader: string;
     church: string;
     zone: string;
     address: string;
   }
 
-  const formik = useFormik<Center>({
+  const formik = useFormik<Cell>({
     initialValues: {
       cellLeader: '',
       zone: '',
@@ -109,7 +109,7 @@ function AddCellForm() {
   });
 
   const submitValues = async () => {
-    dispatch(openLoadingIndicator({ text: 'Adding Center' }));
+    dispatch(openLoadingIndicator({ text: 'Adding Cell' }));
     try {
       const response = await appAxios.post(
         '/tfcc/cell',
@@ -185,7 +185,7 @@ function AddCellForm() {
       <TextArea formik={formik} name='address' label='Address' className='mb-5' />
 
       <Button type='submit' className='mt-10'>
-        Save Center
+        Save Cell
       </Button>
     </form>
   );

@@ -1,12 +1,12 @@
 import { checkPrivateRoute } from '../utils';
 import Visitation from '../../pages/Visitation';
 import AddVisitor from '../../pages/Visitation/add';
-import AssignVisitor from '../../pages/Visitation/assign';
 import FirstTimers from '../../pages/Visitation/first-timer';
 import AssignedFirstTimers from '../../pages/Visitation/first-timer/assigned';
 import AllVisitors from '../../pages/Visitation/all';
 import SecondTimers from '../../pages/Visitation/second-timer';
 import AssignedSecondTimers from '../../pages/Visitation/second-timer/assigned';
+import EditVisitor from '../../pages/Visitation/edit';
 
 export const visitationRoutes = [
   {
@@ -21,8 +21,8 @@ export const visitationRoutes = [
     loader: checkPrivateRoute,
   },
   {
-    path: '/visitation/assign/:id',
-    element: <AssignVisitor />,
+    path: '/visitation/edit/:id',
+    element: <EditVisitor />,
     loader: checkPrivateRoute,
   },
   {

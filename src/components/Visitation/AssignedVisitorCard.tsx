@@ -17,6 +17,7 @@ function AssignedVisitorCard({
           <div className='flex flex-col gap-2 justify-between item-center'>
             <span className='font-bold'>{visitor.names}</span>
             <span className='text-xs'>{visitor.address}</span>
+            <span className='text-xs'>Assigned to: {visitor.assigned}</span>
           </div>
         </div>
         <div className='flex items-center gap-3'>

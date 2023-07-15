@@ -88,7 +88,7 @@ function EditCellForm({ cell }: { cell: TFCCCellType }) {
     getLeaders();
   }, []);
 
-  interface Center {
+  interface Cell {
     cellLeaderLabel: string;
     cellLeader: number;
     church: string;
@@ -98,7 +98,7 @@ function EditCellForm({ cell }: { cell: TFCCCellType }) {
     address: string;
   }
 
-  const formik = useFormik<Center>({
+  const formik = useFormik<Cell>({
     initialValues: {
       cellLeaderLabel: cell.cell_leader,
       cellLeader: cell.cell_leader_id,
@@ -120,7 +120,7 @@ function EditCellForm({ cell }: { cell: TFCCCellType }) {
   });
 
   const submitValues = async () => {
-    dispatch(openLoadingIndicator({ text: 'Updating Center' }));
+    dispatch(openLoadingIndicator({ text: 'Updating Cell' }));
     try {
       const response = await appAxios.patch(
         '/tfcc/cell/' + cell.cell_id,
@@ -211,7 +211,7 @@ function EditCellForm({ cell }: { cell: TFCCCellType }) {
           <TextArea formik={formik} name='address' label='Address' className='mb-5' />
 
           <Button type='submit' className='mt-10'>
-            Update Center
+            Update Cell
           </Button>
         </form>
       )}

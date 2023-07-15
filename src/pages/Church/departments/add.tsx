@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
 import BackButton from '../../../common/Button/BackButton';
 import AppLayout from '../../../layout/AppLayout';
 import { useAppDispatch } from '../../../store/hooks';
 import { useNavigate } from 'react-router-dom';
-import { DepartmentType } from '../../../../types/types';
 import { getUserSession } from '../../../functions/userSession';
 import { appAxios } from '../../../api/axios';
 import { sendCatchFeedback, sendFeedback } from '../../../functions/feedback';
@@ -14,7 +12,6 @@ import {
   openLoadingIndicator,
 } from '../../../store/slices/loadingIndicator';
 import LabelInput from '../../../common/LabelInput/LabelInput';
-import Dropdown from '../../../common/Dropdown/Dropdown';
 import Button from '../../../common/Button/Button';
 
 const AddDepartment = () => {

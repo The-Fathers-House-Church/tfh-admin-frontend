@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch } from '../../store/hooks';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getUserSession } from '../../functions/userSession';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -15,51 +15,70 @@ import BackButton from '../../common/Button/BackButton';
 import LabelInput from '../../common/LabelInput/LabelInput';
 import Button from '../../common/Button/Button';
 import Dropdown from '../../common/Dropdown/Dropdown';
+import { VisitorType } from '../../../types/types';
 
-const AddVisitor = () => {
+const EditVisitor = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const currentUser = getUserSession();
+  const [data, setData] = React.useState<VisitorType | undefined>(undefined);
+  const { id } = useParams();
+
+  React.useEffect(() => {
+    const getData = async () => {
+      try {
+        dispatch(openLoadingIndicator({ text: 'Retrieving Data' }));
+        const response = await appAxios.get('/visitor/' + id);
+        setData(response.data.visitor);
+      } catch (error) {
+        setData(undefined);
+      } finally {
+        dispatch(closeLoadingIndicator());
+      }
+    };
+    getData();
+  }, []);
 
   interface Visitor {
-    fname: string;
-    lname: string;
-    address: string;
-    nearest: string;
-    marital: string;
-    gender: string;
-    phone: string;
-    email: string;
-    contact_mode: string;
-    service_opinion: string;
-    suggestions: string;
-    membership: string;
-    dated: string;
-    timerValue: string;
-    category: string;
+    fname: string | undefined;
+    lname: string | undefined;
+    address: string | undefined;
+    nearest: string | undefined;
+    marital: string | undefined;
+    gender: string | undefined;
+    phone: string | undefined;
+    email: string | undefined;
+    contact_mode: string | undefined;
+    service_opinion: string | undefined;
+    suggestions: string | undefined;
+    membership: string | undefined;
+    dated: Date | undefined;
+    timerValue: string | undefined;
+    category: string | undefined;
   }
 
   const formik = useFormik<Visitor>({
     initialValues: {
-      fname: '',
-      lname: '',
-      address: '',
-      nearest: '',
-      marital: '',
-      gender: '',
-      phone: '',
-      email: '',
-      contact_mode: '',
-      service_opinion: '',
-      suggestions: '',
-      membership: '',
-      dated: '',
-      timerValue: '',
-      category: '',
+      fname: data?.fname,
+      lname: data?.lname,
+      address: data?.address,
+      nearest: data?.nearest,
+      marital: data?.marital,
+      gender: data?.gender,
+      phone: data?.phone,
+      email: data?.email,
+      contact_mode: data?.contact_mode,
+      service_opinion: data?.service_opinion,
+      suggestions: data?.suggestions,
+      membership: data?.membership,
+      dated: data?.dated,
+      timerValue: data?.timer2 ? 'first' : 'second',
+      category: data?.category,
     },
     onSubmit: () => {
       submitValues();
     },
+    enableReinitialize: true,
     validationSchema: yup.object({
       fname: yup.string().required('Required'),
       lname: yup.string().required('Required'),
@@ -94,9 +113,9 @@ const AddVisitor = () => {
 
   const submitValues = async () => {
     try {
-      dispatch(openLoadingIndicator({ text: 'Adding Visitor' }));
-      const response = await appAxios.post(
-        '/visitor',
+      dispatch(openLoadingIndicator({ text: 'Updating Visitor' }));
+      const response = await appAxios.put(
+        `/visitor/${id}`,
         {
           fname: formik.values.fname,
           lname: formik.values.lname,
@@ -130,7 +149,7 @@ const AddVisitor = () => {
     }
   };
   return (
-    <AppLayout pageAction={<BackButton />} pageTitle='Add Visitor'>
+    <AppLayout pageAction={<BackButton />} pageTitle='Edit Visitor'>
       <form onSubmit={formik.handleSubmit}>
         <LabelInput formik={formik} name='fname' label='First Name' className='mb-5' />
         <LabelInput formik={formik} name='lname' label='Last Name' className='mb-5' />
@@ -151,6 +170,10 @@ const AddVisitor = () => {
           placeholder='Select Marital Status'
           formik={formik}
           className='mb-5'
+          value={{
+            label: formik.values.marital,
+            value: formik.values.marital,
+          }}
         />
         <Dropdown
           values={['Male', 'Female'].map((item) => ({
@@ -162,6 +185,10 @@ const AddVisitor = () => {
           placeholder='Select Gender'
           formik={formik}
           className='mb-5'
+          value={{
+            label: formik.values.gender,
+            value: formik.values.gender,
+          }}
         />
         <LabelInput
           formik={formik}
@@ -193,6 +220,10 @@ const AddVisitor = () => {
           placeholder='Mode of Contact'
           formik={formik}
           className='mb-5'
+          value={{
+            label: formik.values.contact_mode,
+            value: formik.values.contact_mode,
+          }}
         />
         <Dropdown
           values={['Excellent', 'Good', 'Fair', 'Poor'].map((item) => ({
@@ -204,6 +235,10 @@ const AddVisitor = () => {
           placeholder='Service Opinion'
           formik={formik}
           className='mb-5'
+          value={{
+            label: formik.values.service_opinion,
+            value: formik.values.service_opinion,
+          }}
         />
         <LabelInput
           formik={formik}
@@ -229,6 +264,10 @@ const AddVisitor = () => {
           name='category'
           placeholder='Where did the visitor visit'
           formik={formik}
+          value={{
+            label: formik.values.category,
+            value: formik.values.category,
+          }}
           className='mb-5'
         />
         <Dropdown
@@ -244,6 +283,10 @@ const AddVisitor = () => {
           placeholder='How many times has the visiter come'
           formik={formik}
           className='mb-5'
+          value={{
+            label: formik.values.timerValue,
+            value: formik.values.timerValue,
+          }}
         />
         <Dropdown
           values={[
@@ -259,13 +302,17 @@ const AddVisitor = () => {
           placeholder='Plan to join TFH'
           formik={formik}
           className='mb-5'
+          value={{
+            label: formik.values.membership,
+            value: formik.values.membership,
+          }}
         />
         <Button type='submit' className='mt-10'>
-          Save Visitor
+          Update Visitor
         </Button>
       </form>
     </AppLayout>
   );
 };
 
-export default AddVisitor;
+export default EditVisitor;
