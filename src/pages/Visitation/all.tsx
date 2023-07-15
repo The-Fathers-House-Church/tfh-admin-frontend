@@ -94,6 +94,13 @@ const AllVisitors = () => {
       ) : (
         <span className='text-md'>No visitor found</span>
       )}
+      <DeleteVisitorModal
+        allData={data}
+        setAllData={setData}
+        closeModal={closeDeleteModal}
+        openModal={deleteModal}
+        selectedData={selectedData}
+      />
       <AssignVisitorModal
         allData={data}
         setAllData={setData}

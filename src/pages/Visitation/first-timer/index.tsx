@@ -11,6 +11,7 @@ import Loader from '../../../common/Loader/Loader';
 import VisitorCard from '../../../components/Visitation/VisitorCard';
 import Pagination from '../../../common/Pagination';
 import DeleteVisitorModal from '../../../components/Visitation/DeleteVisitorModal';
+import AssignVisitorModal from '../../../components/Visitation/AssignVisitorModal';
 
 const FirstTimers = () => {
   const [loading, setLoading] = React.useState(false);
@@ -29,6 +30,15 @@ const FirstTimers = () => {
   };
   const closeDeleteModal = () => {
     setDeleteModal(false);
+  };
+  // assign modal
+  const [assignModal, setAssignModal] = React.useState(false);
+  const openAssignModal = (data: VisitorType) => {
+    setSelectedData(data);
+    setAssignModal(true);
+  };
+  const closeAssignModal = () => {
+    setAssignModal(false);
   };
 
   React.useEffect(() => {
@@ -77,6 +87,7 @@ const FirstTimers = () => {
                 visitor={visitor}
                 key={visitor.id}
                 openDeleteModal={openDeleteModal}
+                openAssignModal={openAssignModal}
               />
             ))}
           </div>
@@ -90,6 +101,13 @@ const FirstTimers = () => {
         setAllData={setData}
         closeModal={closeDeleteModal}
         openModal={deleteModal}
+        selectedData={selectedData}
+      />
+      <AssignVisitorModal
+        allData={data}
+        setAllData={setData}
+        closeModal={closeAssignModal}
+        openModal={assignModal}
         selectedData={selectedData}
       />
     </AppLayout>
