@@ -72,7 +72,9 @@ function LoginForm() {
             type='password'
             className='mb-10'
           />
-          <Button type='submit'>Login</Button>
+          <Button type='submit' className='w-full'>
+            Login
+          </Button>
         </form>
         <Divider
           style={{

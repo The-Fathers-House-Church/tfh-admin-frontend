@@ -9,39 +9,41 @@ import {
   closeLoadingIndicator,
   openLoadingIndicator,
 } from '../../store/slices/loadingIndicator';
-import { TFCCType, SetState } from '../../../types/types';
+import { TFCCCellType, SetState } from '../../../types/types';
 
-function DeleteCenterModal({
+function DeleteCellModal({
   closeDeleteModal,
   deleteModalOpen,
-  center,
-  allCenters,
-  setAllCenters,
+  cell,
+  allCells,
+  setAllCells,
   navigateFunction,
 }: {
   deleteModalOpen: boolean;
   closeDeleteModal: () => void;
-  center: TFCCType | undefined;
-  allCenters?: TFCCType[];
-  setAllCenters?: SetState<TFCCType[] | undefined>;
+  cell: TFCCCellType | undefined;
+  allCells?: TFCCCellType[];
+  setAllCells?: SetState<TFCCCellType[] | undefined>;
   navigateFunction?: () => void;
 }) {
   const dispatch = useAppDispatch();
 
   const handleDelete = async () => {
-    dispatch(openLoadingIndicator({ text: 'Deleting Center' }));
+    dispatch(openLoadingIndicator({ text: 'Deleting Cell' }));
     const currentUser = getUserSession();
 
     try {
-      const response = await appAxios.delete('/tfcc/center/' + center?._id, {
+      const response = await appAxios.delete('/tfcc/cell/' + cell?.cell_id, {
         headers: {
           Authorization: currentUser ? currentUser?.token : null,
         },
       });
       sendFeedback(response.data?.message, 'success');
 
-      setAllCenters &&
-        setAllCenters(allCenters?.filter((item: TFCCType) => item._id !== center?._id));
+      setAllCells &&
+        setAllCells(
+          allCells?.filter((item: TFCCCellType) => item.cell_id !== cell?.cell_id)
+        );
 
       closeDeleteModal();
       navigateFunction && navigateFunction();
@@ -55,12 +57,12 @@ function DeleteCenterModal({
     <CustomModal
       modalState={deleteModalOpen}
       closeModal={closeDeleteModal}
-      title='Delete Center'
+      title='Delete Cell'
     >
       <div>
         <p className='text-center md:text-left mb-10'>
-          You are trying to delete this center with cell leader: ({center?.cellLeader}).
-          Are you sure you want to continue?
+          You are trying to delete this cell with cell leader: ({cell?.cell_leader}). Are
+          you sure you want to continue?
         </p>
         <div className='flex items-center justify-center gap-5 flex-wrap md:justify-start'>
           <Button className='md:max-w-[200px] bg-error' onClick={handleDelete}>
@@ -75,4 +77,4 @@ function DeleteCenterModal({
   );
 }
 
-export default DeleteCenterModal;
+export default DeleteCellModal;

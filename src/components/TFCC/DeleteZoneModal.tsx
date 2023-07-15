@@ -33,7 +33,7 @@ function DeleteZoneModal({
     const currentUser = getUserSession();
 
     try {
-      const response = await appAxios.delete('/tfcc/zone/' + zone?._id, {
+      const response = await appAxios.delete('/tfcc/zone/' + zone?.zone_id, {
         headers: {
           Authorization: currentUser ? currentUser?.token : null,
         },
@@ -41,7 +41,9 @@ function DeleteZoneModal({
       sendFeedback(response.data?.message, 'success');
 
       setAllZones &&
-        setAllZones(allZones?.filter((item: TFCCZoneType) => item._id !== zone?._id));
+        setAllZones(
+          allZones?.filter((item: TFCCZoneType) => item.zone_id !== zone?.zone_id)
+        );
 
       closeDeleteModal();
       navigateFunction && navigateFunction();
@@ -59,7 +61,7 @@ function DeleteZoneModal({
     >
       <div>
         <p className='text-center md:text-left mb-10'>
-          You are trying to delete this Zone: ({zone?.name}). Are you sure you want to
+          You are trying to delete this Zone: ({zone?.zonal}). Are you sure you want to
           continue?
         </p>
         <div className='flex items-center justify-center gap-5 flex-wrap md:justify-start'>

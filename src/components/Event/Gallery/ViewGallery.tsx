@@ -16,21 +16,21 @@ function ViewGallery({
   const [loading, setLoading] = React.useState(false);
   const currentUser = getUserSession();
 
-  const deleteImageFromGallery = async (imageURL: string) => {
+  const deleteImageFromGallery = async (id: number) => {
     if (confirm('Delete image from gallery?')) {
       try {
         setLoading(true);
-        const response = await appAxios.delete('/event/gallery/' + event._id, {
+        const response = await appAxios.delete('/event/gallery/' + event.id, {
           headers: {
             Authorization: currentUser ? currentUser?.token : null,
           },
           data: {
-            imageURL,
+            image_id: id,
           },
         });
         setEventDetails({
           ...event,
-          gallery: event.gallery.filter((image) => image !== imageURL),
+          gallery: event.gallery.filter((image) => image.id !== id),
         });
         sendFeedback(response.data?.message, 'success');
 
@@ -47,15 +47,15 @@ function ViewGallery({
       {event.gallery.length ? (
         <div className='grid grid-cols-2 md:grid-cols-4 gap-5'>
           {event.gallery.map((image) => (
-            <div className='relative' key={image}>
+            <div className='relative' key={image.id}>
               <img
-                src={image}
+                src={image.imageURL}
                 alt='Gallery'
                 className='h-60 w-full object-cover rounded-sm'
               />
               <button
                 className='shadow-md p-3 bg-primaryAccent1 rounded-sm absolute right-3 top-3 hover:bg-error hover:text-white duration-700'
-                onClick={() => (!loading ? deleteImageFromGallery(image) : null)}
+                onClick={() => (!loading ? deleteImageFromGallery(image.id) : null)}
               >
                 {loading ? (
                   <Loader className='w-5 h-5 border-lightGrey border-t-[#FF6634] border-2' />

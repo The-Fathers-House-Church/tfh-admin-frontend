@@ -35,8 +35,8 @@ function AllEvents() {
           },
         });
 
-        setEvents(response.data.data?.results);
-        setTotalResults(response.data.data?.pagination?.totalResults);
+        setEvents(response.data.data?.data);
+        setTotalResults(response.data.data?.totalResults);
 
         setLoading(false);
       } catch (error) {
@@ -67,11 +67,7 @@ function AllEvents() {
         <>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
             {events?.map((event) => (
-              <EventCard
-                key={event._id}
-                event={event}
-                openDeleteModal={openDeleteModal}
-              />
+              <EventCard key={event.id} event={event} openDeleteModal={openDeleteModal} />
             ))}
           </div>
           <Pagination page={page} totalResults={totalResults} setPage={setPage} />

@@ -127,13 +127,13 @@ function ViewEventLayout({ event }: { event: EventType | undefined }) {
       )} */}
 
       <div className='flex items-center justify-center gap-5 mt-10'>
-        <Link to={`/event/edit/${event._id}`} className='w-[200px]'>
+        <Link to={`/event/edit/${event.id}`} className='w-[200px]'>
           <Button>
             <FiEdit className='mr-5' />
             Edit
           </Button>
         </Link>
-        <Link to={`/event/gallery/${event._id}`} className='w-[200px]'>
+        <Link to={`/event/gallery/${event.id}`} className='w-[200px]'>
           <Button className='bg-dark'>
             <FiImage className='mr-5' />
             Gallery

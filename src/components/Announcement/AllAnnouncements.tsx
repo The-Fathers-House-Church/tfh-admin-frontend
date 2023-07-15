@@ -37,8 +37,8 @@ function AllAnnouncements() {
           },
         });
 
-        setAnnouncements(response.data.data?.results);
-        setTotalResults(response.data.data?.pagination?.totalResults);
+        setAnnouncements(response.data.data?.data);
+        setTotalResults(response.data.data?.totalResults);
 
         setLoading(false);
       } catch (error) {
@@ -70,7 +70,7 @@ function AllAnnouncements() {
           <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
             {announcements?.map((announcement) => (
               <AnnouncementCard
-                key={announcement._id}
+                key={announcement.id}
                 announcement={announcement}
                 openDeleteModal={openDeleteModal}
               />

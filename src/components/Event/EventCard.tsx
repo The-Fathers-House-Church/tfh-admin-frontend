@@ -17,7 +17,7 @@ function EventCard({
   return (
     <Card
       className={`min-w-full p-0 shadow-sm cursor-pointer bg-primaryAccent2`}
-      onClick={() => navigate('/event/view/' + event?._id)}
+      onClick={() => navigate('/event/view/' + event?.id)}
     >
       <article>
         <img
@@ -43,7 +43,7 @@ function EventCard({
             <FiEdit
               onClick={(e) => {
                 e.stopPropagation(); // this is because the entire card is clickable
-                navigate('/event/edit/' + event?._id);
+                navigate('/event/edit/' + event?.id);
               }}
             />
             <FiTrash

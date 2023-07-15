@@ -1,15 +1,15 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { TFCCZoneType } from '../../../types/types';
-import { appAxios } from '../../api/axios';
-import BackButton from '../../common/Button/BackButton';
-import EditZoneForm from '../../components/TFCC/EditZoneForm';
-import AppLayout from '../../layout/AppLayout';
-import { useAppDispatch } from '../../store/hooks';
+import { TFCCZoneType } from '../../../../types/types';
+import { appAxios } from '../../../api/axios';
+import BackButton from '../../../common/Button/BackButton';
+import EditZoneForm from '../../../components/TFCC/EditZoneForm';
+import AppLayout from '../../../layout/AppLayout';
+import { useAppDispatch } from '../../../store/hooks';
 import {
   closeLoadingIndicator,
   openLoadingIndicator,
-} from '../../store/slices/loadingIndicator';
+} from '../../../store/slices/loadingIndicator';
 
 function EditZone() {
   const [zone, setZone] = React.useState<TFCCZoneType | undefined>(undefined);

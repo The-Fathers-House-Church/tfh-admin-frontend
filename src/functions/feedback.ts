@@ -4,7 +4,9 @@ type Type = 'success' | 'info' | 'warning' | 'error';
 type Message = string;
 
 export const sendFeedback = (message: Message, type?: Type) => {
-  toast[type || 'info'](message || (type === 'success' ? 'Successful' : 'Error'));
+  toast[type || 'info'](message || (type === 'success' ? 'Successful' : 'Error'), {
+    toastId: 'toastId',
+  });
 };
 
 export const sendCatchFeedback = (error: any) => {
@@ -26,6 +28,9 @@ export const sendCatchFeedback = (error: any) => {
       ? error.response.data.errors[0].msg
       : error.response?.data?.message
       ? error.response?.data?.message
-      : 'Request unsuccessful'
+      : 'Request unsuccessful',
+    {
+      toastId: 'toastId',
+    }
   );
 };

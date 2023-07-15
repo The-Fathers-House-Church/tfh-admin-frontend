@@ -51,6 +51,7 @@ function AddAdminForm() {
           email: formik.values.email,
           password: formik.values.password,
           fullname: formik.values.fullname,
+          role: 'admin',
         },
         {
           headers: {

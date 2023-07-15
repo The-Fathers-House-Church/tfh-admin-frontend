@@ -34,8 +34,8 @@ function User() {
           },
         });
 
-        setUsers(response.data.data?.results);
-        setTotalResults(response.data.data?.pagination?.totalResults);
+        setUsers(response.data.data?.data);
+        setTotalResults(response.data.data?.totalResults);
       } catch (error) {
         setUsers([]);
         sendCatchFeedback(error);
@@ -82,7 +82,7 @@ function User() {
           <SectionHeader title='All Users' />
           <div className='flex flex-col gap-5'>
             {users.map((user) => (
-              <UserCard user={user} key={user._id} />
+              <UserCard user={user} key={user.id} />
             ))}
           </div>
           <Pagination page={page} totalResults={totalResults} setPage={setPage} />

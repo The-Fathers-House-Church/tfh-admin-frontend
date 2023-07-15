@@ -1,7 +1,7 @@
 import React from 'react';
-import BackButton from '../../common/Button/BackButton';
-import AddZoneForm from '../../components/TFCC/AddZoneForm';
-import AppLayout from '../../layout/AppLayout';
+import BackButton from '../../../common/Button/BackButton';
+import AddZoneForm from '../../../components/TFCC/AddZoneForm';
+import AppLayout from '../../../layout/AppLayout';
 
 function AddZone() {
   return (

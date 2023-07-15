@@ -54,7 +54,7 @@ function UpdatePasswordRequest() {
   };
 
   return (
-    <div className='w-full flex items-center justify-center '>
+    <div className='w-full flex items-center justify-center mt-10'>
       <Card>
         <form onSubmit={formik.handleSubmit}>
           <h1 className='text-2xl font-bold text-center mb-10 dark:text-white'>
@@ -80,7 +80,9 @@ function UpdatePasswordRequest() {
             label='Verification code'
             className='mb-10'
           />
-          <Button type='submit'>Update Password</Button>
+          <Button type='submit' className='w-full'>
+            Update Password
+          </Button>
         </form>
         <Divider
           style={{

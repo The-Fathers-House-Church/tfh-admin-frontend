@@ -36,7 +36,7 @@ function ActivateModal({
       const response = await appAxios.patch(
         '/admin/status',
         {
-          id: admin?._id,
+          id: admin?.id,
           status: true,
         },
         {
@@ -50,7 +50,7 @@ function ActivateModal({
       setAllAdmins &&
         setAllAdmins(
           allAdmins?.map((item: AdminType) => {
-            if (item._id === admin?._id) {
+            if (item.id === admin?.id) {
               item.active = true;
             }
             return item;

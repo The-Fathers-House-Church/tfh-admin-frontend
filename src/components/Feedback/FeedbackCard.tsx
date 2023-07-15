@@ -10,7 +10,7 @@ function FeedbackCard({
   changeFeedbackStatus,
 }: {
   feedback: FeedbackType;
-  changeFeedbackStatus: (feedback: FeedbackType, newStatus: string) => void;
+  changeFeedbackStatus: (feedback: FeedbackType, newStatus: 'read' | 'unread') => void;
 }) {
   const [open, setOpen] = React.useState(false);
 

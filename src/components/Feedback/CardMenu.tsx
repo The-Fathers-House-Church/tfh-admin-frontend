@@ -7,7 +7,7 @@ function CardMenu({
   closeMenu,
 }: {
   feedback: FeedbackType;
-  changeFeedbackStatus: (feedback: FeedbackType, newStatus: string) => void;
+  changeFeedbackStatus: (feedback: FeedbackType, newStatus: 'read' | 'unread') => void;
   closeMenu: () => void;
 }) {
   return (

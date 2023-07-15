@@ -60,7 +60,9 @@ function ResetPasswordForm() {
             type='email'
             className='mb-10'
           />
-          <Button type='submit'>Reset Password</Button>
+          <Button type='submit' className='w-full'>
+            Reset Password
+          </Button>
         </form>
         <Divider
           style={{

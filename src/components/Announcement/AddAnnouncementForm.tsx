@@ -66,7 +66,7 @@ function AddAnnouncementForm() {
       });
       sendFeedback(response.data?.message, 'success');
 
-      navigate('/announcement/view/' + response.data.announcement?._id);
+      navigate('/announcement/view/' + response.data.announcement?.id);
     } catch (error) {
       sendCatchFeedback(error);
     }

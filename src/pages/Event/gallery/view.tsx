@@ -41,8 +41,8 @@ function EventGallery() {
         <div className='grid grid-flow-col gap-3 items-center'>
           <BackButton />
           {eventDetails && (
-            <Link to={`/event/gallery/add/${eventDetails._id}`}>
-              <Button className='max-w-[156px] !h-[40px] !p-4 w-full'>
+            <Link to={`/event/gallery/add/${eventDetails.id}`}>
+              <Button className='max-w-fit !h-[40px] !p-4 w-full'>
                 <FiPlus className='mr-3' />
                 Add Images
               </Button>
