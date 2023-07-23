@@ -11,10 +11,6 @@ const navLinks: { label: string; href: string }[] = [
     label: 'Events',
     href: '/event',
   },
-  {
-    label: 'Users',
-    href: '/users',
-  },
   // {
   //   label: 'Live Stream',
   //   href: '/live-stream',
@@ -24,28 +20,33 @@ const navLinks: { label: string; href: string }[] = [
     href: '/testimony',
   },
   {
-    label: 'Admins',
-    href: '/admin',
-  },
-  {
-    label: 'Feedback',
-    href: '/feedback',
-  },
-  {
-    label: 'Announcements',
-    href: '/announcement',
-  },
-  {
     label: 'TFCC',
     href: '/tfcc',
+  },
+
+  {
+    label: 'Visitation',
+    href: '/visitation',
   },
   {
     label: 'Church',
     href: '/church',
   },
   {
-    label: 'Visitation',
-    href: '/visitation',
+    label: 'Announcements',
+    href: '/announcement',
+  },
+  {
+    label: 'Users',
+    href: '/users',
+  },
+  {
+    label: 'Admins',
+    href: '/admin',
+  },
+  {
+    label: 'Feedback',
+    href: '/feedback',
   },
   // {
   //   label: 'Giving',
