@@ -56,7 +56,7 @@ function EditDevotionalForm({ devotional }: { devotional: DevotionalType | undef
   });
 
   const submitValues = async () => {
-    dispatch(openLoadingIndicator({ text: 'Adding Devotional' }));
+    dispatch(openLoadingIndicator({ text: 'Updating Devotional' }));
     try {
       const response = await appAxios.patch(
         '/devotional',
