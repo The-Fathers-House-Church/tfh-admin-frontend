@@ -700,6 +700,7 @@ interface AdminPermissions {
 
 ---
 
-**Built with ❤️ for The Father's House Church**
+**Built with ❤️ for The Father's House Church** [https://tfhconline.org.ng/](https://tfhconline.org.ng/)
 
 Access the admin dashboard at [https://tfh-admin.netlify.app/](https://tfh-admin.netlify.app/)
+Feel free to download and use as a template to create the admin dashboard for the church you belong to
